@@ -28,6 +28,7 @@ void	SDLX_MainSceneLoop(void *context_addr);
 void	SDLX_MainSceneLoop_Post(void *context_addr);
 
 void	SDLX_SceneContext_Init(SDLX_scene_cxt *context);
+void	*SDLX_NewScene(size_t size, SDLX_scene_cxt *context, char *background_path, void *(close)(SDLX_scene_cxt *, void *), void *(update)(SDLX_scene_cxt *, void *));
 
 /*
 ** Functions that get the screen ready for a redraw.

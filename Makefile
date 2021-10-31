@@ -36,9 +36,16 @@ SDLX_NAMES = 			\
 	SDLX_utilsX			\
 	SDLX_xbox			\
 
+SCENE_FILES = 			\
+	scene_controls			\
+	scene_main_menu			\
+	scene_world				\
+
 # List of all the source files.
 SRC_NAMES = \
+	$(addprefix scenes/, $(SCENE_FILES))	\
 	$(addprefix $(SDLX_DIR), $(SDLX_NAMES))	\
+	input \
 	main \
 
 # List of all the source files, folders are to be added by

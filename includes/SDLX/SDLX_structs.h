@@ -269,6 +269,7 @@ typedef struct	SDLX_scene_cxt
 	int			extra_num7;
 	int			extra_num8;
 
+	void		*perma_meta;
 	void		*scene_meta;
 
 	SDLX_scene_fn	*init_fn;

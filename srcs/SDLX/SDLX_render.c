@@ -43,14 +43,13 @@ void	SDLX_ScreenReset_Post(SDL_Renderer *renderer, SDL_Color *bg_color, SDLX_pos
 {
 	// SDL_Log("NEW FRAME DRAWN");
 	renderer = SDLX_GetDisplay()->renderer;
-	SDL_RenderPresent(renderer);
 
 	/* PostProcess happens here */
 	SDL_SetRenderTarget(renderer, NULL);
 	if (post_process->shouldPostProcess == SDL_TRUE && post_process->current_tick < post_process->duration)
 	{
 		/* Missing scale and translation transformation */
-		SDL_RenderCopyEx(SDLX_GetDisplay()->renderer, post_process->post_process, NULL, NULL, post_process->angle, NULL, SDL_FLIP_NONE);
+		SDL_RenderCopyEx(renderer, post_process->post_process, NULL, NULL, post_process->angle, NULL, SDL_FLIP_NONE);
 		post_process->current_tick++;
 	}
 	else
@@ -59,6 +58,7 @@ void	SDLX_ScreenReset_Post(SDL_Renderer *renderer, SDL_Color *bg_color, SDLX_pos
 		post_process->current_tick = 0;
 		post_process->shouldPostProcess = SDL_FALSE;
 	}
+	SDL_RenderPresent(renderer);
 
 	/* Texture is cleaned on the capture texture */
 

@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/06 02:31:10 by home              #+#    #+#             */
-/*   Updated: 2021/10/30 21:56:33 by home             ###   ########.fr       */
+/*   Updated: 2021/10/31 01:36:58 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,17 @@ void	game_start(void *context)
 
 	g_SDLX_Context.shouldQuit = SDL_FALSE;
 
-	// context->init_fn = main_menu_init;
+	g_SDLX_Context.init_fn = main_menu_init;
+
+	g_SDLX_Context.extra_num8 = TOOLTIP_ALL;
 
 	// TTF_Init();
 	// context->def_font = TTF_OpenFont(ASSETS"chary___.ttf", 150);
 	// context->def_font_outline = TTF_OpenFont(ASSETS"chary___.ttf", 150);
 	// TTF_SetFontOutline(context->def_font_outline, 3);
 
-	// g_GameInput.key_mapper.map_arr = blaster_key_map(&(g_GameInput.key_mapper.amount));
-	// g_GameInput.pad_mapper.map_arr = blaster_pad_map(&(g_GameInput.pad_mapper.amount));
+	g_GameInput.key_mapper.map_arr = resume_key_map(&(g_GameInput.key_mapper.amount));
+	g_GameInput.pad_mapper.map_arr = resume_pad_map(&(g_GameInput.pad_mapper.amount));
 }
 
 int	main(void)

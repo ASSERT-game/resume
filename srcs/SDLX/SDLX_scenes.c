@@ -13,6 +13,8 @@
 
 #include "SDLX.h"
 
+void	*SDLX_NullScene(SDL_UNUSED SDLX_scene_cxt *context, SDL_UNUSED void *meta) { return (NULL); }
+
 void	SDLX_MainSceneLoop(void *context_addr)
 {
 	SDLX_scene_cxt	*context;
@@ -81,8 +83,6 @@ void	SDLX_MainSceneLoop_Post(void *context_addr)
 	}
 }
 
-void	*SDLX_NullScene(SDL_UNUSED SDLX_scene_cxt *context, SDL_UNUSED void *meta) { return (NULL); }
-
 void	SDLX_SceneContext_Init(SDLX_scene_cxt *context)
 {
 	context->shouldQuit = SDL_TRUE;
@@ -107,6 +107,31 @@ void	SDLX_SceneContext_Init(SDLX_scene_cxt *context)
 	context->update_fn = SDLX_NullScene;
 	context->close_fn = SDLX_NullScene;
 
-	context->background_color = (SDL_Color){ 0, 0, 0, 255 };
+	context->background_color = (SDL_Color){ 0, 0, 0, 0 };
 	context->capture_texture = NULL;
+}
+
+void	*SDLX_NewScene(size_t size, SDLX_scene_cxt *context, char *background_path, void *(close)(SDLX_scene_cxt *, void *), void *(update)(SDLX_scene_cxt *, void *))
+{
+	void *result;
+
+	result = SDL_calloc(1, size);
+
+	SDL_assert(close != NULL);
+	SDL_assert(update != NULL);
+
+	context->close_fn = close;
+	context->update_fn = update;
+	context->scene_meta = result;
+	context->shouldChange = SDL_FALSE;
+
+	if (background_path != NULL)
+	{
+		context->background = SDLX_Sprite_Static(background_path);
+		SDLX_SetBackground(&(context->background));
+	}
+	else
+		SDLX_SetBackground(NULL);
+
+	return (result);
 }
