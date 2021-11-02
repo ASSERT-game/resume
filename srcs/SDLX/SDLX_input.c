@@ -13,7 +13,7 @@
 
 #include "SDLX.h"
 
-void	SDLX_KeyMap(SDLX_input_mapper *key_map, const Uint8 *keystate)
+void		SDLX_KeyMap(SDLX_input_mapper *key_map, const Uint8 *keystate)
 {
 	size_t i;
 
@@ -30,7 +30,7 @@ void	SDLX_KeyMap(SDLX_input_mapper *key_map, const Uint8 *keystate)
 
 void	SDLX_ControllerMap(SDLX_input_mapper *key_map, SDL_GameController *controller)
 {
-	size_t i;
+	size_t	i;
 
 	if (controller == NULL)
 		return ;
@@ -101,8 +101,14 @@ SDL_bool	SDLX_poll(void)
 			SDL_Log("Exit");
 			return (exit);
 		}
+		else if (SDL_KEYDOWN <= event.type && event.type < SDL_JOYAXISMOTION)
+			g_GameInput.pad_last = SDL_FALSE;
+		else if (SDL_CONTROLLERBUTTONDOWN <= event.type && event.type <= SDL_CONTROLLERDEVICEADDED)
+			g_GameInput.pad_last |= SDL_TRUE;
 	}
 	g_GameInput.keystate = SDL_GetKeyboardState(NULL);
+
+
 	return (exit);
 }
 

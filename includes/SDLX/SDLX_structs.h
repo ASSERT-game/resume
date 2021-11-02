@@ -78,8 +78,10 @@ typedef struct	SDLX_GameInput
 {
 	SDLX_input_mapper	key_mapper;
 	SDLX_input_mapper	pad_mapper;
+	SDL_bool			pad_last;
 
 	const Uint8			*keystate;
+
 
 	struct
 	{
@@ -116,13 +118,13 @@ typedef struct	SDLX_GameInput
 		int	button_primleft;
 		int	button_primright;
 
-		SDL_Point second;
+		SDL_Point	second;
 
-		int	button_secleft;
-		int	button_secright;
+		int			button_secleft;
+		int			button_secright;
 
-		SDL_Point leftaxis;
-		SDL_Point rightaxis;
+		SDL_Point	leftaxis;
+		SDL_Point	rightaxis;
 
 	}	GameInput;
 }				SDLX_GameInput;

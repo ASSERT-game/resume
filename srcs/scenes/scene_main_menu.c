@@ -51,10 +51,12 @@ void	*main_menu_close(SDL_UNUSED SDLX_scene_cxt *context, void *vp_scene)
 	SDLX_free_null(&(context->scene_meta));
 	SDLX_ClearBackground();
 
-	if (g_SDLX_Context.extra_num8 & TOOLTIP_CONTROLS)
-		g_SDLX_Context.init_fn = TT_controls_init;
-	else
-		g_SDLX_Context.init_fn = world_init;
+	// if (g_SDLX_Context.extra_num8 & TOOLTIP_CONTROLS)
+	// 	g_SDLX_Context.init_fn = TT_controls_init;
+	// else
+		// g_SDLX_Context.init_fn = world_init;
+
+	g_SDLX_Context.init_fn = world_init;
 
 	return (NULL);
 }
