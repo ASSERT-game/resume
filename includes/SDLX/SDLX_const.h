@@ -16,6 +16,6 @@
 
 # define ALLOC_RATE (2)
 
-# define SDLX_AXIS_THRESHOLD (27000)
+# define SDLX_AXIS_THRESHOLD (20000)
 
 #endif

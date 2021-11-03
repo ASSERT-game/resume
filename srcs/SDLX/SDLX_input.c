@@ -67,6 +67,19 @@ void	SDLX_toDPAD(SDLX_GameInput *game_input, int set)
 	if (set == SDL_CONTROLLER_BUTTON_DPAD_RIGHT)	game_input->GameInput.button_DPAD_RIGHT	= 1;
 }
 
+void	SDLX_JoyStick_toDPAD(SDL_Point axis, int *left, int *right, int *up, int *down)
+{
+	if (axis.y >= SDLX_AXIS_THRESHOLD)
+		*down |= 1;
+	if (axis.y <= -SDLX_AXIS_THRESHOLD)
+		*up |= 1;
+
+	if (axis.x >= SDLX_AXIS_THRESHOLD)
+		*right |= 1;
+	if (axis.x <= -SDLX_AXIS_THRESHOLD)
+		*left |= 1;
+}
+
 void	SDLX_GameInput_Mouse_Fill(SDLX_GameInput *dst, SDL_bool convert)
 {
 	Uint32	mouse_click;

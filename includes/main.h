@@ -46,4 +46,6 @@ typedef	enum	e_tooltips
 	TOOLTIP_ALL			= 0b11111111,
 }				t_tooltips;
 
+# define PLAYER_SPEED (4)
+
 #endif
