@@ -20,8 +20,7 @@ SDLX_Sprite_Data *carve_potion_sprite(void)
 	SDLX_Sprite_Data	*result;
 
 	result = SDL_calloc(4, sizeof(*result));
-	texture = SDLX_LoadTexture(ASSETS"potion.png");
-
+	texture = SDLX_LoadTexture(ASSETS"potions.png");
 
 	i = 0;
 	while (i < 4)

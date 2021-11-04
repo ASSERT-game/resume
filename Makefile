@@ -52,6 +52,7 @@ SRC_NAMES = \
 	$(addprefix sprites/, $(SPRITE_NAMES))	\
 	input \
 	main \
+	potion \
 	tooltips \
 
 # List of all the source files, folders are to be added by

@@ -63,6 +63,8 @@ void	*world_init(SDLX_scene_cxt *context, SDL_UNUSED void *vp_scene)
 	world->player.potion_no = 7;
 	world->player.potion_curr = 0;
 
+	potion_init(&(world->player.potions), 7);
+
 	world->hud = SDLX_Sprite_Static(ASSETS"hud.png");
 
 	(void)context;
@@ -90,6 +92,13 @@ void	*world_update(SDL_UNUSED SDLX_scene_cxt *context, void *vp_scene)
 		&(g_GameInput.GameInput.button_DPAD_DOWN)
 		);
 
+	SDLX_JoyStick_toDPAD(g_GameInput.GameInput.rightaxis,
+		&(g_GameInput.GameInput.button_num0),
+		&(g_GameInput.GameInput.button_num1),
+		&(g_GameInput.GameInput.button_num2),
+		&(g_GameInput.GameInput.button_num3)
+		);
+
 	if (g_GameInput.GameInput.button_DPAD_LEFT)
 		world->local_x -= PLAYER_SPEED;
 	if (g_GameInput.GameInput.button_DPAD_RIGHT)
@@ -104,25 +113,25 @@ void	*world_update(SDL_UNUSED SDLX_scene_cxt *context, void *vp_scene)
 	SDL_Rect	bound = {(96 - 16) * DISPLAY_SCALE, (64 - 16) * DISPLAY_SCALE, (320 - 192) * DISPLAY_SCALE, (224 - 128) * DISPLAY_SCALE};
 	SDL_Rect	player = {(world->local_x) * DISPLAY_SCALE, (world->local_y) * DISPLAY_SCALE, 16 * DISPLAY_SCALE, 16 * DISPLAY_SCALE};
 
-	if (player.y < bound.y && world->space->y - PLAYER_SPEED > 0)
+	if (player.y < bound.y && world->space->y - PLAYER_SPEED - 1 > 0)
 	{
 		world->space->y -= PLAYER_SPEED;
 		world->local_y += PLAYER_SPEED;
 	}
 
-	if (player.y > bound.y + bound.h && world->space->y + 224 + PLAYER_SPEED < 352)
+	if (player.y > bound.y + bound.h && world->space->y + 224 + PLAYER_SPEED + 1 < 352)
 	{
 		world->space->y += PLAYER_SPEED;
 		world->local_y -= PLAYER_SPEED;
 	}
 
-	if (player.x > bound.x + bound.w && world->space->x + 320 + PLAYER_SPEED  < 448)
+	if (player.x > bound.x + bound.w && world->space->x + 320 + PLAYER_SPEED + 1 < 448)
 	{
 		world->space->x += PLAYER_SPEED;
 		world->local_x -= PLAYER_SPEED;
 	}
 
-	if (player.x < bound.x && world->space->x - PLAYER_SPEED > 0)
+	if (player.x < bound.x && world->space->x - PLAYER_SPEED - 1 > 0)
 	{
 		world->space->x -= PLAYER_SPEED;
 		world->local_x += PLAYER_SPEED;
@@ -132,6 +141,8 @@ void	*world_update(SDL_UNUSED SDLX_scene_cxt *context, void *vp_scene)
 	world->player.sprite._dst.y = player.y / DISPLAY_SCALE - 8;
 	world->player.sprite._dst.w = 32;
 	world->player.sprite._dst.h = 32;
+
+	potion_update(&(world->player));
 
 	SDLX_RenderQueue_Add(NULL, &(world->hud));
 	SDLX_RenderQueue_Add(NULL, &(world->player.sprite));

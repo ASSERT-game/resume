@@ -26,8 +26,8 @@ typedef	enum	e_tooltips
 
 typedef struct	s_main_attacks
 {
-	SDLX_Sprite	*sprite;
-	SDLX_Sprite	*cooldown_sprite;
+	SDLX_Sprite	sprite;
+	SDLX_Sprite	cooldown_sprite;
 	int			type;
 	char		*name;
 
@@ -43,7 +43,7 @@ typedef struct	s_main_attacks
 
 typedef struct	s_potion
 {
-	SDLX_Sprite	*sprite;
+	SDLX_Sprite	sprite;
 	char		*name;
 	int			type;
 
@@ -51,7 +51,7 @@ typedef struct	s_potion
 
 	void		*meta;
 
-	SDL_bool	used;
+	SDL_bool	isUsed;
 }				t_potion;
 
 typedef struct	s_player

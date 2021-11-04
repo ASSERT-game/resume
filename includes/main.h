@@ -40,6 +40,12 @@ int		fetch_tooltip_sprite(SDLX_Sprite_Data **dst, int no);
 void	*tooltip_update(SDLX_button *button, void *meta, size_t meta_length);
 SDL_bool	tooltip_move_focus(SDLX_button *button, void *meta, size_t meta_length);
 
+void	potion_init(t_potion **potion_ptr, size_t amount);
+
+int		fetch_potion_sprite(SDLX_Sprite_Data **dst, int no);
+void	potion_update(t_player *player);
+
+
 # define PLAYER_SPEED (4)
 
 #endif
