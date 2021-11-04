@@ -26,7 +26,11 @@ typedef struct	s_world
 	int			local_x;
 	int			local_y;
 
-	SDLX_Sprite	player;
+	// SDLX_Sprite	player;
+
+	t_player	player;
+
+	SDLX_Sprite	hud;
 }				t_world;
 
 void	*world_init(SDLX_scene_cxt *context, SDL_UNUSED void *vp_scene)
@@ -52,8 +56,14 @@ void	*world_init(SDLX_scene_cxt *context, SDL_UNUSED void *vp_scene)
 	world->local_x = 144;
 	world->local_y = 96;
 
-	world->player = SDLX_Sprite_Static(ASSETS"character.png");
-	world->player.dst = SDLX_NULL_SELF;
+	world->player.sprite = SDLX_Sprite_Static(ASSETS"character.png");
+	world->player.sprite.dst = SDLX_NULL_SELF;
+
+	world->player.max_potion = 7;
+	world->player.potion_no = 7;
+	world->player.potion_curr = 0;
+
+	world->hud = SDLX_Sprite_Static(ASSETS"hud.png");
 
 	(void)context;
 	(void)vp_scene;
@@ -118,16 +128,18 @@ void	*world_update(SDL_UNUSED SDLX_scene_cxt *context, void *vp_scene)
 		world->local_x += PLAYER_SPEED;
 	}
 
-	world->player._dst.x = player.x / DISPLAY_SCALE - 7;
-	world->player._dst.y = player.y / DISPLAY_SCALE - 8;
-	world->player._dst.w = 32;
-	world->player._dst.h = 32;
+	world->player.sprite._dst.x = player.x / DISPLAY_SCALE - 7;
+	world->player.sprite._dst.y = player.y / DISPLAY_SCALE - 8;
+	world->player.sprite._dst.w = 32;
+	world->player.sprite._dst.h = 32;
 
-	SDLX_RenderQueue_Add(NULL, &(world->player));
+	SDLX_RenderQueue_Add(NULL, &(world->hud));
+	SDLX_RenderQueue_Add(NULL, &(world->player.sprite));
 
 	SDL_SetRenderDrawColor(SDLX_GetDisplay()->renderer, 255, 0, 0, 0);
 	SDL_RenderDrawRect(SDLX_GetDisplay()->renderer, &(bound));
 	SDL_RenderDrawRect(SDLX_GetDisplay()->renderer, &(player));
+
 	(void)context;
 	(void)vp_scene;
 	return (NULL);

@@ -1,19 +1,4 @@
 /***************************************************************************
- * FILENAME:    sprite_tooltip.c
- * DESCRIPTION: Fetches the sprites for the tooltips.
- *
- * ENVIRONMENT:
- *     macOS Catalina 10.15.7
- *     Visual Studio Code 1.56.2
- * AUTHORS:
- *     Kevin Colour
- * DATES:
- *     Created: 01Nov2021
-***************************************************************************/
-
-#include "main.h"
-
-/***************************************************************************
  * FILENAME:    level_sprite.c
  * DESCRIPTION: Handles the Sprites for Coins
  *

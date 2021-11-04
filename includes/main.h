@@ -16,6 +16,8 @@
 
 # include "SDLX.h"
 
+# include "structs.h"
+
 # define ASSETS "assets/"
 
 SDLX_iMap	*resume_pad_map(size_t *size);
@@ -37,14 +39,6 @@ int		fetch_tooltip_sprite(SDLX_Sprite_Data **dst, int no);
 
 void	*tooltip_update(SDLX_button *button, void *meta, size_t meta_length);
 SDL_bool	tooltip_move_focus(SDLX_button *button, void *meta, size_t meta_length);
-
-typedef	enum	e_tooltips
-{
-	TOOLTIP_NONE		= 0b00000000,
-	TOOLTIP_CONTROLS	= 0b00000001,
-
-	TOOLTIP_ALL			= 0b11111111,
-}				t_tooltips;
 
 # define PLAYER_SPEED (4)
 

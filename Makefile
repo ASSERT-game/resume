@@ -36,18 +36,22 @@ SDLX_NAMES = 			\
 	SDLX_utilsX			\
 	SDLX_xbox			\
 
+SPRITE_NAMES = 			\
+	sprite_potions		\
+	sprite_tooltip		\
+
 SCENE_FILES = 			\
-	scene_controls			\
-	scene_main_menu			\
-	scene_world				\
+	scene_controls		\
+	scene_main_menu		\
+	scene_world			\
 
 # List of all the source files.
 SRC_NAMES = \
 	$(addprefix scenes/, $(SCENE_FILES))	\
 	$(addprefix $(SDLX_DIR), $(SDLX_NAMES))	\
+	$(addprefix sprites/, $(SPRITE_NAMES))	\
 	input \
 	main \
-	sprite_tooltip \
 	tooltips \
 
 # List of all the source files, folders are to be added by
