@@ -35,16 +35,18 @@ void	*TT_controls_init(SDLX_scene_cxt *context, SDL_UNUSED void *vp_scene);
 void	*TT_controls_close(SDL_UNUSED SDLX_scene_cxt *context, void *vp_scene);
 void	*TT_controls_update(SDL_UNUSED SDLX_scene_cxt *context, void *vp_scene);
 
+int		fetch_potion_sprite(SDLX_Sprite_Data **dst, int no);
 int		fetch_tooltip_sprite(SDLX_Sprite_Data **dst, int no);
+int		fetch_attack_ui_sprite(SDLX_Sprite_Data **dst, int no);
 
-void	*tooltip_update(SDLX_button *button, void *meta, size_t meta_length);
+void		*tooltip_update(SDLX_button *button, void *meta, size_t meta_length);
 SDL_bool	tooltip_move_focus(SDLX_button *button, void *meta, size_t meta_length);
 
 void	potion_init(t_potion **potion_ptr, size_t amount);
-
-int		fetch_potion_sprite(SDLX_Sprite_Data **dst, int no);
 void	potion_update(t_player *player);
 
+void	main_attack_ui_init(t_player *player);
+void	main_attack_ui_update(t_player *player);
 
 # define PLAYER_SPEED (4)
 

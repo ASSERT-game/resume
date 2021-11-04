@@ -39,6 +39,7 @@ SDLX_NAMES = 			\
 SPRITE_NAMES = 			\
 	sprite_potions		\
 	sprite_tooltip		\
+	sprite_attack		\
 
 SCENE_FILES = 			\
 	scene_controls		\
@@ -50,6 +51,7 @@ SRC_NAMES = \
 	$(addprefix scenes/, $(SCENE_FILES))	\
 	$(addprefix $(SDLX_DIR), $(SDLX_NAMES))	\
 	$(addprefix sprites/, $(SPRITE_NAMES))	\
+	attack_ui \
 	input \
 	main \
 	potion \

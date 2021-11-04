@@ -39,6 +39,8 @@ typedef struct	s_main_attacks
 	int			current;
 
 	int			super;
+
+	struct s_main_attacks	*next;
 }				t_main_attacks;
 
 typedef struct	s_potion
@@ -67,7 +69,8 @@ typedef struct	s_player
 	int			max_mp;
 	int			mp;
 
-	int				attack_no;
+	int				attack_curr;
+	t_main_attacks	*current_attack;
 	t_main_attacks	main_attacks[3];
 
 	int				max_potion;
