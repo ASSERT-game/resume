@@ -126,6 +126,14 @@ typedef struct	SDLX_GameInput
 		SDL_Point	leftaxis;
 		SDL_Point	rightaxis;
 
+		/* these are axis-like while the one below are 'button' like */
+		int	trigger_left;
+		int	trigger_right;
+
+		int			button_left_trigger;
+		int			button_right_trigger;
+
+
 	}	GameInput;
 }				SDLX_GameInput;
 

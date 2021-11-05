@@ -50,13 +50,13 @@ SDLX_iMap	*resume_pad_map(size_t *size)
 		(SDLX_iMap){&BMAP(button_num7),	1, SDL_CONTROLLER_BUTTON_DPAD_UP},
 		(SDLX_iMap){&BMAP(button_num8),	1, SDL_CONTROLLER_BUTTON_DPAD_DOWN},
 
-		(SDLX_iMap){&BMAP(button_num1),	1, SDL_CONTROLLER_BUTTON_Y},
-		(SDLX_iMap){&BMAP(button_num2),	1, SDL_CONTROLLER_BUTTON_X},
-		(SDLX_iMap){&BMAP(button_num3),	1, SDL_CONTROLLER_BUTTON_B},
-		(SDLX_iMap){&BMAP(button_num4),	1, SDL_CONTROLLER_BUTTON_A},
+		(SDLX_iMap){&BMAP(button_Y),	1, SDL_CONTROLLER_BUTTON_Y},
+		(SDLX_iMap){&BMAP(button_X),	1, SDL_CONTROLLER_BUTTON_X},
+		(SDLX_iMap){&BMAP(button_B),	1, SDL_CONTROLLER_BUTTON_B},
+		(SDLX_iMap){&BMAP(button_A),	1, SDL_CONTROLLER_BUTTON_A},
 
 		(SDLX_iMap){&BMAP(button_START),	1, SDL_CONTROLLER_BUTTON_START},
-		(SDLX_iMap){&BMAP(button_START),	1, SDL_CONTROLLER_BUTTON_A},
+
 	};
 
 	*size = sizeof(key_map) / sizeof(*key_map);

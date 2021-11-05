@@ -68,6 +68,7 @@ int				SDLX_AxisConvert(SDL_Point *axis);
 void			SDLX_FillXbox_Axis(SDLX_GameInput *game_input, SDL_GameController *controller);
 void			SDLX_JoyStick_toDPAD(SDL_Point axis, int *left, int *right, int *up, int *down);
 void			SDLX_toDPAD(SDLX_GameInput *game_input, int set);
+void			SDLX_toTriggers(SDLX_GameInput *game_input);
 void			SDLX_GameInput_Mouse_Fill(SDLX_GameInput *dst, SDL_bool convert);
 
 void			SDLX_record_input(SDLX_GameInput *from);

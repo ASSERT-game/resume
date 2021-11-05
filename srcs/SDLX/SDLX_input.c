@@ -67,6 +67,12 @@ void	SDLX_toDPAD(SDLX_GameInput *game_input, int set)
 	if (set == SDL_CONTROLLER_BUTTON_DPAD_RIGHT)	game_input->GameInput.button_DPAD_RIGHT	= 1;
 }
 
+void	SDLX_toTriggers(SDLX_GameInput *game_input)
+{
+	if (game_input->GameInput.trigger_left > SDLX_TRIGGER_THRESHOLD)	{ game_input->GameInput.button_left_trigger = 1; }
+	if (game_input->GameInput.trigger_right > SDLX_TRIGGER_THRESHOLD)	{ game_input->GameInput.button_right_trigger = 1; }
+}
+
 void	SDLX_JoyStick_toDPAD(SDL_Point axis, int *left, int *right, int *up, int *down)
 {
 	if (axis.y >= SDLX_AXIS_THRESHOLD)

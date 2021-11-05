@@ -67,6 +67,17 @@ typedef struct	s_potion
 	SDL_bool	isUsed;
 }				t_potion;
 
+typedef enum	e_player_state
+{
+	STATE_NONE		= 0b00000000,
+	STATE_IDLE		= 0b00000001,
+	STATE_WALK		= 0b00000010,
+	STATE_ATTACK	= 0b00000100,
+	STATE_DAMAGE	= 0b00001000,
+	STATE_DEAD		= 0b00010000,
+	STATE_AIM		= 0b00100000,
+}				e_player_state;
+
 typedef struct	s_player
 {
 	SDLX_Sprite	sprite;
@@ -92,6 +103,8 @@ typedef struct	s_player
 	int				special_no;
 	int				special_curr;
 	t_special		specials[4];
+
+	int				state;
 
 }				t_player;
 

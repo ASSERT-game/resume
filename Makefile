@@ -54,6 +54,7 @@ SRC_NAMES = \
 	attack_ui \
 	input \
 	main \
+	player \
 	potion \
 	tooltips \
 

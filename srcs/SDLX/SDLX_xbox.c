@@ -35,4 +35,7 @@ void	SDLX_FillXbox_Axis(SDLX_GameInput *game_input, SDL_GameController *controll
 	game_input->GameInput.leftaxis.y	= SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_LEFTY);
 	game_input->GameInput.rightaxis.x	= SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_RIGHTX);
 	game_input->GameInput.rightaxis.y	= SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_RIGHTY);
+
+	game_input->GameInput.trigger_left = SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_TRIGGERLEFT);
+	game_input->GameInput.trigger_right = SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_TRIGGERRIGHT);
 }

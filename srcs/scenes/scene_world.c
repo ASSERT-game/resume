@@ -87,55 +87,59 @@ void	*world_update(SDL_UNUSED SDLX_scene_cxt *context, void *vp_scene)
 	world = vp_scene;
 
 	SDLX_JoyStick_toDPAD(g_GameInput.GameInput.leftaxis,
-		&(g_GameInput.GameInput.button_DPAD_LEFT),
-		&(g_GameInput.GameInput.button_DPAD_RIGHT),
-		&(g_GameInput.GameInput.button_DPAD_UP),
-		&(g_GameInput.GameInput.button_DPAD_DOWN)
-		);
+		&(g_GameInput.GameInput.button_DPAD_LEFT), &(g_GameInput.GameInput.button_DPAD_RIGHT),
+		&(g_GameInput.GameInput.button_DPAD_UP), &(g_GameInput.GameInput.button_DPAD_DOWN)
+	);
 
 	SDLX_JoyStick_toDPAD(g_GameInput.GameInput.rightaxis,
-		&(g_GameInput.GameInput.button_num0),
-		&(g_GameInput.GameInput.button_num1),
-		&(g_GameInput.GameInput.button_num2),
-		&(g_GameInput.GameInput.button_num3)
-		);
+		&(g_GameInput.GameInput.button_num0), &(g_GameInput.GameInput.button_num1),
+		&(g_GameInput.GameInput.button_num2), &(g_GameInput.GameInput.button_num3)
+	);
 
-	if (g_GameInput.GameInput.button_DPAD_LEFT)
-		world->local_x -= PLAYER_SPEED;
-	if (g_GameInput.GameInput.button_DPAD_RIGHT)
-		world->local_x += PLAYER_SPEED;
-	if (g_GameInput.GameInput.button_DPAD_UP)
-		world->local_y -= PLAYER_SPEED;
-	if (g_GameInput.GameInput.button_DPAD_DOWN)
-		world->local_y += PLAYER_SPEED;
+	SDLX_toTriggers(&(g_GameInput));
+
+	world->player.state = STATE_NONE;
+
+	int	dx, dy;
+
+	dx = 0;
+	dy = 0;
+
+	player_aim(&(world->player.state));
+	player_use_spec(&(world->player.state), world->player.sprite._dst.x, world->player.sprite._dst.y);
+	player_move(&(dx), &(dy), &(world->player.state));
+	player_dash(&(dx), &(dy), &(world->player.state));
 
 	SDLX_Button_Update_noDraw(&(world->tutorial_move));
+
+	world->local_x += dx;
+	world->local_y += dy;
 
 	SDL_Rect	bound = {(128 - 16) * DISPLAY_SCALE, (80 - 16) * DISPLAY_SCALE, (320 - 256) * DISPLAY_SCALE, (224 - 160) * DISPLAY_SCALE};
 	SDL_Rect	player = {(world->local_x) * DISPLAY_SCALE, (world->local_y) * DISPLAY_SCALE, 16 * DISPLAY_SCALE, 16 * DISPLAY_SCALE};
 
-	if (player.y < bound.y && world->space->y - PLAYER_SPEED - 1 > 0)
+	if (player.y < bound.y && world->space->y - 4 >= 0)
 	{
-		world->space->y -= PLAYER_SPEED;
-		world->local_y += PLAYER_SPEED;
+		world->space->y -= 4;
+		world->local_y += 4;
 	}
 
-	if (player.y > bound.y + bound.h && world->space->y + 224 + PLAYER_SPEED + 1 < 384)
+	if (player.y > bound.y + bound.h && world->space->y + 224 + 4 <= 384)
 	{
-		world->space->y += PLAYER_SPEED;
-		world->local_y -= PLAYER_SPEED;
+		world->space->y += 4;
+		world->local_y -= 4;
 	}
 
-	if (player.x > bound.x + bound.w && world->space->x + 320 + PLAYER_SPEED + 1 < 448)
+	if (player.x > bound.x + bound.w && world->space->x + 320 + 4 < 448)
 	{
-		world->space->x += PLAYER_SPEED;
-		world->local_x -= PLAYER_SPEED;
+		world->space->x += 4;
+		world->local_x -= 4;
 	}
 
-	if (player.x < bound.x && world->space->x - PLAYER_SPEED - 1 > 0)
+	if (player.x < bound.x && world->space->x - 4 > 0)
 	{
-		world->space->x -= PLAYER_SPEED;
-		world->local_x += PLAYER_SPEED;
+		world->space->x -= 4;
+		world->local_x += 4;
 	}
 
 	world->player.sprite._dst.x = player.x / DISPLAY_SCALE - 7;
