@@ -120,7 +120,7 @@ void	*world_update(SDL_UNUSED SDLX_scene_cxt *context, void *vp_scene)
 		world->local_y += PLAYER_SPEED;
 	}
 
-	if (player.y > bound.y + bound.h && world->space->y + 224 + PLAYER_SPEED + 1 < 352)
+	if (player.y > bound.y + bound.h && world->space->y + 224 + PLAYER_SPEED + 1 < 384)
 	{
 		world->space->y += PLAYER_SPEED;
 		world->local_y -= PLAYER_SPEED;
