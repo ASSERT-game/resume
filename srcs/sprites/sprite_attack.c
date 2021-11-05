@@ -19,7 +19,7 @@ SDLX_Sprite_Data *carve_attack_ui_sprite(void)
 	SDL_Texture			*texture;
 	SDLX_Sprite_Data	*result;
 
-	result = SDL_calloc(4, sizeof(*result));
+	result = SDL_calloc(8, sizeof(*result));
 	texture = SDLX_LoadTexture(ASSETS"main_attack_ui.png");
 
 	i = 0;
@@ -27,6 +27,16 @@ SDLX_Sprite_Data *carve_attack_ui_sprite(void)
 	{
 		result[i].texture = texture;
 		result[i]._src = (SDL_Rect){0, i * 16, 16, 16};
+		result[i].src = &(result[i]._src);
+		result[i].cycle = 1;
+
+		i++;
+	}
+
+	while (i < 4 + 4)
+	{
+		result[i].texture = texture;
+		result[i]._src = (SDL_Rect){32, (i - 4) * 16, 14, 15};
 		result[i].src = &(result[i]._src);
 		result[i].cycle = 1;
 
@@ -47,6 +57,10 @@ int		fetch_attack_ui_sprite(SDLX_Sprite_Data **dst, int no)
 	else if (no == 1)	{ *dst = &(sprite_arr[1]); }
 	else if (no == 2)	{ *dst = &(sprite_arr[2]); }
 	else if (no == 3)	{ *dst = &(sprite_arr[3]); }
+	else if (no == 4)	{ *dst = &(sprite_arr[4]); }
+	else if (no == 5)	{ *dst = &(sprite_arr[5]); }
+	else if (no == 6)	{ *dst = &(sprite_arr[6]); }
+	else if (no == 7)	{ *dst = &(sprite_arr[7]); }
 
 	return (EXIT_SUCCESS);
 }

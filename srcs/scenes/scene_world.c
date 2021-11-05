@@ -61,8 +61,10 @@ void	*world_init(SDLX_scene_cxt *context, SDL_UNUSED void *vp_scene)
 	world->player.potion_no = 7;
 	world->player.potion_curr = 0;
 
+	spec_ui_init(&(world->player));
 	main_attack_ui_init(&(world->player));
 	potion_init(&(world->player.potions), 7);
+
 
 	world->hud = SDLX_Sprite_Static(ASSETS"hud.png");
 
@@ -109,7 +111,7 @@ void	*world_update(SDL_UNUSED SDLX_scene_cxt *context, void *vp_scene)
 
 	SDLX_Button_Update_noDraw(&(world->tutorial_move));
 
-	SDL_Rect	bound = {(96 - 16) * DISPLAY_SCALE, (64 - 16) * DISPLAY_SCALE, (320 - 192) * DISPLAY_SCALE, (224 - 128) * DISPLAY_SCALE};
+	SDL_Rect	bound = {(128 - 16) * DISPLAY_SCALE, (80 - 16) * DISPLAY_SCALE, (320 - 256) * DISPLAY_SCALE, (224 - 160) * DISPLAY_SCALE};
 	SDL_Rect	player = {(world->local_x) * DISPLAY_SCALE, (world->local_y) * DISPLAY_SCALE, 16 * DISPLAY_SCALE, 16 * DISPLAY_SCALE};
 
 	if (player.y < bound.y && world->space->y - PLAYER_SPEED - 1 > 0)
@@ -142,6 +144,7 @@ void	*world_update(SDL_UNUSED SDLX_scene_cxt *context, void *vp_scene)
 	world->player.sprite._dst.h = 32;
 
 	potion_update(&(world->player));
+	special_ui_update(&(world->player));
 	main_attack_ui_update(&(world->player));
 
 	SDLX_RenderQueue_Add(NULL, &(world->hud));

@@ -108,3 +108,95 @@ void	main_attack_ui_update(t_player *player)
 	player->main_attacks[prev].sprite._dst = (SDL_Rect){240, 201, 16, 16};
 	SDLX_RenderQueue_Add(NULL, &(player->main_attacks[prev].sprite));
 }
+
+
+
+
+void bomb_spec_ui(t_special *special, void *meta)
+{
+	fetch_attack_ui_sprite(&(special->sprite.sprite_data), 4);
+	special->name = SDL_strdup("Bomb");
+	special->sprite.dst = &(special->sprite._dst);
+	// special->sprite._dst = (SDL_Rect){250, 190, 24, 24};
+	(void)meta;
+}
+
+void fireball_spec_ui(t_special *special, void *meta)
+{
+	fetch_attack_ui_sprite(&(special->sprite.sprite_data), 5);
+	special->name = SDL_strdup("Fireball");
+	special->sprite.dst = &(special->sprite._dst);
+	// special->sprite._dst = (SDL_Rect){250, 190, 24, 24};
+	(void)meta;
+}
+
+void hook_spec_ui(t_special *special, void *meta)
+{
+	fetch_attack_ui_sprite(&(special->sprite.sprite_data), 6);
+	special->name = SDL_strdup("Hook Shot");
+	special->sprite.dst = &(special->sprite._dst);
+	// special->sprite._dst = (SDL_Rect){250, 190, 24, 24};
+	(void)meta;
+}
+
+void ice_spec_ui(t_special *special, void *meta)
+{
+	fetch_attack_ui_sprite(&(special->sprite.sprite_data), 7);
+	special->name = SDL_strdup("Ice Arrow");
+	special->sprite.dst = &(special->sprite._dst);
+	// special->sprite._dst = (SDL_Rect){250, 190, 24, 24};
+	(void)meta;
+}
+
+void	spec_ui_init(t_player *player)
+{
+	bomb_spec_ui(&(player->specials[0]), NULL);
+	fireball_spec_ui(&(player->specials[1]), NULL);
+	hook_spec_ui(&(player->specials[2]), NULL);
+	ice_spec_ui(&(player->specials[3]), NULL);
+
+	player->special_no = 4;
+	player->special_curr = 0;
+}
+
+void	special_ui_update(t_player *player)
+{
+	int	prev;
+	int	next;
+
+	if (SDLX_GAME_PRESS(g_GameInput, g_GameInput_prev, num5))
+	{
+		SDL_Log("Special Left");
+		player->special_curr--;
+	}
+
+	if (SDLX_GAME_PRESS(g_GameInput, g_GameInput_prev, num6))
+	{
+		SDL_Log("Special Right");
+		player->special_curr++;
+	}
+
+	player->special_curr = (player->special_curr + player->special_no) % player->special_no;
+
+	prev = player->special_curr + player->special_no - 1;
+	next = prev + 2;
+
+	prev %= player->special_no;
+	next %= player->special_no;
+
+	player->specials[player->special_curr].sprite._dst = (SDL_Rect){12, 29, 16, 16};
+	SDLX_RenderQueue_Add(NULL, &(player->specials[player->special_curr].sprite));
+
+	player->specials[prev].sprite._dst = (SDL_Rect){5,  23, 16, 16};
+	player->specials[next].sprite._dst = (SDL_Rect){19, 38, 16, 16};
+	if (player->special_no >= 3)
+	{
+		SDLX_RenderQueue_Add(NULL, &(player->specials[prev].sprite));
+
+		SDLX_RenderQueue_Add(NULL, &(player->specials[next].sprite));
+	}
+	else if (player->special_no == 2)
+	{
+		SDLX_RenderQueue_Add(NULL, &(player->specials[next].sprite));
+	}
+}

@@ -48,6 +48,9 @@ void	potion_update(t_player *player);
 void	main_attack_ui_init(t_player *player);
 void	main_attack_ui_update(t_player *player);
 
+void	spec_ui_init(t_player *player);
+void	special_ui_update(t_player *player);
+
 # define PLAYER_SPEED (4)
 
 #endif
