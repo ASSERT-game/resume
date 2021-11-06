@@ -64,6 +64,7 @@ void	*world_init(SDLX_scene_cxt *context, SDL_UNUSED void *vp_scene)
 	spec_ui_init(&(world->player));
 	main_attack_ui_init(&(world->player));
 	potion_init(&(world->player.potions), 7);
+	crosshair_init(&(world->player.crosshair));
 
 
 	world->hud = SDLX_Sprite_Static(ASSETS"hud.png");
@@ -146,6 +147,8 @@ void	*world_update(SDL_UNUSED SDLX_scene_cxt *context, void *vp_scene)
 	world->player.sprite._dst.y = player.y / DISPLAY_SCALE - 8;
 	world->player.sprite._dst.w = 32;
 	world->player.sprite._dst.h = 32;
+
+	update_crosshair(&(world->player), world->player.sprite._dst.x, world->player.sprite._dst.y);
 
 	potion_update(&(world->player));
 	special_ui_update(&(world->player));

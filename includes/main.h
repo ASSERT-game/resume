@@ -56,6 +56,9 @@ void	player_move(int *dx, int *dy, int *state);
 void	player_use_spec(int *state, int x, int y);
 void	player_aim(int *state);
 
+void	update_crosshair(t_player *player, int x, int y);
+void	crosshair_init(SDLX_Sprite *crosshair);
+
 # define PLAYER_SPEED (4)
 
 #endif

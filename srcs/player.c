@@ -17,7 +17,7 @@ void	player_dash(int *dx, int *dy, int *state)
 {
 	int temp = 0;
 
-	if (SDLX_GAME_PRESS(g_GameInput, g_GameInput_prev, A) && !(*state & STATE_AIM))
+	if (SDLX_GAME_PRESS(g_GameInput, g_GameInput_prev, A))
 	{
 		double angle = SDL_atan2(g_GameInput.GameInput.leftaxis.y, g_GameInput.GameInput.leftaxis.x);
 
@@ -27,8 +27,29 @@ void	player_dash(int *dx, int *dy, int *state)
 		temp = (SDL_sin(angle) * 32);
 		temp -= temp % 4;
 		*dy += temp;
+
+
+		*state &= ~(STATE_AIM);
 	}
-	(void)state;
+}
+
+void	crosshair_init(SDLX_Sprite *crosshair)
+{
+	*crosshair = SDLX_Sprite_Static(ASSETS"crosshair.png");
+
+	crosshair->dst = &(crosshair->_dst);
+	crosshair->_dst = (SDL_Rect){0, 0, 80, 80};
+}
+
+void	update_crosshair(t_player *player, int x, int y)
+{
+	player->crosshair.angle = -SDLX_Radian_to_Degree(SDL_atan2(-g_GameInput.GameInput.leftaxis.y, g_GameInput.GameInput.leftaxis.x)) + 45;
+
+	player->crosshair.dst->x = x + 16 - 40;
+	player->crosshair.dst->y = y + 16 - 40;
+
+	if (player->state & STATE_AIM)
+		SDLX_RenderQueue_Add(NULL, &(player->crosshair));
 }
 
 void	player_aim(int *state)

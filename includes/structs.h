@@ -82,6 +82,8 @@ typedef struct	s_player
 {
 	SDLX_Sprite	sprite;
 
+	SDLX_Sprite	crosshair;
+
 	double		local_x;
 	double		local_y;
 
