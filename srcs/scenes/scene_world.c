@@ -26,10 +26,18 @@ typedef struct	s_world
 	int			local_x;
 	int			local_y;
 
+	int			local_x_prev;
+	int			local_y_prev;
+
 	t_player	player;
 
 	SDLX_Sprite	hud;
+	SDL_Surface *collision;
+
+	t_player		exist[100000];
 }				t_world;
+
+#include <stdio.h>
 
 void	*world_init(SDLX_scene_cxt *context, SDL_UNUSED void *vp_scene)
 {
@@ -39,7 +47,7 @@ void	*world_init(SDLX_scene_cxt *context, SDL_UNUSED void *vp_scene)
 	world = SDLX_NewScene(sizeof(*world), context, ASSETS"world_start.png", world_close, world_update);
 	level = SDLX_GetBackground();
 
-	level->sprite_data->_src = (SDL_Rect){(64), 64, 320, 224};
+	level->sprite_data->_src = (SDL_Rect){0, 0, 320, 224};
 	level->sprite_data->src = &(level->sprite_data->_src);
 
 	world->space = level->sprite_data->src;
@@ -51,8 +59,8 @@ void	*world_init(SDLX_scene_cxt *context, SDL_UNUSED void *vp_scene)
 
 	g_SDLX_Context.ticks_num2 = 0;
 
-	world->local_x = 144;
-	world->local_y = 96;
+	world->local_x = 16 * 0;
+	world->local_y = 16 * 4;
 
 	world->player.sprite = SDLX_Sprite_Static(ASSETS"character.png");
 	world->player.sprite.dst = SDLX_NULL_SELF;
@@ -66,6 +74,8 @@ void	*world_init(SDLX_scene_cxt *context, SDL_UNUSED void *vp_scene)
 	potion_init(&(world->player.potions), 7);
 	crosshair_init(&(world->player.crosshair));
 
+	world->collision = IMG_Load(ASSETS"collisions.png");
+	SDL_LockSurface(world->collision);
 
 	world->hud = SDLX_Sprite_Static(ASSETS"hud.png");
 
@@ -102,9 +112,13 @@ void	*world_update(SDL_UNUSED SDLX_scene_cxt *context, void *vp_scene)
 	world->player.state = STATE_NONE;
 
 	int	dx, dy;
+	Uint8 *pixels = world->collision->pixels;
 
 	dx = 0;
 	dy = 0;
+
+	if (world->player.stunned_tick > 0)
+		world->player.state = STATE_STUNNED;
 
 	player_aim(&(world->player.state));
 	player_use_spec(&(world->player.state), world->player.sprite._dst.x, world->player.sprite._dst.y);
@@ -113,8 +127,15 @@ void	*world_update(SDL_UNUSED SDLX_scene_cxt *context, void *vp_scene)
 
 	SDLX_Button_Update_noDraw(&(world->tutorial_move));
 
-	world->local_x += dx;
-	world->local_y += dy;
+	if (pixels[((world->local_y + world->space->y) / 16) * world->collision->w * 4 + ((world->local_x + dx + world->space->x) / 16) * 4] != 0xFF)
+		world->local_x += dx;
+	else
+		dx = 0;
+
+	if (pixels[((world->local_y + dy + world->space->y) / 16) * world->collision->w * 4 + ((world->local_x + world->space->x) / 16) * 4] != 0xFF)
+		world->local_y += dy;
+	else
+		dy = 0;
 
 	SDL_Rect	bound = {(128 - 16) * DISPLAY_SCALE, (80 - 16) * DISPLAY_SCALE, (320 - 256) * DISPLAY_SCALE, (224 - 160) * DISPLAY_SCALE};
 	SDL_Rect	player = {(world->local_x) * DISPLAY_SCALE, (world->local_y) * DISPLAY_SCALE, 16 * DISPLAY_SCALE, 16 * DISPLAY_SCALE};
@@ -131,13 +152,13 @@ void	*world_update(SDL_UNUSED SDLX_scene_cxt *context, void *vp_scene)
 		world->local_y -= 4;
 	}
 
-	if (player.x > bound.x + bound.w && world->space->x + 320 + 4 < 448)
+	if (player.x > bound.x + bound.w && world->space->x + 320 + 4 <= 448)
 	{
 		world->space->x += 4;
 		world->local_x -= 4;
 	}
 
-	if (player.x < bound.x && world->space->x - 4 > 0)
+	if (player.x < bound.x && world->space->x - 4 >= 0)
 	{
 		world->space->x -= 4;
 		world->local_x += 4;
@@ -161,7 +182,45 @@ void	*world_update(SDL_UNUSED SDLX_scene_cxt *context, void *vp_scene)
 	SDL_RenderDrawRect(SDLX_GetDisplay()->renderer, &(bound));
 	SDL_RenderDrawRect(SDLX_GetDisplay()->renderer, &(player));
 
-	(void)context;
-	(void)vp_scene;
+	int i = 0;
+	int j = 0;
+	SDL_Rect	immove;
+
+	immove.w = 16 * DISPLAY_SCALE;
+	immove.h = 16 * DISPLAY_SCALE;
+	while (i < world->collision->h)
+	{
+		j = 0;
+		while (j < world->collision->w)
+		{
+			if (pixels[i * world->collision->w * 4 + j * 4] == 0xFF)
+			{
+				immove.x = j * 16 * DISPLAY_SCALE - world->space->x * DISPLAY_SCALE;
+				immove.y = i * 16 * DISPLAY_SCALE - world->space->y * DISPLAY_SCALE;
+				// SDL_RenderFillRect(SDLX_GetDisplay()->renderer, &(immove));
+				SDL_RenderDrawRect(SDLX_GetDisplay()->renderer, &(immove));
+			}
+			j++;
+		}
+		i++;
+	}
+
+	immove.x = ((world->local_x + world->space->x) / 16) * 16;
+	immove.y = ((world->local_y + world->space->y) / 16) * 16;
+
+	// if (pixels[immove.y / 16 * world->collision->w * 4 + immove.x / 16 * 4] == 0xFF)
+	// if (pixels[((world->local_y + world->space->y) / 16) * world->collision->w * 4 + ((world->local_x + world->space->x) / 16) * 4] == 0xFF)
+	// {
+	// 	world->local_x = world->local_x_prev;
+	// 	world->local_y = world->local_y_prev;
+	// 	world->player.stunned_tick = 10;
+	// }
+
+	if (world->player.stunned_tick > 0)
+		world->player.stunned_tick--;
+
+	world->local_x_prev = world->local_x;
+	world->local_y_prev = world->local_y;
+
 	return (NULL);
 }

@@ -1,7 +1,7 @@
 #ifndef SDLX_CONFIG_H
 # define SDLX_CONFIG_H
 
-# define DISPLAY_SCALE (3.4)
+# define DISPLAY_SCALE (3)
 
 # define WIN_TITLE "Resume"
 # define WIN_WIDTH  (320 * DISPLAY_SCALE)

@@ -1,0 +1,24 @@
+100,000 objects is in ram is
+doable rendering about 200 objects per frame.
+
+
+Should dashing do shadow damage?
+Do you do interpolation on player dashes for collisions?
+Does dashing need any other information in order to do phantom effect?
+
+Should the crosshairs be different?
+
+What should be the resolution for enemy collisions?
+Undoing wall collisions may end in a subsequent collision as the player undo's
+the wall collision, how should it be resolved?
+
+
+Restriction that enemies don't move
+
+Player Moves (testing against a special static queue)
+Added to Collisions buckets
+Objects Move (Ones that are static are added special queue)
+Then get added to Collisions buckets
+
+Then objects attempt to collide
+Then if necessary objects are moved because of collisions

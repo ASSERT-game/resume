@@ -51,11 +51,6 @@ void	*main_menu_close(SDL_UNUSED SDLX_scene_cxt *context, void *vp_scene)
 	SDLX_free_null(&(context->scene_meta));
 	SDLX_ClearBackground();
 
-	// if (g_SDLX_Context.extra_num8 & TOOLTIP_CONTROLS)
-	// 	g_SDLX_Context.init_fn = TT_controls_init;
-	// else
-		// g_SDLX_Context.init_fn = world_init;
-
 	g_SDLX_Context.init_fn = world_init;
 
 	return (NULL);
@@ -63,17 +58,15 @@ void	*main_menu_close(SDL_UNUSED SDLX_scene_cxt *context, void *vp_scene)
 
 void	*main_menu_update(SDL_UNUSED SDLX_scene_cxt *context, void *vp_scene)
 {
-	// t_main_menu_scene *scene;
+	t_main_menu_scene *scene;
 
-	// scene = vp_scene;
+	scene = vp_scene;
 
 	// SDLX_RenderQueue_Add(NULL, &(scene->tittle));
 	// SDLX_Button_Update(&(scene->play));
 
-	if (SDLX_GAME_PRESS(g_GameInput, g_GameInput_prev, START))
+	if (SDLX_GAME_PRESS(g_GameInput, g_GameInput_prev, A))
 		g_SDLX_Context.shouldChange = SDL_TRUE;
 
-	(void)vp_scene;
-	(void)context;
 	return (NULL);
 }

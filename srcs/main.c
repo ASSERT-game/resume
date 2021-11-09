@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/06 02:31:10 by home              #+#    #+#             */
-/*   Updated: 2021/11/02 21:37:44 by home             ###   ########.fr       */
+/*   Updated: 2021/11/05 23:16:34 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	game_start(void *context)
 	g_SDLX_Context.shouldQuit = SDL_FALSE;
 
 	g_SDLX_Context.init_fn = world_init;
+	// g_SDLX_Context.init_fn = main_menu_init;
 
 	g_SDLX_Context.extra_num8 = TOOLTIP_ALL;
 

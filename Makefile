@@ -42,7 +42,6 @@ SPRITE_NAMES = 			\
 	sprite_attack		\
 
 SCENE_FILES = 			\
-	scene_controls		\
 	scene_main_menu		\
 	scene_world			\
 

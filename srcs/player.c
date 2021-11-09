@@ -15,11 +15,12 @@
 
 void	player_dash(int *dx, int *dy, int *state)
 {
-	int temp = 0;
+	int		temp;
+	double	angle;
 
 	if (SDLX_GAME_PRESS(g_GameInput, g_GameInput_prev, A))
 	{
-		double angle = SDL_atan2(g_GameInput.GameInput.leftaxis.y, g_GameInput.GameInput.leftaxis.x);
+		angle = SDL_atan2(g_GameInput.GameInput.leftaxis.y, g_GameInput.GameInput.leftaxis.x);
 
 		temp = (SDL_cos(angle) * 32);
 		temp -= temp % 4;
@@ -38,15 +39,15 @@ void	crosshair_init(SDLX_Sprite *crosshair)
 	*crosshair = SDLX_Sprite_Static(ASSETS"crosshair.png");
 
 	crosshair->dst = &(crosshair->_dst);
-	crosshair->_dst = (SDL_Rect){0, 0, 80, 80};
+	crosshair->_dst = (SDL_Rect){0, 0, 64, 64};
 }
 
 void	update_crosshair(t_player *player, int x, int y)
 {
 	player->crosshair.angle = -SDLX_Radian_to_Degree(SDL_atan2(-g_GameInput.GameInput.leftaxis.y, g_GameInput.GameInput.leftaxis.x)) + 45;
 
-	player->crosshair.dst->x = x + 16 - 40;
-	player->crosshair.dst->y = y + 16 - 40;
+	player->crosshair.dst->x = x + 16 - 32;
+	player->crosshair.dst->y = y + 16 - 32;
 
 	if (player->state & STATE_AIM)
 		SDLX_RenderQueue_Add(NULL, &(player->crosshair));
@@ -55,14 +56,12 @@ void	update_crosshair(t_player *player, int x, int y)
 void	player_aim(int *state)
 {
 	if (g_GameInput.GameInput.button_left_trigger)
-	{
 		*state = STATE_AIM;
-	}
 }
 
 void	player_move(int *dx, int *dy, int *state)
 {
-	if (*state & STATE_AIM)
+	if ((*state & STATE_AIM) || (*state & STATE_STUNNED))
 		return ;
 
 	if (g_GameInput.GameInput.button_DPAD_LEFT)

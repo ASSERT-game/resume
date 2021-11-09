@@ -13,7 +13,7 @@
 
 #include "SDLX.h"
 
-#define SDLX_QUEUE_DEFAULT_SIZE (5)
+#define SDLX_QUEUE_DEFAULT_SIZE (500000)
 
 SDLX_RenderQueue	default_RenderQueue;
 

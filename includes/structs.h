@@ -76,6 +76,7 @@ typedef enum	e_player_state
 	STATE_DAMAGE	= 0b00001000,
 	STATE_DEAD		= 0b00010000,
 	STATE_AIM		= 0b00100000,
+	STATE_STUNNED	= 0b01000000,
 }				e_player_state;
 
 typedef struct	s_player
@@ -107,6 +108,7 @@ typedef struct	s_player
 	t_special		specials[4];
 
 	int				state;
+	int				stunned_tick;
 
 }				t_player;
 
