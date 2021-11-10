@@ -22,6 +22,7 @@
 
 SDLX_iMap	*resume_pad_map(size_t *size);
 SDLX_iMap	*resume_key_map(size_t *size);
+void		resume_joystick_to_gameinput(void);
 
 void	*main_menu_init(SDLX_scene_cxt *context, SDL_UNUSED void *vp_scene);
 void	*main_menu_close(SDL_UNUSED SDLX_scene_cxt *context, void *vp_scene);
@@ -59,6 +60,21 @@ void	player_aim(int *state);
 void	update_crosshair(t_player *player, int x, int y);
 void	crosshair_init(SDLX_Sprite *crosshair);
 
+void	move_viewport(int *px, int *py, int *ix, int *iy);
+
+void	new_static_sprite(SDLX_Sprite *sprite, int tiles_x, int tiles_y, int bottom_padding, int top_padding, int left_padding, int right_padding, SDL_Surface *collision_map);
+
+int		compare_priority(const void *a, const void *b);
+void	fill_priority(SDLX_Sprite *sprite);
+
 # define PLAYER_SPEED (4)
+
+
+/*
+** Debug Functions
+*/
+
+void	view_map_collisions(SDL_Surface *image, int px, int py);
+void	view_player_collision(int x, int y);
 
 #endif

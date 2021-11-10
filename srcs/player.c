@@ -13,6 +13,12 @@
 
 #include "main.h"
 
+/*
+** This needs to check every 'step' creating a bounding
+** collision box, else the player may be able to move
+** into certain small collision boxes.
+*/
+
 void	player_dash(int *dx, int *dy, int *state)
 {
 	int		temp;
@@ -22,10 +28,10 @@ void	player_dash(int *dx, int *dy, int *state)
 	{
 		angle = SDL_atan2(g_GameInput.GameInput.leftaxis.y, g_GameInput.GameInput.leftaxis.x);
 
-		temp = (SDL_cos(angle) * 32);
+		temp = (SDL_cos(angle) * 24);
 		temp -= temp % 4;
 		*dx += temp;
-		temp = (SDL_sin(angle) * 32);
+		temp = (SDL_sin(angle) * 24);
 		temp -= temp % 4;
 		*dy += temp;
 
@@ -40,6 +46,7 @@ void	crosshair_init(SDLX_Sprite *crosshair)
 
 	crosshair->dst = &(crosshair->_dst);
 	crosshair->_dst = (SDL_Rect){0, 0, 64, 64};
+	crosshair->sort = 1000;
 }
 
 void	update_crosshair(t_player *player, int x, int y)

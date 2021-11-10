@@ -49,6 +49,7 @@ typedef struct SDLX_Sprite
 	SDL_RendererFlip	flip;
 
 	size_t				id;
+	int					sort;
 }	SDLX_Sprite;
 
 typedef struct SDLX_RenderQueue

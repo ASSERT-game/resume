@@ -72,11 +72,6 @@ void	SDLX_MainSceneLoop_Post(void *context_addr)
 	{
 		SDLX_ControllerMap(&(g_GameInput.pad_mapper), controller);
 		SDLX_FillXbox_Axis(&(g_GameInput), controller);
-
-		int trigger = SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_TRIGGERRIGHT);
-		if (trigger > 100)
-			g_GameInput.GameInput.button_primleft = 1;
-
 	}
 #endif
 
@@ -84,7 +79,7 @@ void	SDLX_MainSceneLoop_Post(void *context_addr)
 
 	if (context->shouldQuit != SDL_TRUE && SDLX_discrete_frames(&(g_SDLX_Context.ticks_num2)) != EXIT_FAILURE)
 	{
-		SDLX_RenderQueue_Flush(NULL, NULL, SDL_TRUE);
+		SDLX_RenderQueue_Flush(NULL, NULL, SDL_FALSE);
 		SDLX_ScreenReset_Post(SDLX_GetDisplay()->renderer, &(context->background_color), &(g_PostProcess));
 	}
 

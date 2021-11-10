@@ -63,3 +63,16 @@ SDLX_iMap	*resume_pad_map(size_t *size)
 	*size = sizeof(key_map) / sizeof(*key_map);
 	return (&key_map[0]);
 }
+
+void	resume_joystick_to_gameinput(void)
+{
+	SDLX_JoyStick_toDPAD(g_GameInput.GameInput.leftaxis,
+		&(g_GameInput.GameInput.button_DPAD_LEFT), &(g_GameInput.GameInput.button_DPAD_RIGHT),
+		&(g_GameInput.GameInput.button_DPAD_UP), &(g_GameInput.GameInput.button_DPAD_DOWN)
+	);
+
+	SDLX_JoyStick_toDPAD(g_GameInput.GameInput.rightaxis,
+		&(g_GameInput.GameInput.button_num0), &(g_GameInput.GameInput.button_num1),
+		&(g_GameInput.GameInput.button_num2), &(g_GameInput.GameInput.button_num3)
+	);
+}

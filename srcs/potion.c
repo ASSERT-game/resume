@@ -19,6 +19,7 @@ void	potion_red(t_potion *potion)
 	potion->name = SDL_strdup("Red Potion");
 	potion->sprite.dst = &(potion->sprite._dst);
 	potion->sprite._dst = (SDL_Rect){297, 195, 8, 12};
+	potion->sprite.sort = 1000;
 	potion->isUsed = SDL_FALSE;
 }
 
@@ -28,6 +29,7 @@ void	potion_blue(t_potion *potion)
 	potion->name = SDL_strdup("Blue Potion");
 	potion->sprite.dst = &(potion->sprite._dst);
 	potion->sprite._dst = (SDL_Rect){297, 195, 8, 12};
+	potion->sprite.sort = 1000;
 	potion->isUsed = SDL_FALSE;
 }
 
@@ -37,6 +39,7 @@ void	potion_green(t_potion *potion)
 	potion->name = SDL_strdup("Green Potion");
 	potion->sprite.dst = &(potion->sprite._dst);
 	potion->sprite._dst = (SDL_Rect){297, 195, 8, 12};
+	potion->sprite.sort = 1000;
 	potion->isUsed = SDL_FALSE;
 }
 
@@ -46,6 +49,7 @@ void	potion_yellow(t_potion *potion)
 	potion->name = SDL_strdup("Yellow Potion");
 	potion->sprite.dst = &(potion->sprite._dst);
 	potion->sprite._dst = (SDL_Rect){297, 195, 8, 12};
+	potion->sprite.sort = 1000;
 	potion->isUsed = SDL_FALSE;
 }
 
@@ -76,10 +80,9 @@ void	potion_update(t_player *player)
 		player->potion_curr %= player->max_potion;
 		while (player->potions[player->potion_curr].isUsed)
 		{
+			player->potion_curr--;
 			player->potion_curr += player->max_potion;
 			player->potion_curr %= player->max_potion;
-
-			player->potion_curr--;
 		}
 	}
 
@@ -91,10 +94,9 @@ void	potion_update(t_player *player)
 		player->potion_curr %= player->max_potion;
 		while (player->potions[player->potion_curr].isUsed)
 		{
+			player->potion_curr++;
 			player->potion_curr += player->max_potion;
 			player->potion_curr %= player->max_potion;
-
-			player->potion_curr++;
 		}
 	}
 
@@ -104,12 +106,12 @@ void	potion_update(t_player *player)
 		player->potions[player->potion_curr].isUsed = SDL_TRUE;
 		player->potion_no--;
 
-		while (player->potions[player->potion_curr].isUsed)
+		while (player->potions[player->potion_curr].isUsed && player->potion_no > 1)
 		{
+			player->potion_curr++;
+
 			player->potion_curr += player->max_potion;
 			player->potion_curr %= player->max_potion;
-
-			player->potion_curr++;
 		}
 		player->potion_curr += player->max_potion;
 		player->potion_curr %= player->max_potion;

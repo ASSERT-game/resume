@@ -34,6 +34,21 @@ typedef struct	s_world
 	SDLX_Sprite	hud;
 	SDL_Surface *collision;
 
+	SDLX_Sprite	wall1;
+	SDLX_Sprite	wall2;
+	SDLX_Sprite	wall3;
+	SDLX_Sprite	wall4;
+
+	SDLX_Sprite	pot1;
+	SDLX_Sprite	pot2;
+	SDLX_Sprite	pot3;
+	SDLX_Sprite	pot4;
+	SDLX_Sprite	pot5;
+	SDLX_Sprite	pot6;
+	SDLX_Sprite	pot7;
+	SDLX_Sprite	pot8;
+
+	SDLX_Sprite	chest;
 	t_player		exist[100000];
 }				t_world;
 
@@ -47,7 +62,7 @@ void	*world_init(SDLX_scene_cxt *context, SDL_UNUSED void *vp_scene)
 	world = SDLX_NewScene(sizeof(*world), context, ASSETS"world_start.png", world_close, world_update);
 	level = SDLX_GetBackground();
 
-	level->sprite_data->_src = (SDL_Rect){0, 0, 320, 224};
+	level->sprite_data->_src = (SDL_Rect){64, 64, 320, 224};
 	level->sprite_data->src = &(level->sprite_data->_src);
 
 	world->space = level->sprite_data->src;
@@ -59,11 +74,16 @@ void	*world_init(SDLX_scene_cxt *context, SDL_UNUSED void *vp_scene)
 
 	g_SDLX_Context.ticks_num2 = 0;
 
+	world->local_x = 16 * 9;
+	world->local_y = 16 * 8;
+
 	world->local_x = 16 * 0;
-	world->local_y = 16 * 4;
+	world->local_y = 16 * 0;
 
 	world->player.sprite = SDLX_Sprite_Static(ASSETS"character.png");
 	world->player.sprite.dst = SDLX_NULL_SELF;
+	world->player.sprite._dst.w = 32;
+	world->player.sprite._dst.h = 32;
 
 	world->player.max_potion = 7;
 	world->player.potion_no = 7;
@@ -74,11 +94,70 @@ void	*world_init(SDLX_scene_cxt *context, SDL_UNUSED void *vp_scene)
 	potion_init(&(world->player.potions), 7);
 	crosshair_init(&(world->player.crosshair));
 
-	world->collision = IMG_Load(ASSETS"collisions.png");
-	SDL_LockSurface(world->collision);
+	world->collision = IMG_Load(ASSETS"finer_collision.png");
 
 	world->hud = SDLX_Sprite_Static(ASSETS"hud.png");
+	world->hud.sort = 999;
 
+	world->wall1 = SDLX_Sprite_Static(ASSETS"wall.png");
+	world->wall1.dst = SDLX_NULL_SELF;
+	world->wall1._dst = (SDL_Rect){176, 96, 16, 48};
+	new_static_sprite(&(world->wall1), 1, 3, 2, 8, 1, 1, world->collision);
+
+	world->wall2 = SDLX_Sprite_Static(ASSETS"wall.png");
+	world->wall2.dst = SDLX_NULL_SELF;
+	world->wall2._dst = (SDL_Rect){176 + 16 * 5, 96, 16, 48};
+	new_static_sprite(&(world->wall2), 1, 3, 2, 8, 1, 1, world->collision);
+
+	world->wall3 = SDLX_Sprite_Static(ASSETS"wall.png");
+	world->wall3.dst = SDLX_NULL_SELF;
+	world->wall3._dst = (SDL_Rect){176 + 16 * 5, 96 - 32, 16, 48};
+	new_static_sprite(&(world->wall3), 1, 3, 2, 8, 1, 1, world->collision);
+
+	world->wall4 = SDLX_Sprite_Static(ASSETS"wall.png");
+	world->wall4.dst = SDLX_NULL_SELF;
+	world->wall4._dst = (SDL_Rect){176, 96 - 32, 16, 48};
+	new_static_sprite(&(world->wall4), 1, 3, 2, 8, 1, 1, world->collision);
+
+	world->pot1 = SDLX_Sprite_Static(ASSETS"pot.png");
+	world->pot1.dst = SDLX_NULL_SELF;
+	world->pot1._dst = (SDL_Rect){176 + 16, 96  + 16 * 4, 16, 16};
+	new_static_sprite(&(world->pot1), 1, 1, 1, 1, 1, 1, world->collision);
+	world->pot2 = SDLX_Sprite_Static(ASSETS"pot.png");
+	world->pot2.dst = SDLX_NULL_SELF;
+	world->pot2._dst = (SDL_Rect){176 + 16, 96  + 16 * 6, 16, 16};
+	new_static_sprite(&(world->pot2), 1, 1, 1, 1, 1, 1, world->collision);
+	world->pot3 = SDLX_Sprite_Static(ASSETS"pot.png");
+	world->pot3.dst = SDLX_NULL_SELF;
+	world->pot3._dst = (SDL_Rect){176 + 16, 96  + 16 * 8, 16, 16};
+	new_static_sprite(&(world->pot3), 1, 1, 1, 1, 1, 1, world->collision);
+	world->pot4 = SDLX_Sprite_Static(ASSETS"pot.png");
+	world->pot4.dst = SDLX_NULL_SELF;
+	world->pot4._dst = (SDL_Rect){176 + 16, 96  + 16 * 10, 16, 16};
+	new_static_sprite(&(world->pot4), 1, 1, 1, 1, 1, 1, world->collision);
+	world->pot5 = SDLX_Sprite_Static(ASSETS"pot.png");
+	world->pot5.dst = SDLX_NULL_SELF;
+	world->pot5._dst = (SDL_Rect){176 + 16 * 4, 96  + 16 * 4, 16, 16};
+	new_static_sprite(&(world->pot5), 1, 1, 1, 1, 1, 1, world->collision);
+	world->pot6 = SDLX_Sprite_Static(ASSETS"pot.png");
+	world->pot6.dst = SDLX_NULL_SELF;
+	world->pot6._dst = (SDL_Rect){176 + 16 * 4, 96  + 16 * 6, 16, 16};
+	new_static_sprite(&(world->pot6), 1, 1, 1, 1, 1, 1, world->collision);
+	world->pot7 = SDLX_Sprite_Static(ASSETS"pot.png");
+	world->pot7.dst = SDLX_NULL_SELF;
+	world->pot7._dst = (SDL_Rect){176 + 16 * 4, 96  + 16 * 8, 16, 16};
+	new_static_sprite(&(world->pot7), 1, 1, 1, 1, 1, 1, world->collision);
+	world->pot8 = SDLX_Sprite_Static(ASSETS"pot.png");
+	world->pot8.dst = SDLX_NULL_SELF;
+	world->pot8._dst = (SDL_Rect){176 + 16 * 4, 96  + 16 * 10, 16, 16};
+	new_static_sprite(&(world->pot8), 1, 1, 1, 1, 1, 1, world->collision);
+
+	world->chest = SDLX_Sprite_Static(ASSETS"chest.png");
+	world->chest.dst = SDLX_NULL_SELF;
+	world->chest._dst = (SDL_Rect){208, 112, 32, 16};
+	new_static_sprite(&(world->chest), 2, 1, 1, 1, 2, 2, world->collision);
+
+	// SDL_LockSurface(world->collision);
 	(void)context;
 	(void)vp_scene;
 	return (NULL);
@@ -97,26 +176,47 @@ void	*world_update(SDL_UNUSED SDLX_scene_cxt *context, void *vp_scene)
 
 	world = vp_scene;
 
-	SDLX_JoyStick_toDPAD(g_GameInput.GameInput.leftaxis,
-		&(g_GameInput.GameInput.button_DPAD_LEFT), &(g_GameInput.GameInput.button_DPAD_RIGHT),
-		&(g_GameInput.GameInput.button_DPAD_UP), &(g_GameInput.GameInput.button_DPAD_DOWN)
-	);
-
-	SDLX_JoyStick_toDPAD(g_GameInput.GameInput.rightaxis,
-		&(g_GameInput.GameInput.button_num0), &(g_GameInput.GameInput.button_num1),
-		&(g_GameInput.GameInput.button_num2), &(g_GameInput.GameInput.button_num3)
-	);
-
+	resume_joystick_to_gameinput();
 	SDLX_toTriggers(&(g_GameInput));
 
-	world->player.state = STATE_NONE;
+	SDL_Log("Here");
 
 	int	dx, dy;
 	Uint8 *pixels = world->collision->pixels;
 
+	world->wall1._dst.x = 176 - world->space->x;
+	world->wall1._dst.y = 96 - world->space->y;
+	world->wall2._dst.x = 176 + 16 * 5 - world->space->x;
+	world->wall2._dst.y = 96 - world->space->y;
+	world->wall3._dst.x = 176 - world->space->x;
+	world->wall3._dst.y = 96 - 32 - world->space->y;
+	world->wall4._dst.x = 176 + 16 * 5 - world->space->x;
+	world->wall4._dst.y = 96 - 32 - world->space->y;
+
+	world->pot1._dst.x = 176 + 16 - world->space->x;
+	world->pot1._dst.y = 96 + 64 - world->space->y;
+	world->pot2._dst.x = 176 + 16 - world->space->x;
+	world->pot2._dst.y = 96 + 16 * 6 - world->space->y;
+	world->pot3._dst.x = 176 + 16 - world->space->x;
+	world->pot3._dst.y = 96 + 16 * 8 - world->space->y;
+	world->pot4._dst.x = 176 + 16 - world->space->x;
+	world->pot4._dst.y = 96 + 16 * 10 - world->space->y;
+
+	world->pot5._dst.x = 176 + 16 * 4 - world->space->x;
+	world->pot5._dst.y = 96  + 16 * 4 - world->space->y;
+	world->pot6._dst.x = 176 + 16 * 4 - world->space->x;
+	world->pot6._dst.y = 96 + 16 * 6 - world->space->y;
+	world->pot7._dst.x = 176 + 16 * 4 - world->space->x;
+	world->pot7._dst.y = 96 + 16 * 8 - world->space->y;
+	world->pot8._dst.x = 176 + 16 * 4 - world->space->x;
+	world->pot8._dst.y = 96 + 16 * 10 - world->space->y;
+
+	world->chest._dst.x = 208 - world->space->x;
+	world->chest._dst.y = 112 - world->space->y;
+
 	dx = 0;
 	dy = 0;
-
+	world->player.state = STATE_NONE;
 	if (world->player.stunned_tick > 0)
 		world->player.state = STATE_STUNNED;
 
@@ -127,47 +227,31 @@ void	*world_update(SDL_UNUSED SDLX_scene_cxt *context, void *vp_scene)
 
 	SDLX_Button_Update_noDraw(&(world->tutorial_move));
 
-	if (pixels[((world->local_y + world->space->y) / 16) * world->collision->w * 4 + ((world->local_x + dx + world->space->x) / 16) * 4] != 0xFF)
-		world->local_x += dx;
-	else
+	int width = world->collision->w * 4;
+	if (	pixels[((world->local_y + world->space->y) / 4) * width + ((world->local_x + dx + world->space->x) / 4) * 4] == 0xFF
+		||	pixels[((world->local_y + world->space->y) / 4) * width + ((world->local_x + dx + 12 + world->space->x) / 4) * 4] == 0xFF
+		||	pixels[((world->local_y + world->space->y + 8) / 4) * width + ((world->local_x + dx + 12 + world->space->x) / 4) * 4] == 0xFF
+		||	pixels[((world->local_y + world->space->y + 8) / 4) * width + ((world->local_x + dx + world->space->x) / 4) * 4] == 0xFF
+		||	pixels[((world->local_y + 12 + world->space->y) / 4) * width + ((world->local_x + dx + world->space->x) / 4) * 4] == 0xFF
+		||	pixels[((world->local_y + 12 + world->space->y) / 4) * width + ((world->local_x + dx + 12 + world->space->x) / 4) * 4] == 0xFF)
 		dx = 0;
-
-	if (pixels[((world->local_y + dy + world->space->y) / 16) * world->collision->w * 4 + ((world->local_x + world->space->x) / 16) * 4] != 0xFF)
-		world->local_y += dy;
 	else
+		world->local_x += dx;
+
+	if (	pixels[((world->local_y + dy + world->space->y) / 4) * width + ((world->local_x + world->space->x) / 4) * 4] == 0xFF
+		||	pixels[((world->local_y + dy + world->space->y) / 4) * width + ((world->local_x + 12 + world->space->x) / 4) * 4] == 0xFF
+		||	pixels[((world->local_y + dy + 12 + world->space->y) / 4) * width + ((world->local_x + world->space->x) / 4) * 4] == 0xFF
+		||	pixels[((world->local_y + dy + world->space->y) / 4) * width + ((world->local_x + world->space->x + 8) / 4) * 4] == 0xFF
+		||	pixels[((world->local_y + dy + 12 + world->space->y) / 4) * width + ((world->local_x + world->space->x + 8) / 4) * 4] == 0xFF
+		||	pixels[((world->local_y + dy + 12 + world->space->y) / 4) * width + ((world->local_x + 12 + world->space->x) / 4) * 4] == 0xFF)
 		dy = 0;
+	else
+		world->local_y += dy;
 
-	SDL_Rect	bound = {(128 - 16) * DISPLAY_SCALE, (80 - 16) * DISPLAY_SCALE, (320 - 256) * DISPLAY_SCALE, (224 - 160) * DISPLAY_SCALE};
-	SDL_Rect	player = {(world->local_x) * DISPLAY_SCALE, (world->local_y) * DISPLAY_SCALE, 16 * DISPLAY_SCALE, 16 * DISPLAY_SCALE};
+	move_viewport(&(world->local_x), &(world->local_y), &(world->space->x), &(world->space->y));
 
-	if (player.y < bound.y && world->space->y - 4 >= 0)
-	{
-		world->space->y -= 4;
-		world->local_y += 4;
-	}
-
-	if (player.y > bound.y + bound.h && world->space->y + 224 + 4 <= 384)
-	{
-		world->space->y += 4;
-		world->local_y -= 4;
-	}
-
-	if (player.x > bound.x + bound.w && world->space->x + 320 + 4 <= 448)
-	{
-		world->space->x += 4;
-		world->local_x -= 4;
-	}
-
-	if (player.x < bound.x && world->space->x - 4 >= 0)
-	{
-		world->space->x -= 4;
-		world->local_x += 4;
-	}
-
-	world->player.sprite._dst.x = player.x / DISPLAY_SCALE - 7;
-	world->player.sprite._dst.y = player.y / DISPLAY_SCALE - 8;
-	world->player.sprite._dst.w = 32;
-	world->player.sprite._dst.h = 32;
+	world->player.sprite._dst.x = world->local_x - 8;
+	world->player.sprite._dst.y = world->local_y - 8;
 
 	update_crosshair(&(world->player), world->player.sprite._dst.x, world->player.sprite._dst.y);
 
@@ -178,49 +262,48 @@ void	*world_update(SDL_UNUSED SDLX_scene_cxt *context, void *vp_scene)
 	SDLX_RenderQueue_Add(NULL, &(world->hud));
 	SDLX_RenderQueue_Add(NULL, &(world->player.sprite));
 
-	SDL_SetRenderDrawColor(SDLX_GetDisplay()->renderer, 255, 0, 0, 0);
-	SDL_RenderDrawRect(SDLX_GetDisplay()->renderer, &(bound));
-	SDL_RenderDrawRect(SDLX_GetDisplay()->renderer, &(player));
+	SDLX_RenderQueue_Add(NULL, &(world->wall1));
+	SDLX_RenderQueue_Add(NULL, &(world->wall2));
+	SDLX_RenderQueue_Add(NULL, &(world->wall3));
+	SDLX_RenderQueue_Add(NULL, &(world->wall4));
+	SDLX_RenderQueue_Add(NULL, &(world->pot1));
+	SDLX_RenderQueue_Add(NULL, &(world->pot2));
+	SDLX_RenderQueue_Add(NULL, &(world->pot3));
+	SDLX_RenderQueue_Add(NULL, &(world->pot4));
+	SDLX_RenderQueue_Add(NULL, &(world->pot5));
+	SDLX_RenderQueue_Add(NULL, &(world->pot6));
+	SDLX_RenderQueue_Add(NULL, &(world->pot7));
+	SDLX_RenderQueue_Add(NULL, &(world->pot8));
+	SDLX_RenderQueue_Add(NULL, &(world->chest));
 
-	int i = 0;
-	int j = 0;
-	SDL_Rect	immove;
+	world->player.sprite.sort = world->local_y / 4 + 5;
 
-	immove.w = 16 * DISPLAY_SCALE;
-	immove.h = 16 * DISPLAY_SCALE;
-	while (i < world->collision->h)
-	{
-		j = 0;
-		while (j < world->collision->w)
-		{
-			if (pixels[i * world->collision->w * 4 + j * 4] == 0xFF)
-			{
-				immove.x = j * 16 * DISPLAY_SCALE - world->space->x * DISPLAY_SCALE;
-				immove.y = i * 16 * DISPLAY_SCALE - world->space->y * DISPLAY_SCALE;
-				// SDL_RenderFillRect(SDLX_GetDisplay()->renderer, &(immove));
-				SDL_RenderDrawRect(SDLX_GetDisplay()->renderer, &(immove));
-			}
-			j++;
-		}
-		i++;
-	}
+	fill_priority(&(world->wall1));
+	fill_priority(&(world->wall2));
+	fill_priority(&(world->wall3));
+	fill_priority(&(world->wall4));
+	fill_priority(&(world->pot1));
+	fill_priority(&(world->pot2));
+	fill_priority(&(world->pot3));
+	fill_priority(&(world->pot4));
+	fill_priority(&(world->pot5));
+	fill_priority(&(world->pot6));
+	fill_priority(&(world->pot7));
+	fill_priority(&(world->pot8));
+	fill_priority(&(world->chest));
 
-	immove.x = ((world->local_x + world->space->x) / 16) * 16;
-	immove.y = ((world->local_y + world->space->y) / 16) * 16;
+	SDL_Log("End");
 
-	// if (pixels[immove.y / 16 * world->collision->w * 4 + immove.x / 16 * 4] == 0xFF)
-	// if (pixels[((world->local_y + world->space->y) / 16) * world->collision->w * 4 + ((world->local_x + world->space->x) / 16) * 4] == 0xFF)
-	// {
-	// 	world->local_x = world->local_x_prev;
-	// 	world->local_y = world->local_y_prev;
-	// 	world->player.stunned_tick = 10;
-	// }
+	SDL_qsort(default_RenderQueue.content, default_RenderQueue.index, sizeof(default_RenderQueue.content), compare_priority);
 
 	if (world->player.stunned_tick > 0)
 		world->player.stunned_tick--;
 
 	world->local_x_prev = world->local_x;
 	world->local_y_prev = world->local_y;
+
+	view_player_collision(world->local_x, world->local_y);
+	view_map_collisions(world->collision, world->space->x, world->space->y);
 
 	return (NULL);
 }

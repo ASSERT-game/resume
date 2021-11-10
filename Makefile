@@ -1,8 +1,8 @@
 NAME = resume
 # NAMEW = ../index.html
-FLAGS = -Wall -Wextra -Werror
+# FLAGS = -Wall -Wextra -Werror
 # FLAGS = -Wall -Wextra -Werror -O2
-# FLAGS = -Wall -Wextra -Werror -fsanitize=address
+FLAGS = -Wall -Wextra -Werror -fsanitize=address
 INCLUDES = -I includes/ -I includes/SDLX/
 
 LIBRARIES = -s USE_SDL=2 -s USE_SDL_TTF=2 -s USE_SDL_IMAGE=2 -s SDL2_IMAGE_FORMATS="['png']"
@@ -41,21 +41,28 @@ SPRITE_NAMES = 			\
 	sprite_tooltip		\
 	sprite_attack		\
 
+DEBUG_FILES = 			\
+	collision_view		\
+
 SCENE_FILES = 			\
 	scene_main_menu		\
 	scene_world			\
 
 # List of all the source files.
 SRC_NAMES = \
+	$(addprefix debug/, $(DEBUG_FILES))		\
 	$(addprefix scenes/, $(SCENE_FILES))	\
 	$(addprefix $(SDLX_DIR), $(SDLX_NAMES))	\
 	$(addprefix sprites/, $(SPRITE_NAMES))	\
 	attack_ui \
+	environment \
 	input \
 	main \
 	player \
 	potion \
+	queue_util \
 	tooltips \
+	viewport \
 
 # List of all the source files, folders are to be added by
 # including a $(addprefix, DIR_NAME, $(DIR_FILES))
