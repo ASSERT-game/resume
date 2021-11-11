@@ -37,9 +37,10 @@ SDLX_NAMES = 			\
 	SDLX_xbox			\
 
 SPRITE_NAMES = 			\
+	sprite_attack		\
+	sprite_healthbar	\
 	sprite_potions		\
 	sprite_tooltip		\
-	sprite_attack		\
 
 DEBUG_FILES = 			\
 	collision_view		\
@@ -61,6 +62,7 @@ SRC_NAMES = \
 	$(addprefix $(SDLX_DIR), $(SDLX_NAMES))	\
 	$(addprefix sprites/, $(SPRITE_NAMES))	\
 	attack_ui \
+	bar \
 	environment \
 	input \
 	main \
@@ -68,6 +70,7 @@ SRC_NAMES = \
 	potion \
 	queue_util \
 	tooltips \
+	utils \
 	viewport \
 
 # List of all the source files, folders are to be added by

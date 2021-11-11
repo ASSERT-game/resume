@@ -39,6 +39,7 @@ void	*TT_controls_update(SDL_UNUSED SDLX_scene_cxt *context, void *vp_scene);
 int		fetch_potion_sprite(SDLX_Sprite_Data **dst, int no);
 int		fetch_tooltip_sprite(SDLX_Sprite_Data **dst, int no);
 int		fetch_attack_ui_sprite(SDLX_Sprite_Data **dst, int no);
+int		fetch_bar_sprite(SDLX_Sprite_Data **dst, int no);
 
 void		*tooltip_update(SDLX_button *button, void *meta, size_t meta_length);
 SDL_bool	tooltip_move_focus(SDLX_button *button, void *meta, size_t meta_length);
@@ -82,6 +83,21 @@ void	static_environment_init(t_entity *env, int x, int y, SDL_Surface *collision
 
 void	chest_update(t_entity *chest, int world_x, int world_y);
 void	chest_init(t_entity *chest, int x, int y, SDL_Surface *collision_map);
+
+/*
+** Bar System Functions
+*/
+
+void	resize_healthbar(SDLX_Sprite *fill, SDLX_Sprite *back_fill, int *current, int out_of, SDL_Rect bar);
+void	increase_bar_system(t_bar *bar, int amount, int sprite_amount, SDL_bool animate);
+void	init_bar_system(t_bar *bar, int start_no, int (*sprite_fn)(SDLX_Sprite_Data **, int), int max, SDL_Rect desired_pos, int offset_left, int offset_right);
+void	bar_system_update(t_bar *bar);
+
+/*
+** Utility Functions
+*/
+
+uint32_t	lerp32(double percent, uint32_t start, uint32_t end);
 
 /*
 ** Debug Functions

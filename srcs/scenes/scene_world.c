@@ -45,6 +45,9 @@ typedef struct	s_world
 	t_entity	pot8;
 
 	t_entity	chest;
+
+	t_bar		health;
+	t_bar		mana;
 	t_player		exist[100000];
 }				t_world;
 
@@ -88,7 +91,7 @@ void	*world_init(SDLX_scene_cxt *context, SDL_UNUSED void *vp_scene)
 	potion_init(&(world->player.potions), 7);
 	crosshair_init(&(world->player.crosshair));
 
-	world->collision = IMG_Load(ASSETS"finer_collision.png");
+	world->collision = IMG_Load(ASSETS"collision.png");
 
 	world->hud = SDLX_Sprite_Static(ASSETS"hud.png");
 	world->hud.sort = 999;
@@ -111,6 +114,9 @@ void	*world_init(SDLX_scene_cxt *context, SDL_UNUSED void *vp_scene)
 
 
 	SDL_LockSurface(world->collision);
+
+	init_bar_system(&(world->health), 0, fetch_bar_sprite, 100, (SDL_Rect){5, -4, 32 * 3, 32}, 16, 3);
+	init_bar_system(&(world->mana), 5, fetch_bar_sprite, 100, (SDL_Rect){12, 21, 80, 32}, 16, 12);
 	(void)context;
 	(void)vp_scene;
 	return (NULL);
@@ -198,6 +204,18 @@ void	*world_update(SDL_UNUSED SDLX_scene_cxt *context, void *vp_scene)
 
 	SDLX_RenderQueue_Add(NULL, &(world->hud));
 	SDLX_RenderQueue_Add(NULL, &(world->player.sprite));
+
+	if (g_GameInput.GameInput.button_RIGHTSHOULDER)
+		world->mana.value += 1;
+
+	if (SDLX_GAME_PRESS(g_GameInput, g_GameInput_prev, LEFTSHOULDER))
+		increase_bar_system(&(world->mana), 32, 32, SDL_FALSE);
+
+	if (SDLX_GAME_PRESS(g_GameInput, g_GameInput_prev, B))
+		world->mana.value -= 10;
+
+	bar_system_update(&(world->health));
+	bar_system_update(&(world->mana));
 
 	world->player.sprite.sort = world->local_y / 4 + 5;
 

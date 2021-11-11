@@ -88,6 +88,8 @@ typedef struct	s_player
 	double		local_x;
 	double		local_y;
 
+	SDLX_Sprite	hp_s;
+	SDLX_Sprite	hpl_s;
 	int			max_hp;
 	int			hp;
 
@@ -121,5 +123,23 @@ typedef struct	s_entity
 
 	int			state;
 }				t_entity;
+
+typedef struct	s_bar
+{
+	SDLX_Sprite	start;
+	SDLX_Sprite	middle_extender;
+	SDLX_Sprite	end;
+
+	SDLX_Sprite	fill;
+	SDLX_Sprite	back_fill;
+
+	SDL_Rect	desired_pos;
+	int			offset_left;
+	int			offset_right;
+
+	int			max_value;
+	int			value;
+	int			prev_value;
+}				t_bar;
 
 #endif

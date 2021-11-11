@@ -36,6 +36,9 @@ SDLX_iMap	*resume_key_map(size_t *size)
 		(SDLX_iMap){&BMAP(button_DPAD_DOWN),	1, SDL_SCANCODE_S},
 
 		(SDLX_iMap){&BMAP(button_A),	1, SDL_SCANCODE_SPACE},
+
+		(SDLX_iMap){&BMAP(button_RIGHTSHOULDER),	1, SDL_SCANCODE_O},
+		(SDLX_iMap){&BMAP(button_LEFTSHOULDER),		1, SDL_SCANCODE_M},
 	};
 
 	*size = sizeof(key_map) / sizeof(*key_map);
@@ -57,6 +60,9 @@ SDLX_iMap	*resume_pad_map(size_t *size)
 		(SDLX_iMap){&BMAP(button_A),	1, SDL_CONTROLLER_BUTTON_A},
 
 		(SDLX_iMap){&BMAP(button_START),	1, SDL_CONTROLLER_BUTTON_START},
+
+		(SDLX_iMap){&BMAP(button_LEFTSHOULDER),		1, SDL_CONTROLLER_BUTTON_LEFTSHOULDER},
+		(SDLX_iMap){&BMAP(button_RIGHTSHOULDER),	1, SDL_CONTROLLER_BUTTON_RIGHTSHOULDER},
 
 	};
 
