@@ -112,4 +112,14 @@ typedef struct	s_player
 
 }				t_player;
 
+typedef struct	s_entity
+{
+	SDLX_Sprite	sprite;
+
+	double		world_x;
+	double		world_y;
+
+	int			state;
+}				t_entity;
+
 #endif

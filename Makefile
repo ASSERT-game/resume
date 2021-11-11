@@ -44,6 +44,11 @@ SPRITE_NAMES = 			\
 DEBUG_FILES = 			\
 	collision_view		\
 
+ENTITY_FILES = 			\
+	chest				\
+	environment			\
+	pots				\
+
 SCENE_FILES = 			\
 	scene_main_menu		\
 	scene_world			\
@@ -51,6 +56,7 @@ SCENE_FILES = 			\
 # List of all the source files.
 SRC_NAMES = \
 	$(addprefix debug/, $(DEBUG_FILES))		\
+	$(addprefix entity/, $(ENTITY_FILES))	\
 	$(addprefix scenes/, $(SCENE_FILES))	\
 	$(addprefix $(SDLX_DIR), $(SDLX_NAMES))	\
 	$(addprefix sprites/, $(SPRITE_NAMES))	\
