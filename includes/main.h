@@ -81,6 +81,9 @@ void	pot_init(t_entity *pot, int x, int y, SDL_Surface *collision_map);
 void	static_environment_update(t_entity *env, int world_x, int world_y);
 void	static_environment_init(t_entity *env, int x, int y, SDL_Surface *collision_map);
 
+void	static_environment_rl_init(t_entity *env, int x, int y, SDL_Surface *collision_map);
+void	static_environment_ll_init(t_entity *env, int x, int y, SDL_Surface *collision_map);
+
 void	chest_update(t_entity *chest, int world_x, int world_y);
 void	chest_init(t_entity *chest, int x, int y, SDL_Surface *collision_map);
 

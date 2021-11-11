@@ -44,6 +44,9 @@ typedef struct	s_world
 	t_entity	pot7;
 	t_entity	pot8;
 
+	t_entity	ll;
+	t_entity	rl;
+
 	t_entity	chest;
 
 	t_bar		health;
@@ -103,6 +106,9 @@ void	*world_init(SDLX_scene_cxt *context, SDL_UNUSED void *vp_scene)
 	static_environment_init(&(world->wall3), 256, 96, world->collision);
 	static_environment_init(&(world->wall4), 256, 64, world->collision);
 
+	static_environment_rl_init(&(world->rl), 64, 240, world->collision);
+	static_environment_ll_init(&(world->ll), 64, 240, world->collision);
+
 	pot_init(&(world->pot1), 192, 		96 + 16 * 4, world->collision);
 	pot_init(&(world->pot2), 192, 		96 + 16 * 6, world->collision);
 	pot_init(&(world->pot3), 192, 		96 + 16 * 8, world->collision);
@@ -115,8 +121,8 @@ void	*world_init(SDLX_scene_cxt *context, SDL_UNUSED void *vp_scene)
 
 	SDL_LockSurface(world->collision);
 
-	init_bar_system(&(world->health), 0, fetch_bar_sprite, 100, (SDL_Rect){5, -4, 32 * 3, 32}, 16, 3);
-	init_bar_system(&(world->mana), 5, fetch_bar_sprite, 100, (SDL_Rect){12, 21, 80, 32}, 16, 12);
+	init_bar_system(&(world->health), 0, fetch_bar_sprite, 100, (SDL_Rect){5, -4, 32 * 3, 32}, 17, 3);
+	init_bar_system(&(world->mana), 5, fetch_bar_sprite, 100, (SDL_Rect){15, 21, 80, 32}, 14, 12);
 	(void)context;
 	(void)vp_scene;
 	return (NULL);
@@ -190,6 +196,9 @@ void	*world_update(SDL_UNUSED SDLX_scene_cxt *context, void *vp_scene)
 	static_environment_update(&(world->wall2), world->space->x, world->space->y);
 	static_environment_update(&(world->wall3), world->space->x, world->space->y);
 	static_environment_update(&(world->wall4), world->space->x, world->space->y);
+
+	static_environment_update(&(world->ll), world->space->x, world->space->y);
+	static_environment_update(&(world->rl), world->space->x, world->space->y);
 
 	move_viewport(&(world->local_x), &(world->local_y), &(world->space->x), &(world->space->y));
 
