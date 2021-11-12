@@ -77,7 +77,7 @@ void	*world_init(SDLX_scene_cxt *context, SDL_UNUSED void *vp_scene)
 	world->tutorial_move.get_focus_fn = tooltip_move_focus;
 	world->tutorial_move.update_fn = tooltip_update;
 	world->tutorial_move.meta = &(g_SDLX_Context.ticks_num2);
-	world->tutorial_move.sprite.sort = 1000;
+	world->tutorial_move.sprite.sort = 10000;
 
 	g_SDLX_Context.ticks_num2 = 0;
 

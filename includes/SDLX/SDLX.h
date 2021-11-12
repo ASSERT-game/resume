@@ -151,4 +151,23 @@ void	*SDLX_xHighest(void *base, size_t nel, size_t width, int (cmp)(const void *
 void	*SDLX_xFirst(void *base, size_t nel, size_t width, SDL_bool (key_fn)(const void *));
 void	*SDLX_xLast(void *base, size_t nel, size_t width, SDL_bool (key_fn)(const void *));
 
+/*
+** Dynamic Logic Functions.
+*/
+
+void	SDLX_load_dynamic_logic(void);
+
+void	SDLX_dynamic_NOP(int *loc, int val);
+void	SDLX_dynamic_EQL(int *loc, int val);
+void	SDLX_dynamic_ADD(int *loc, int val);
+void	SDLX_dynamic_SUB(int *loc, int val);
+void	SDLX_dynamic_MUL(int *loc, int val);
+void	SDLX_dynamic_DIV(int *loc, int val);
+void	SDLX_dynamic_MOD(int *loc, int val);
+void	SDLX_dynamic_XOR(int *loc, int val);
+void	SDLX_dynamic_AND(int *loc, int val);
+void	SDLX_dynamic_OR(int *loc, int val);
+void	SDLX_dynamic_LS(int *loc, int val);
+void	SDLX_dynamic_RS(int *loc, int val);
+
 #endif

@@ -29,8 +29,6 @@ void	init_heart_pickup(t_entity *pickup, int x, int y)
 
 	pickup->world_x = x;
 	pickup->world_y = y;
-	SDL_Log("%p", pickup->sprite.sprite_data);
-
 
 	SDL_memset(pickup->alloc, 0, sizeof(pickup->alloc));
 	pickup->meta = &(pickup->alloc);
