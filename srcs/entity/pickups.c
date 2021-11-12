@@ -17,6 +17,10 @@ typedef struct	s_heart
 {
 	t_player	*player;
 	SDL_bool	collected;
+
+	int			*to;
+	int			op;
+	int			value;
 }				t_heart;
 
 void	init_heart_pickup(t_entity *pickup, int x, int y)
@@ -34,6 +38,9 @@ void	init_heart_pickup(t_entity *pickup, int x, int y)
 	pickup->meta = &(pickup->alloc);
 	heart = pickup->meta;
 	heart->collected = SDL_FALSE;
+
+	heart->op = SDLX_DYNAMIC_ADD;
+	heart->value = 5;
 }
 
 void	heart_pickup_player(t_entity *pickup, t_player *player)
@@ -42,6 +49,7 @@ void	heart_pickup_player(t_entity *pickup, t_player *player)
 
 	heart = pickup->meta;
 	heart->player = player;
+	heart->to = &(heart->player->health.value);
 }
 
 void	heart_pickup_update(t_entity *pickup, int world_x, int world_y)
@@ -80,7 +88,7 @@ void	heart_pickup_update(t_entity *pickup, int world_x, int world_y)
 
 	if ((dx * dx + dy * dy < 7 * 7) && heart->collected == SDL_FALSE)
 	{
-		player->health.value += 5;
+		SDLX_dlogic_table[heart->op](heart->to, heart->value);
 		fetch_pickup_sprite(&(pickup->sprite.sprite_data), 1);
 		pickup->sprite.current = -1;
 		pickup->sprite.sort = 10000;
