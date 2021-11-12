@@ -236,5 +236,7 @@ void	*world_update(SDL_UNUSED SDLX_scene_cxt *context, void *vp_scene)
 	// view_player_collision(world->local_x, world->local_y);
 	// view_map_collisions(world->collision, world->space->x, world->space->y);
 
+
+
 	return (NULL);
 }
