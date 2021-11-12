@@ -314,21 +314,21 @@ extern SDLX_post_process	g_PostProcess;
 
 enum	SDLX_dynamic_ops
 {
-	SDLX_DYNAMIC_NOP,
-	SDLX_DYNAMIC_EQL,
-	SDLX_DYNAMIC_ADD,
-	SDLX_DYNAMIC_SUB,
-	SDLX_DYNAMIC_MUL,
-	SDLX_DYNAMIC_DIV,
-	SDLX_DYNAMIC_MOD,
-	SDLX_DYNAMIC_XOR,
-	SDLX_DYNAMIC_AND,
-	SDLX_DYNAMIC_OR,
-	SDLX_DYNAMIC_SHIFT_LEFT,
-	SDLX_DYNAMIC_SHIFT_RIGHT,
+	SDLX_AXM_NOP,
+	SDLX_AXM_EQL,
+	SDLX_AXM_ADD,
+	SDLX_AXM_SUB,
+	SDLX_AXM_MUL,
+	SDLX_AXM_DIV,
+	SDLX_AXM_MOD,
+	SDLX_AXM_XOR,
+	SDLX_AXM_AND,
+	SDLX_AXM_OR,
+	SDLX_AXM_SHIFT_LEFT,
+	SDLX_AXM_SHIFT_RIGHT,
 };
 
 typedef	void (SDLX_dynamic_logic_fn)(int *, int);
-extern SDLX_dynamic_logic_fn	*SDLX_dlogic_table[];
+extern SDLX_dynamic_logic_fn	*SDLX_xlogic[];
 
 #endif

@@ -40,7 +40,7 @@ void	SDLX_Start(SDLX_Display *dest)
 	g_PostProcess.post_process = SDL_CreateTexture(dest->renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, WIN_WIDTH, WIN_HEIGHT);
 	SDLX_SceneContext_Init(&(g_SDLX_Context));
 
-	SDLX_load_dynamic_logic();
+	SDLX_load_xlogic();
 
 	atexit(SDLX_Close);
 }

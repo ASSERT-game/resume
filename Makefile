@@ -25,7 +25,6 @@ SDLX_NAMES = 			\
 	SDLX_button			\
 	SDLX_collide		\
 	SDLX_collisions		\
-	SDLX_dynamic_logic	\
 	SDLX_init			\
 	SDLX_input			\
 	SDLX_math			\
@@ -34,8 +33,9 @@ SDLX_NAMES = 			\
 	SDLX_scenes			\
 	SDLX_ticks			\
 	SDLX_utils			\
-	SDLX_utilsX			\
 	SDLX_xbox			\
+	SDLX_xlogic			\
+	SDLX_xutils			\
 
 SPRITE_NAMES = 			\
 	sprite_attack		\

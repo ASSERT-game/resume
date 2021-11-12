@@ -155,19 +155,19 @@ void	*SDLX_xLast(void *base, size_t nel, size_t width, SDL_bool (key_fn)(const v
 ** Dynamic Logic Functions.
 */
 
-void	SDLX_load_dynamic_logic(void);
+void	SDLX_load_xlogic(void);
 
-void	SDLX_dynamic_NOP(int *loc, int val);
-void	SDLX_dynamic_EQL(int *loc, int val);
-void	SDLX_dynamic_ADD(int *loc, int val);
-void	SDLX_dynamic_SUB(int *loc, int val);
-void	SDLX_dynamic_MUL(int *loc, int val);
-void	SDLX_dynamic_DIV(int *loc, int val);
-void	SDLX_dynamic_MOD(int *loc, int val);
-void	SDLX_dynamic_XOR(int *loc, int val);
-void	SDLX_dynamic_AND(int *loc, int val);
-void	SDLX_dynamic_OR(int *loc, int val);
-void	SDLX_dynamic_LS(int *loc, int val);
-void	SDLX_dynamic_RS(int *loc, int val);
+void	SDLX_axm_NOP(int *loc, int val);
+void	SDLX_axm_EQL(int *loc, int val);
+void	SDLX_axm_ADD(int *loc, int val);
+void	SDLX_axm_SUB(int *loc, int val);
+void	SDLX_axm_MUL(int *loc, int val);
+void	SDLX_axm_DIV(int *loc, int val);
+void	SDLX_axm_MOD(int *loc, int val);
+void	SDLX_axm_XOR(int *loc, int val);
+void	SDLX_axm_AND(int *loc, int val);
+void	SDLX_axm_OR(int *loc, int val);
+void	SDLX_axm_LS(int *loc, int val);
+void	SDLX_axm_RS(int *loc, int val);
 
 #endif

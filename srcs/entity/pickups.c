@@ -39,7 +39,7 @@ void	init_heart_pickup(t_entity *pickup, int x, int y)
 	heart = pickup->meta;
 	heart->collected = SDL_FALSE;
 
-	heart->op = SDLX_DYNAMIC_ADD;
+	heart->op = SDLX_AXM_ADD;
 	heart->value = 5;
 }
 
@@ -88,7 +88,7 @@ void	heart_pickup_update(t_entity *pickup, int world_x, int world_y)
 
 	if ((dx * dx + dy * dy < 7 * 7) && heart->collected == SDL_FALSE)
 	{
-		SDLX_dlogic_table[heart->op](heart->to, heart->value);
+		SDLX_xlogic[heart->op](heart->to, heart->value);
 		fetch_pickup_sprite(&(pickup->sprite.sprite_data), 1);
 		pickup->sprite.current = -1;
 		pickup->sprite.sort = 10000;
