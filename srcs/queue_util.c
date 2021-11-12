@@ -27,7 +27,7 @@ void	fill_priority(SDLX_Sprite *sprite)
 		h = sprite->dst->h;
 	}
 
-	sprite->sort = y / 4 + h / 4;
+	sprite->sort = (y / 4 + h / 4) * 100;
 }
 
 int	compare_priority(const void *a, const void *b)

@@ -49,8 +49,12 @@ typedef struct	s_world
 
 	t_entity	chest;
 
-	t_bar		health;
-	t_bar		mana;
+	t_entity	heart1;
+	t_entity	heart2;
+	t_entity	heart3;
+	t_entity	heart4;
+	t_entity	heart5;
+
 	t_player		exist[100000];
 }				t_world;
 
@@ -84,6 +88,8 @@ void	*world_init(SDLX_scene_cxt *context, SDL_UNUSED void *vp_scene)
 	world->player.sprite.dst = SDLX_NULL_SELF;
 	world->player.sprite._dst.w = 32;
 	world->player.sprite._dst.h = 32;
+	world->player.sprite._dst.x = 10000;
+	world->player.sprite._dst.y = 10000;
 
 	world->player.max_potion = 7;
 	world->player.potion_no = 7;
@@ -118,11 +124,21 @@ void	*world_init(SDLX_scene_cxt *context, SDL_UNUSED void *vp_scene)
 	pot_init(&(world->pot7), 192 + 48,	96 + 16 * 8, world->collision);
 	pot_init(&(world->pot8), 192 + 48,	96 + 16 * 10, world->collision);
 
-
 	SDL_LockSurface(world->collision);
 
-	init_bar_system(&(world->health), 0, fetch_bar_sprite, 100, (SDL_Rect){5, -4, 32 * 3, 32}, 17, 3);
-	init_bar_system(&(world->mana), 5, fetch_bar_sprite, 100, (SDL_Rect){15, 21, 80, 32}, 14, 12);
+	init_bar_system(&(world->player.health), 0, fetch_bar_sprite, 100, (SDL_Rect){5, -4, 32 * 3, 32}, 17, 3);
+	init_bar_system(&(world->player.mana), 5, fetch_bar_sprite, 100, (SDL_Rect){15, 21, 80, 32}, 14, 12);
+
+	init_heart_pickup(&(world->heart1), 128, 128);
+	heart_pickup_player(&(world->heart1), &(world->player));
+	init_heart_pickup(&(world->heart2), 128 + 128, 128);
+	heart_pickup_player(&(world->heart2), &(world->player));
+	init_heart_pickup(&(world->heart3), 128, 128 + 64);
+	heart_pickup_player(&(world->heart3), &(world->player));
+	init_heart_pickup(&(world->heart4), 128 + 128, 128 + 64);
+	heart_pickup_player(&(world->heart4), &(world->player));
+	init_heart_pickup(&(world->heart5), 128 + 32, 128);
+	heart_pickup_player(&(world->heart5), &(world->player));
 	(void)context;
 	(void)vp_scene;
 	return (NULL);
@@ -200,6 +216,12 @@ void	*world_update(SDL_UNUSED SDLX_scene_cxt *context, void *vp_scene)
 	static_environment_update(&(world->ll), world->space->x, world->space->y);
 	static_environment_update(&(world->rl), world->space->x, world->space->y);
 
+	heart_pickup_update(&(world->heart1), world->space->x, world->space->y);
+	heart_pickup_update(&(world->heart2), world->space->x, world->space->y);
+	heart_pickup_update(&(world->heart3), world->space->x, world->space->y);
+	heart_pickup_update(&(world->heart4), world->space->x, world->space->y);
+	heart_pickup_update(&(world->heart5), world->space->x, world->space->y);
+
 	move_viewport(&(world->local_x), &(world->local_y), &(world->space->x), &(world->space->y));
 
 	world->player.sprite._dst.x = world->local_x - 8;
@@ -215,18 +237,21 @@ void	*world_update(SDL_UNUSED SDLX_scene_cxt *context, void *vp_scene)
 	SDLX_RenderQueue_Add(NULL, &(world->player.sprite));
 
 	if (g_GameInput.GameInput.button_RIGHTSHOULDER)
-		world->mana.value += 1;
+		world->player.mana.value += 1;
 
 	if (SDLX_GAME_PRESS(g_GameInput, g_GameInput_prev, LEFTSHOULDER))
-		increase_bar_system(&(world->mana), 32, 32, SDL_FALSE);
+		increase_bar_system(&(world->player.mana), 32, 32, SDL_FALSE);
 
 	if (SDLX_GAME_PRESS(g_GameInput, g_GameInput_prev, B))
-		world->mana.value -= 10;
+	{
+		world->player.mana.value -= 10;
+		world->player.health.value -= 10;
+	}
 
-	bar_system_update(&(world->health));
-	bar_system_update(&(world->mana));
+	bar_system_update(&(world->player.health));
+	bar_system_update(&(world->player.mana));
 
-	world->player.sprite.sort = world->local_y / 4 + 5;
+	world->player.sprite.sort = (world->local_y / 4 + 5) * 100;
 
 	SDL_qsort(default_RenderQueue.content, default_RenderQueue.index, sizeof(default_RenderQueue.content), compare_priority);
 
@@ -235,8 +260,6 @@ void	*world_update(SDL_UNUSED SDLX_scene_cxt *context, void *vp_scene)
 
 	// view_player_collision(world->local_x, world->local_y);
 	// view_map_collisions(world->collision, world->space->x, world->space->y);
-
-
 
 	return (NULL);
 }

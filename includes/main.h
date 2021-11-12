@@ -36,10 +36,11 @@ void	*TT_controls_init(SDLX_scene_cxt *context, SDL_UNUSED void *vp_scene);
 void	*TT_controls_close(SDL_UNUSED SDLX_scene_cxt *context, void *vp_scene);
 void	*TT_controls_update(SDL_UNUSED SDLX_scene_cxt *context, void *vp_scene);
 
+int		fetch_bar_sprite(SDLX_Sprite_Data **dst, int no);
+int		fetch_pickup_sprite(SDLX_Sprite_Data **dst, int no);
 int		fetch_potion_sprite(SDLX_Sprite_Data **dst, int no);
 int		fetch_tooltip_sprite(SDLX_Sprite_Data **dst, int no);
 int		fetch_attack_ui_sprite(SDLX_Sprite_Data **dst, int no);
-int		fetch_bar_sprite(SDLX_Sprite_Data **dst, int no);
 
 void		*tooltip_update(SDLX_button *button, void *meta, size_t meta_length);
 SDL_bool	tooltip_move_focus(SDLX_button *button, void *meta, size_t meta_length);
@@ -86,6 +87,10 @@ void	static_environment_ll_init(t_entity *env, int x, int y, SDL_Surface *collis
 
 void	chest_update(t_entity *chest, int world_x, int world_y);
 void	chest_init(t_entity *chest, int x, int y, SDL_Surface *collision_map);
+
+void	init_heart_pickup(t_entity *pickup, int x, int y);
+void	heart_pickup_player(t_entity *pickup, t_player *player);
+void	heart_pickup_update(t_entity *pickup, int world_x, int world_y);
 
 /*
 ** Bar System Functions

@@ -43,7 +43,7 @@ void	static_environment_ll_init(t_entity *env, int x, int y, SDL_Surface *collis
 	env->world_x = x;
 	env->world_y = y;
 
-	new_static_sprite(&(env->sprite), 2, 5, 0, 8, 0, 6, collision_map);
+	new_static_sprite(&(env->sprite), 2, 5, 2, 8, 0, 6, collision_map);
 }
 
 void	static_environment_rl_init(t_entity *env, int x, int y, SDL_Surface *collision_map)
@@ -55,5 +55,5 @@ void	static_environment_rl_init(t_entity *env, int x, int y, SDL_Surface *collis
 	env->world_x = x + 32;
 	env->world_y = y;
 
-	new_static_sprite(&(env->sprite), 2, 5, 0, 8, 3, 3, collision_map);
+	new_static_sprite(&(env->sprite), 2, 5, 2, 8, 3, 3, collision_map);
 }

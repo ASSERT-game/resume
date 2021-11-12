@@ -82,12 +82,12 @@ void	init_bar_system(t_bar *bar, int start_no, int (*sprite_fn)(SDLX_Sprite_Data
 	bar->fill.dst = SDLX_NULL_SELF;
 	bar->back_fill.dst = SDLX_NULL_SELF;
 
-	bar->start.sort = 990;
-	bar->middle_extender.sort = 990;
-	bar->end.sort = 990;
+	bar->start.sort = 9900;
+	bar->middle_extender.sort = 9900;
+	bar->end.sort = 9900;
 
-	bar->fill.sort = 992;
-	bar->back_fill.sort = 991;
+	bar->fill.sort = 9920;
+	bar->back_fill.sort = 9910;
 
 	total_width = bar->start.sprite_data->_src.w + bar->middle_extender.sprite_data->_src.w + bar->middle_extender.sprite_data->_src.w;
 	// SDL_assert(total_width <= bar->desired_pos.w);

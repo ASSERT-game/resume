@@ -39,6 +39,7 @@ SDLX_NAMES = 			\
 SPRITE_NAMES = 			\
 	sprite_attack		\
 	sprite_healthbar	\
+	sprite_pickup		\
 	sprite_potions		\
 	sprite_tooltip		\
 
@@ -48,6 +49,7 @@ DEBUG_FILES = 			\
 ENTITY_FILES = 			\
 	chest				\
 	environment			\
+	pickups 			\
 	pots				\
 
 SCENE_FILES = 			\

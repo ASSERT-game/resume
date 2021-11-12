@@ -153,10 +153,10 @@ void ice_spec_ui(t_special *special, void *meta)
 
 void	spec_ui_init(t_player *player)
 {
-	bomb_spec_ui(&(player->specials[0]), NULL);
+	ice_spec_ui(&(player->specials[0]), NULL);
 	fireball_spec_ui(&(player->specials[1]), NULL);
-	hook_spec_ui(&(player->specials[2]), NULL);
-	ice_spec_ui(&(player->specials[3]), NULL);
+	bomb_spec_ui(&(player->specials[2]), NULL);
+	hook_spec_ui(&(player->specials[3]), NULL);
 
 	player->special_no = 4;
 	player->special_curr = 0;

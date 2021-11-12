@@ -42,5 +42,5 @@ void	move_viewport(int *px, int *py, int *ix, int *iy)
 	if ((*px) * DISPLAY_SCALE > bound.x + bound.w && *ix + 320 + VIEWPORT_SPEED * mod_x <= 448)	{ *ix += VIEWPORT_SPEED * mod_x; *px -= VIEWPORT_SPEED * mod_x; }
 
 	SDL_SetRenderDrawColor(SDLX_GetDisplay()->renderer, 255, 0, 0, 0);
-	SDL_RenderDrawRect(SDLX_GetDisplay()->renderer, &(bound));
+	// SDL_RenderDrawRect(SDLX_GetDisplay()->renderer, &(bound));
 }
