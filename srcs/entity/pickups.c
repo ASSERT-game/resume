@@ -13,7 +13,7 @@
 
 #include "main.h"
 
-typedef struct	s_heart
+typedef struct	s_pickup
 {
 	t_player	*player;
 	SDL_bool	collected;
@@ -21,11 +21,11 @@ typedef struct	s_heart
 	int			*to;
 	int			op;
 	int			value;
-}				t_heart;
+}				t_pickup;
 
 void	init_heart_pickup(t_entity *pickup, int x, int y)
 {
-	t_heart	*heart;
+	t_pickup	*heart;
 
 	fetch_pickup_sprite(&(pickup->sprite.sprite_data), 0);
 	pickup->sprite._dst = (SDL_Rect){x, y, 16, 16};
@@ -40,12 +40,12 @@ void	init_heart_pickup(t_entity *pickup, int x, int y)
 	heart->collected = SDL_FALSE;
 
 	heart->op = SDLX_AXM_ADD;
-	heart->value = 5;
+	heart->value = -10;
 }
 
 void	heart_pickup_player(t_entity *pickup, t_player *player)
 {
-	t_heart	*heart;
+	t_pickup	*heart;
 
 	heart = pickup->meta;
 	heart->player = player;
@@ -54,7 +54,7 @@ void	heart_pickup_player(t_entity *pickup, t_player *player)
 
 void	heart_pickup_update(t_entity *pickup, int world_x, int world_y)
 {
-	t_heart		*heart;
+	t_pickup		*heart;
 	t_player	*player;
 	int			dx, dy;
 	double		angle;
@@ -89,7 +89,7 @@ void	heart_pickup_update(t_entity *pickup, int world_x, int world_y)
 	if ((dx * dx + dy * dy < 7 * 7) && heart->collected == SDL_FALSE)
 	{
 		SDLX_xlogic[heart->op](heart->to, heart->value);
-		fetch_pickup_sprite(&(pickup->sprite.sprite_data), 1);
+		fetch_pickup_sprite(&(pickup->sprite.sprite_data), 3);
 		pickup->sprite.current = -1;
 		pickup->sprite.sort = 10000;
 		heart->collected = SDL_TRUE;

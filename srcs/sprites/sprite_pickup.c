@@ -19,7 +19,7 @@ SDLX_Sprite_Data *carve_pickup_sprite(void)
 	SDL_Texture			*texture;
 	SDLX_Sprite_Data	*result;
 
-	result = SDL_calloc(19, sizeof(*result));
+	result = SDL_calloc(19 + 24, sizeof(*result));
 	texture = SDLX_LoadTexture(ASSETS"heart_pickup.png");
 
 	i = 0;
@@ -33,10 +33,30 @@ SDLX_Sprite_Data *carve_pickup_sprite(void)
 		i++;
 	}
 
-	while (i < 12 + 7)
+	while (i < 24)
 	{
 		result[i].texture = texture;
-		result[i]._src = (SDL_Rect){(i - 12) * 16, 16, 16, 16};
+		result[i]._src = (SDL_Rect){(i - 12) * 16, 0, 16, 16};
+		result[i].src = &(result[i]._src);
+		result[i].cycle = 12;
+
+		i++;
+	}
+
+	while (i < 36)
+	{
+		result[i].texture = texture;
+		result[i]._src = (SDL_Rect){(i - 36) * 16, 0, 16, 16};
+		result[i].src = &(result[i]._src);
+		result[i].cycle = 12;
+
+		i++;
+	}
+
+	while (i < 36 + 7)
+	{
+		result[i].texture = texture;
+		result[i]._src = (SDL_Rect){(i - 36) * 16, 48, 16, 16};
 		result[i].src = &(result[i]._src);
 		result[i].cycle = 7;
 
@@ -55,6 +75,8 @@ int		fetch_pickup_sprite(SDLX_Sprite_Data **dst, int no)
 
 	if (no == 0)		{ *dst = &(sprite_arr[0]); }
 	else if (no == 1)	{ *dst = &(sprite_arr[12]); }
+	else if (no == 2)	{ *dst = &(sprite_arr[24]); }
+	else if (no == 3)	{ *dst = &(sprite_arr[36]); }
 
 	return (EXIT_SUCCESS);
 }

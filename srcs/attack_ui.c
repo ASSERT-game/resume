@@ -188,13 +188,13 @@ void	special_ui_update(t_player *player)
 	next %= player->special_no;
 
 	player->specials[player->special_curr].sprite._dst = (SDL_Rect){12, 29, 16, 16};
-	player->specials[player->special_curr].sprite.sort = 1001;
+	player->specials[player->special_curr].sprite.sort = 9001;
 	SDLX_RenderQueue_Add(NULL, &(player->specials[player->special_curr].sprite));
 
 	player->specials[prev].sprite._dst = (SDL_Rect){5,  23, 16, 16};
 	player->specials[next].sprite._dst = (SDL_Rect){19, 38, 16, 16};
-	player->specials[prev].sprite.sort = 1000;
-	player->specials[next].sprite.sort = 1000;
+	player->specials[prev].sprite.sort = 9000;
+	player->specials[next].sprite.sort = 9000;
 	if (player->special_no >= 3)
 	{
 		SDLX_RenderQueue_Add(NULL, &(player->specials[prev].sprite));

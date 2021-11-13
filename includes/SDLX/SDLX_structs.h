@@ -283,6 +283,9 @@ typedef struct	SDLX_scene_cxt
 	void		*perma_meta;
 	void		*scene_meta;
 
+	void		*meta1;
+	void		*meta2;
+
 	SDLX_scene_fn	*init_fn;
 	SDLX_scene_fn	*update_fn;
 	SDLX_scene_fn	*close_fn;
