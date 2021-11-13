@@ -40,6 +40,66 @@ void	player_dash(int *dx, int *dy, int *state)
 	}
 }
 
+void	sword_attack(t_projectile *dst)
+{
+	dst->isActive = SDL_TRUE;
+}
+
+SDL_bool	sword_collide(void *self, void *with, SDL_UNUSED void *data, SDL_UNUSED void *data2)
+{
+	SDLX_collision	*hitbox;
+	SDLX_collision	*self_hitbox;
+
+	hitbox = with;
+	self_hitbox = self;
+	if (with == self)
+		return (SDL_FALSE);
+
+	// SDL_SetRenderDrawColor(SDLX_GetDisplay()->renderer, 0, 255, 0, 255);
+	// SDL_RenderDrawRect(SDLX_GetDisplay()->renderer, &(hitbox->hitbox));
+	// SDL_RenderDrawRect(SDLX_GetDisplay()->renderer, &(self_hitbox->hitbox));
+
+	if (SDL_HasIntersection(&(hitbox->hitbox), &(self_hitbox->hitbox)) == SDL_TRUE)
+	{
+		SDL_Log("Collides");
+	}
+	return (SDL_FALSE);
+}
+
+void	player_attack(t_player *player)
+{
+	t_main_attacks	*attack;
+	// t_projectile	*projectile;
+
+	attack = &(player->main_attacks[player->attack_curr]);
+	if (SDLX_GAME_PRESS(g_GameInput, g_GameInput_prev, X))
+	{
+		if (attack->current >= attack->cooldown)
+		{
+			SDL_Log("Player Attacking with %s", attack->name);
+			// projectile = spawn_projectile_addr(player->attacks);
+			attack->current = 0;
+		}
+	}
+
+	if (attack->current < attack->cooldown)
+	{
+		SDL_SetRenderDrawColor(SDLX_GetDisplay()->renderer, 255, 0, 0, 255);
+		SDL_RenderDrawRect(SDLX_GetDisplay()->renderer, &(player->sprite._dst));
+
+		player->attack.hitbox.originator = &(player->attack.hitbox);
+		player->attack.hitbox.hitbox = player->sprite._dst;
+		player->attack.hitbox.hitbox_ptr = &(player->attack.hitbox.hitbox);
+		player->attack.hitbox.detect = sword_collide;
+		SDLX_CollisionBucket_add(NULL, &(player->attack.hitbox));
+	}
+
+
+	attack->current++;
+	/* If (curr) is equal to (cooldown + 1) undo the (curr++) */
+	attack->current -= (attack->current / (attack->cooldown + 1));
+}
+
 void	crosshair_init(SDLX_Sprite *crosshair)
 {
 	*crosshair = SDLX_Sprite_Static(ASSETS"crosshair.png");

@@ -24,6 +24,23 @@ typedef	enum	e_tooltips
 	TOOLTIP_ALL			= 0b11111111,
 }				t_tooltips;
 
+typedef struct	s_projectile
+{
+	SDLX_Sprite		sprite;
+	SDLX_collision	hitbox;
+	SDL_FPoint		position;
+
+	SDL_Point		vel;
+	SDL_bool		isActive;
+}				t_projectile;
+
+typedef struct	s_attacks
+{
+	size_t		capacity;
+
+	t_projectile	*projectiles;
+}				t_attacks;
+
 typedef struct	s_main_attacks
 {
 	SDLX_Sprite	sprite;
@@ -129,6 +146,9 @@ typedef struct	s_player
 	int				state;
 	int				stunned_tick;
 
+	t_attacks		*attacks;
+
+	t_projectile	attack;
 }				t_player;
 
 typedef struct	s_entity
@@ -142,7 +162,7 @@ typedef struct	s_entity
 
 	void		*meta;
 
-	char		alloc[64];
+	char		alloc[256];
 }				t_entity;
 
 #endif

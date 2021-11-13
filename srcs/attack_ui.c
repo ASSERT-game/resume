@@ -19,6 +19,8 @@ void sword_attack_ui(t_main_attacks *attack, void *meta)
 	attack->name = SDL_strdup("Sword");
 	attack->sprite.dst = &(attack->sprite._dst);
 	// attack->sprite._dst = (SDL_Rect){250, 190, 24, 24};
+
+	attack->cooldown = 10;
 	(void)meta;
 }
 
@@ -188,13 +190,13 @@ void	special_ui_update(t_player *player)
 	next %= player->special_no;
 
 	player->specials[player->special_curr].sprite._dst = (SDL_Rect){12, 29, 16, 16};
-	player->specials[player->special_curr].sprite.sort = 9001;
+	player->specials[player->special_curr].sprite.sort = 900001;
 	SDLX_RenderQueue_Add(NULL, &(player->specials[player->special_curr].sprite));
 
 	player->specials[prev].sprite._dst = (SDL_Rect){5,  23, 16, 16};
 	player->specials[next].sprite._dst = (SDL_Rect){19, 38, 16, 16};
-	player->specials[prev].sprite.sort = 9000;
-	player->specials[next].sprite.sort = 9000;
+	player->specials[prev].sprite.sort = 900000;
+	player->specials[next].sprite.sort = 900000;
 	if (player->special_no >= 3)
 	{
 		SDLX_RenderQueue_Add(NULL, &(player->specials[prev].sprite));

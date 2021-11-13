@@ -54,10 +54,11 @@ void	main_attack_ui_update(t_player *player);
 void	spec_ui_init(t_player *player);
 void	special_ui_update(t_player *player);
 
+void	player_aim(int *state);
+void	player_attack(t_player *player);
 void	player_dash(int *dx, int *dy, int *state);
 void	player_move(int *dx, int *dy, int *state);
 void	player_use_spec(int *state, int x, int y);
-void	player_aim(int *state);
 
 void	update_crosshair(t_player *player, int x, int y);
 void	crosshair_init(SDLX_Sprite *crosshair);
@@ -90,6 +91,9 @@ void	chest_init(t_entity *chest, int x, int y, SDL_Surface *collision_map);
 
 void	init_heart_pickup(t_entity *pickup, int x, int y);
 void	heart_pickup_update(t_entity *pickup, int world_x, int world_y);
+
+void			init_attack_array(t_attacks *manager);
+t_projectile	*spawn_projectile_addr(t_attacks *dst);
 
 /*
 ** Bar System Functions

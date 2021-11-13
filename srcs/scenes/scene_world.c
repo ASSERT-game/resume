@@ -56,6 +56,8 @@ typedef struct	s_world
 	t_entity	heart5;
 
 	t_player		exist[100000];
+
+	t_attacks		attacks;
 }				t_world;
 
 #include <stdio.h>
@@ -96,6 +98,9 @@ void	*world_init(SDLX_scene_cxt *context, SDL_UNUSED void *vp_scene)
 	world->player.potion_curr = 0;
 
 	g_SDLX_Context.meta1 = &(world->player);
+	init_attack_array(&(world->attacks));
+	world->player.attacks = &(world->attacks);
+
 
 	spec_ui_init(&(world->player));
 	main_attack_ui_init(&(world->player));
@@ -166,6 +171,7 @@ void	*world_update(SDL_UNUSED SDLX_scene_cxt *context, void *vp_scene)
 	if (world->player.stunned_tick > 0)
 		world->player.state = STATE_STUNNED;
 
+	player_attack(&(world->player));
 	player_aim(&(world->player.state));
 	player_use_spec(&(world->player.state), world->player.sprite._dst.x, world->player.sprite._dst.y);
 	player_move(&(dx), &(dy), &(world->player.state));
@@ -232,6 +238,10 @@ void	*world_update(SDL_UNUSED SDLX_scene_cxt *context, void *vp_scene)
 
 	SDLX_RenderQueue_Add(NULL, &(world->hud));
 	SDLX_RenderQueue_Add(NULL, &(world->player.sprite));
+
+
+	SDLX_CollisionBucket_Flush(NULL);
+
 
 	if (g_GameInput.GameInput.button_RIGHTSHOULDER)
 		world->player.mana.value += 1;

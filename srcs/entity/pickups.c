@@ -21,6 +21,8 @@ typedef struct	s_pickup
 	int			*to;
 	int			op;
 	int			value;
+
+	SDLX_collision	collision;
 }				t_pickup;
 
 void	init_heart_pickup(t_entity *pickup, int x, int y)
@@ -45,6 +47,8 @@ void	init_heart_pickup(t_entity *pickup, int x, int y)
 	heart = pickup->meta;
 	heart->player = g_SDLX_Context.meta1;
 	heart->to = &(heart->player->health.value);
+
+	SDL_assert(sizeof(pickup->alloc) >= sizeof(t_pickup));
 }
 
 void	heart_pickup_update(t_entity *pickup, int world_x, int world_y)
@@ -91,4 +95,8 @@ void	heart_pickup_update(t_entity *pickup, int world_x, int world_y)
 
 	pickup->sprite.current++;
 	SDLX_RenderQueue_Add(NULL, &(pickup->sprite));
+
+	heart->collision.hitbox_ptr = &(heart->collision.hitbox);
+	heart->collision.hitbox = pickup->sprite._dst;
+	SDLX_CollisionBucket_add(NULL, &(heart->collision));
 }
