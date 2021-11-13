@@ -51,6 +51,55 @@ void	init_heart_pickup(t_entity *pickup, int x, int y)
 	SDL_assert(sizeof(pickup->alloc) >= sizeof(t_pickup));
 }
 
+SDL_bool	pot_collide(void *self, void *with, SDL_UNUSED void *data, SDL_UNUSED void *data2)
+{
+	SDL_bool		result;
+	SDLX_collision	*hitbox;
+	t_entity		*pickup;
+	t_pickup		*heart;
+
+	hitbox = with;
+	pickup = self;
+	result = SDL_FALSE;
+	heart = pickup->meta;
+	if (hitbox == &(heart->collision))
+		return (result);
+
+	SDL_SetRenderDrawColor(SDLX_GetDisplay()->renderer, 0, 255, 0, 255);
+	SDL_RenderDrawRect(SDLX_GetDisplay()->renderer, &(hitbox->hitbox));
+	SDL_RenderDrawRect(SDLX_GetDisplay()->renderer, &(heart->collision.hitbox));
+
+	if (hitbox->type == C_MELEE)
+	{
+		if (SDL_HasIntersection(&(heart->collision.hitbox), &(hitbox->hitbox)) == SDL_TRUE)
+		{
+			SDL_Log("Pot Collides");
+			result = SDL_TRUE;
+		}
+	}
+	return (result);
+}
+
+void	*pot_react(void *self, void *with, SDL_UNUSED void *data, SDL_UNUSED void *data2)
+{
+	t_entity		*pickup;
+	t_pickup		*heart;
+	SDLX_collision	*hitbox;
+	SDLX_collision	*self_hitbox;
+
+	hitbox = with;
+	self_hitbox = self;
+	pickup = self;
+	heart = pickup->meta;
+	if (hitbox->type == C_MELEE)
+	{
+		SDL_Log("Pot Collides with Sword");
+		heart->collected = SDL_TRUE;
+		pickup->sprite.current = 6;
+	}
+	return (NULL);
+}
+
 void	heart_pickup_update(t_entity *pickup, int world_x, int world_y)
 {
 	t_pickup		*heart;
@@ -98,5 +147,10 @@ void	heart_pickup_update(t_entity *pickup, int world_x, int world_y)
 
 	heart->collision.hitbox_ptr = &(heart->collision.hitbox);
 	heart->collision.hitbox = pickup->sprite._dst;
+
+	heart->collision.detect = pot_collide;
+	heart->collision.engage = pot_react;
+	heart->collision.originator = pickup;
+
 	SDLX_CollisionBucket_add(NULL, &(heart->collision));
 }

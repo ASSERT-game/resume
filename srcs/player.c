@@ -55,9 +55,9 @@ SDL_bool	sword_collide(void *self, void *with, SDL_UNUSED void *data, SDL_UNUSED
 	if (with == self)
 		return (SDL_FALSE);
 
-	// SDL_SetRenderDrawColor(SDLX_GetDisplay()->renderer, 0, 255, 0, 255);
-	// SDL_RenderDrawRect(SDLX_GetDisplay()->renderer, &(hitbox->hitbox));
-	// SDL_RenderDrawRect(SDLX_GetDisplay()->renderer, &(self_hitbox->hitbox));
+	SDL_SetRenderDrawColor(SDLX_GetDisplay()->renderer, 0, 255, 0, 255);
+	SDL_RenderDrawRect(SDLX_GetDisplay()->renderer, &(hitbox->hitbox));
+	SDL_RenderDrawRect(SDLX_GetDisplay()->renderer, &(self_hitbox->hitbox));
 
 	if (SDL_HasIntersection(&(hitbox->hitbox), &(self_hitbox->hitbox)) == SDL_TRUE)
 	{
@@ -91,6 +91,7 @@ void	player_attack(t_player *player)
 		player->attack.hitbox.hitbox = player->sprite._dst;
 		player->attack.hitbox.hitbox_ptr = &(player->attack.hitbox.hitbox);
 		player->attack.hitbox.detect = sword_collide;
+		player->attack.hitbox.type = C_MELEE;
 		SDLX_CollisionBucket_add(NULL, &(player->attack.hitbox));
 	}
 

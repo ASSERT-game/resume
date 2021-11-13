@@ -107,6 +107,8 @@ void	*world_init(SDLX_scene_cxt *context, SDL_UNUSED void *vp_scene)
 	potion_init(&(world->player.potions), 7);
 	crosshair_init(&(world->player.crosshair));
 
+	world->player.main_attacks[world->player.attack_curr].current = world->player.main_attacks[world->player.attack_curr].cooldown;
+
 	world->collision = IMG_Load(ASSETS"collision.png");
 
 	world->hud = SDLX_Sprite_Static(ASSETS"hud.png");
@@ -143,6 +145,8 @@ void	*world_init(SDLX_scene_cxt *context, SDL_UNUSED void *vp_scene)
 	init_heart_pickup(&(world->heart5), 128 + 32, 128);
 	(void)context;
 	(void)vp_scene;
+
+	SDL_Log("Finished Init");
 	return (NULL);
 }
 
@@ -158,6 +162,7 @@ void	*world_update(SDL_UNUSED SDLX_scene_cxt *context, void *vp_scene)
 	t_world	*world;
 
 	world = vp_scene;
+
 
 	resume_joystick_to_gameinput();
 	SDLX_toTriggers(&(g_GameInput));
@@ -229,6 +234,7 @@ void	*world_update(SDL_UNUSED SDLX_scene_cxt *context, void *vp_scene)
 
 	world->player.sprite._dst.x = world->local_x - 8;
 	world->player.sprite._dst.y = world->local_y - 8;
+	world->player.sprite.sort = (world->local_y / 4 + 5) * 100;
 
 	update_crosshair(&(world->player), world->player.sprite._dst.x, world->player.sprite._dst.y);
 
@@ -236,12 +242,13 @@ void	*world_update(SDL_UNUSED SDLX_scene_cxt *context, void *vp_scene)
 	special_ui_update(&(world->player));
 	main_attack_ui_update(&(world->player));
 
+	bar_system_update(&(world->player.health));
+	bar_system_update(&(world->player.mana));
+
 	SDLX_RenderQueue_Add(NULL, &(world->hud));
 	SDLX_RenderQueue_Add(NULL, &(world->player.sprite));
 
-
-	SDLX_CollisionBucket_Flush(NULL);
-
+	SDL_qsort(default_RenderQueue.content, default_RenderQueue.index, sizeof(default_RenderQueue.content), compare_priority);
 
 	if (g_GameInput.GameInput.button_RIGHTSHOULDER)
 		world->player.mana.value += 1;
@@ -255,15 +262,11 @@ void	*world_update(SDL_UNUSED SDLX_scene_cxt *context, void *vp_scene)
 		world->player.health.value -= 10;
 	}
 
-	bar_system_update(&(world->player.health));
-	bar_system_update(&(world->player.mana));
+	SDLX_CollisionBucket_Flush(NULL);
 
-	world->player.sprite.sort = (world->local_y / 4 + 5) * 100;
 
-	SDL_qsort(default_RenderQueue.content, default_RenderQueue.index, sizeof(default_RenderQueue.content), compare_priority);
-
-	if (world->player.stunned_tick > 0)
-		world->player.stunned_tick--;
+	// if (world->player.stunned_tick > 0)
+	// 	world->player.stunned_tick--;
 
 	// view_player_collision(world->local_x, world->local_y);
 	// view_map_collisions(world->collision, world->space->x, world->space->y);
