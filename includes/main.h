@@ -89,7 +89,6 @@ void	chest_update(t_entity *chest, int world_x, int world_y);
 void	chest_init(t_entity *chest, int x, int y, SDL_Surface *collision_map);
 
 void	init_heart_pickup(t_entity *pickup, int x, int y);
-void	heart_pickup_player(t_entity *pickup, t_player *player);
 void	heart_pickup_update(t_entity *pickup, int world_x, int world_y);
 
 /*

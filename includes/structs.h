@@ -65,6 +65,10 @@ typedef struct	s_potion
 	void		*meta;
 
 	SDL_bool	isUsed;
+
+	int			*loc;
+	int			op;
+	int			value;
 }				t_potion;
 
 typedef enum	e_player_state

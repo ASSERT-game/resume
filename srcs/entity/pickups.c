@@ -41,14 +41,9 @@ void	init_heart_pickup(t_entity *pickup, int x, int y)
 
 	heart->op = SDLX_AXM_ADD;
 	heart->value = -10;
-}
-
-void	heart_pickup_player(t_entity *pickup, t_player *player)
-{
-	t_pickup	*heart;
 
 	heart = pickup->meta;
-	heart->player = player;
+	heart->player = g_SDLX_Context.meta1;
 	heart->to = &(heart->player->health.value);
 }
 
@@ -82,7 +77,6 @@ void	heart_pickup_update(t_entity *pickup, int world_x, int world_y)
 	else if (heart->collected == SDL_TRUE && pickup->sprite.current == 6)
 	{
 		init_heart_pickup(pickup, player->sprite._dst.x, player->sprite._dst.y);
-		heart_pickup_player(pickup, player);
 		return ;
 	}
 

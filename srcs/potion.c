@@ -15,42 +15,70 @@
 
 void	potion_red(t_potion *potion)
 {
+	t_player *player;
+
 	fetch_potion_sprite(&(potion->sprite.sprite_data), 0);
 	potion->name = SDL_strdup("Red Potion");
 	potion->sprite.dst = &(potion->sprite._dst);
 	potion->sprite._dst = (SDL_Rect){297, 195, 8, 12};
 	potion->sprite.sort = 1000;
 	potion->isUsed = SDL_FALSE;
+
+	player = g_SDLX_Context.meta1;
+	potion->loc = &(player->health.value);
+	potion->value = 20;
+	potion->op = SDLX_AXM_ADD;
 }
 
 void	potion_blue(t_potion *potion)
 {
+	t_player *player;
+
 	fetch_potion_sprite(&(potion->sprite.sprite_data), 1);
 	potion->name = SDL_strdup("Blue Potion");
 	potion->sprite.dst = &(potion->sprite._dst);
 	potion->sprite._dst = (SDL_Rect){297, 195, 8, 12};
 	potion->sprite.sort = 1000;
 	potion->isUsed = SDL_FALSE;
+
+	player = g_SDLX_Context.meta1;
+	potion->loc = &(player->mana.value);
+	potion->value = 30;
+	potion->op = SDLX_AXM_ADD;
 }
 
 void	potion_green(t_potion *potion)
 {
+	t_player *player;
+
 	fetch_potion_sprite(&(potion->sprite.sprite_data), 2);
 	potion->name = SDL_strdup("Green Potion");
 	potion->sprite.dst = &(potion->sprite._dst);
 	potion->sprite._dst = (SDL_Rect){297, 195, 8, 12};
 	potion->sprite.sort = 1000;
 	potion->isUsed = SDL_FALSE;
+
+	player = g_SDLX_Context.meta1;
+	potion->loc = &(player->health.value);
+	potion->value = 50;
+	potion->op = SDLX_AXM_ADD;
 }
 
 void	potion_yellow(t_potion *potion)
 {
+	t_player *player;
+
 	fetch_potion_sprite(&(potion->sprite.sprite_data), 3);
 	potion->name = SDL_strdup("Yellow Potion");
 	potion->sprite.dst = &(potion->sprite._dst);
 	potion->sprite._dst = (SDL_Rect){297, 195, 8, 12};
 	potion->sprite.sort = 1000;
 	potion->isUsed = SDL_FALSE;
+
+	player = g_SDLX_Context.meta1;
+	potion->loc = &(player->health.value);
+	potion->value = 100;
+	potion->op = SDLX_AXM_ADD;
 }
 
 void	potion_init(t_potion **potion, size_t amount)
@@ -72,6 +100,8 @@ void	potion_init(t_potion **potion, size_t amount)
 
 void	potion_update(t_player *player)
 {
+	t_potion	*potion_curr;
+
 	if (SDLX_GAME_PRESS(g_GameInput, g_GameInput_prev, num0) && player->potion_no > 1)
 	{
 		SDL_Log("Potion Left");
@@ -103,6 +133,8 @@ void	potion_update(t_player *player)
 	if (SDLX_GAME_PRESS(g_GameInput, g_GameInput_prev, num3) && player->potion_no > 0)
 	{
 		SDL_Log("Drinking Potion");
+		potion_curr = &(player->potions[player->potion_curr]);
+		SDLX_xlogic[potion_curr->op](potion_curr->loc, potion_curr->value);
 		player->potions[player->potion_curr].isUsed = SDL_TRUE;
 		player->potion_no--;
 

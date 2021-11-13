@@ -95,6 +95,8 @@ void	*world_init(SDLX_scene_cxt *context, SDL_UNUSED void *vp_scene)
 	world->player.potion_no = 7;
 	world->player.potion_curr = 0;
 
+	g_SDLX_Context.meta1 = &(world->player);
+
 	spec_ui_init(&(world->player));
 	main_attack_ui_init(&(world->player));
 	potion_init(&(world->player.potions), 7);
@@ -130,15 +132,10 @@ void	*world_init(SDLX_scene_cxt *context, SDL_UNUSED void *vp_scene)
 	init_bar_system(&(world->player.mana), 5, fetch_bar_sprite, 100, (SDL_Rect){15, 21, 80, 32}, 14, 12);
 
 	init_heart_pickup(&(world->heart1), 128, 128);
-	heart_pickup_player(&(world->heart1), &(world->player));
 	init_heart_pickup(&(world->heart2), 128 + 128, 128);
-	heart_pickup_player(&(world->heart2), &(world->player));
 	init_heart_pickup(&(world->heart3), 128, 128 + 64);
-	heart_pickup_player(&(world->heart3), &(world->player));
 	init_heart_pickup(&(world->heart4), 128 + 128, 128 + 64);
-	heart_pickup_player(&(world->heart4), &(world->player));
 	init_heart_pickup(&(world->heart5), 128 + 32, 128);
-	heart_pickup_player(&(world->heart5), &(world->player));
 	(void)context;
 	(void)vp_scene;
 	return (NULL);
