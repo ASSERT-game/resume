@@ -19,8 +19,13 @@ void sword_attack_ui(t_main_attacks *attack, void *meta)
 	attack->name = SDL_strdup("Sword");
 	attack->sprite.dst = &(attack->sprite._dst);
 	// attack->sprite._dst = (SDL_Rect){250, 190, 24, 24};
+	fetch_sword_sprite(&(attack->use.sprite_data), 0);
+	attack->use.dst = &(attack->use._dst);
+	attack->use._dst = (SDL_Rect){150, 100, 48, 48};
+	attack->use.sort = 10000;
+	attack->use.current = 4;
 
-	attack->cooldown = 10;
+	attack->cooldown = 7;
 	(void)meta;
 }
 

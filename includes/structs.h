@@ -43,6 +43,7 @@ typedef struct	s_attacks
 
 typedef struct	s_main_attacks
 {
+	SDLX_Sprite	use;
 	SDLX_Sprite	sprite;
 	SDLX_Sprite	cooldown_sprite;
 	int			type;
@@ -149,6 +150,8 @@ typedef struct	s_player
 	t_attacks		*attacks;
 
 	t_projectile	attack;
+
+	int				last_facing_angle;
 }				t_player;
 
 enum	e_collision_types

@@ -42,6 +42,7 @@ SPRITE_NAMES = 			\
 	sprite_healthbar	\
 	sprite_pickup		\
 	sprite_potions		\
+	sprite_sword		\
 	sprite_tooltip		\
 
 DEBUG_FILES = 			\

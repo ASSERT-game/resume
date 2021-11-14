@@ -37,6 +37,7 @@ void	*TT_controls_close(SDL_UNUSED SDLX_scene_cxt *context, void *vp_scene);
 void	*TT_controls_update(SDL_UNUSED SDLX_scene_cxt *context, void *vp_scene);
 
 int		fetch_bar_sprite(SDLX_Sprite_Data **dst, int no);
+int		fetch_sword_sprite(SDLX_Sprite_Data **dst, int no);
 int		fetch_pickup_sprite(SDLX_Sprite_Data **dst, int no);
 int		fetch_potion_sprite(SDLX_Sprite_Data **dst, int no);
 int		fetch_tooltip_sprite(SDLX_Sprite_Data **dst, int no);

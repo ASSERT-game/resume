@@ -79,7 +79,26 @@ void	player_attack(t_player *player)
 			SDL_Log("Player Attacking with %s", attack->name);
 			// projectile = spawn_projectile_addr(player->attacks);
 			attack->current = 0;
+			attack->use.current = 0;
+
+			attack->use.angle = player->last_facing_angle;
+
+			attack->use.flip = SDL_FLIP_NONE;
+			attack->use.angle += 360;
+			attack->use.angle = (int)(attack->use.angle) % 360;
+			if (90 < attack->use.angle && attack->use.angle < 270)
+			{
+				attack->use.angle -= 180;
+				attack->use.flip = SDL_FLIP_HORIZONTAL;
+			}
 		}
+	}
+
+	// SDL_Log("(%d, %d)", g_GameInput.GameInput.leftaxis.x, g_GameInput.GameInput.leftaxis.y);
+	if (SDL_abs(g_GameInput.GameInput.leftaxis.y) > 14000 || SDL_abs(g_GameInput.GameInput.leftaxis.x) > 14000)
+	{
+		// SDL_Log("Changed (%d, %d)", g_GameInput.GameInput.leftaxis.x, g_GameInput.GameInput.leftaxis.y);
+		player->last_facing_angle = SDLX_Radian_to_Degree(SDL_atan2(g_GameInput.GameInput.leftaxis.y, g_GameInput.GameInput.leftaxis.x));
 	}
 
 	if (attack->current < attack->cooldown)
@@ -95,6 +114,12 @@ void	player_attack(t_player *player)
 		SDLX_CollisionBucket_add(NULL, &(player->attack.hitbox));
 	}
 
+	SDLX_RenderQueue_Add(NULL, &(attack->use));
+
+	attack->use.current++;
+	attack->use._dst.x = player->sprite._dst.x + 16 - 24;
+	attack->use._dst.y = player->sprite._dst.y + 16 - 24;
+	attack->use.sort = player->sprite.sort;
 
 	attack->current++;
 	/* If (curr) is equal to (cooldown + 1) undo the (curr++) */
