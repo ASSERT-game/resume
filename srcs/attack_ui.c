@@ -26,6 +26,7 @@ void sword_attack_ui(t_main_attacks *attack, void *meta)
 	attack->use.current = 4;
 
 	attack->cooldown = 7;
+	attack->current = attack->cooldown;
 	(void)meta;
 }
 

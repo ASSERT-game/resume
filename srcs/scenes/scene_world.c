@@ -28,8 +28,6 @@ typedef struct	s_world
 
 	t_player	player;
 
-	SDLX_Sprite	hud;
-
 	t_entity	wall1;
 	t_entity	wall2;
 	t_entity	wall3;
@@ -55,9 +53,9 @@ typedef struct	s_world
 	t_entity	heart4;
 	t_entity	heart5;
 
-	t_player		exist[100000];
-
 	t_attacks		attacks;
+
+	spawn_syst		main_spawner;
 }				t_world;
 
 #include <stdio.h>
@@ -67,13 +65,15 @@ void	*world_init(SDLX_scene_cxt *context, SDL_UNUSED void *vp_scene)
 	t_world	*world;
 	SDLX_Sprite	*level;
 
+	g_SDLX_Context.ticks_num2 = 0;
 	world = SDLX_NewScene(sizeof(*world), context, ASSETS"world_start.png", world_close, world_update);
-	level = SDLX_GetBackground();
 
-	level->sprite_data->_src = (SDL_Rect){64, 80, 320, 224};
+	level = SDLX_GetBackground();
 	level->sprite_data->src = &(level->sprite_data->_src);
+	level->sprite_data->_src = (SDL_Rect){64, 80, 320, 224};
 
 	world->space = level->sprite_data->src;
+	world->collision = IMG_Load(ASSETS"collision.png");
 
 	SDLX_Button_Init(&(world->tutorial_move), fetch_tooltip_sprite, 1, (SDL_Rect){(320 + 48) / 2, 96, 96 / 2, 80 / 2}, NULL);
 	world->tutorial_move.get_focus_fn = tooltip_move_focus;
@@ -81,38 +81,15 @@ void	*world_init(SDLX_scene_cxt *context, SDL_UNUSED void *vp_scene)
 	world->tutorial_move.meta = &(g_SDLX_Context.ticks_num2);
 	world->tutorial_move.sprite.sort = 10000;
 
-	g_SDLX_Context.ticks_num2 = 0;
-
 	world->local_x = 16 * 9;
 	world->local_y = 16 * 7;
+	player_init(&(world->player), world->local_x, world->local_y);
 
-	world->player.sprite = SDLX_Sprite_Static(ASSETS"character.png");
-	world->player.sprite.dst = SDLX_NULL_SELF;
-	world->player.sprite._dst.w = 32;
-	world->player.sprite._dst.h = 32;
-	world->player.sprite._dst.x = 10000;
-	world->player.sprite._dst.y = 10000;
-
-	world->player.max_potion = 7;
-	world->player.potion_no = 7;
-	world->player.potion_curr = 0;
-
-	g_SDLX_Context.meta1 = &(world->player);
 	init_attack_array(&(world->attacks));
 	world->player.attacks = &(world->attacks);
 
 
-	spec_ui_init(&(world->player));
-	main_attack_ui_init(&(world->player));
-	potion_init(&(world->player.potions), 7);
-	crosshair_init(&(world->player.crosshair));
 
-	world->player.main_attacks[world->player.attack_curr].current = world->player.main_attacks[world->player.attack_curr].cooldown;
-
-	world->collision = IMG_Load(ASSETS"collision.png");
-
-	world->hud = SDLX_Sprite_Static(ASSETS"hud.png");
-	world->hud.sort = 999;
 
 	chest_init(&(world->chest), 208, 112, world->collision);
 
@@ -133,20 +110,12 @@ void	*world_init(SDLX_scene_cxt *context, SDL_UNUSED void *vp_scene)
 	pot_init(&(world->pot7), 192 + 48,	96 + 16 * 8, world->collision);
 	pot_init(&(world->pot8), 192 + 48,	96 + 16 * 10, world->collision);
 
-	SDL_LockSurface(world->collision);
-
-	init_bar_system(&(world->player.health), 0, fetch_bar_sprite, 100, (SDL_Rect){5, -4, 32 * 3, 32}, 17, 3);
-	init_bar_system(&(world->player.mana), 5, fetch_bar_sprite, 100, (SDL_Rect){15, 21, 80, 32}, 14, 12);
-
 	init_heart_pickup(&(world->heart1), 128, 128);
 	init_heart_pickup(&(world->heart2), 128 + 128, 128);
 	init_heart_pickup(&(world->heart3), 128, 128 + 64);
 	init_heart_pickup(&(world->heart4), 128 + 128, 128 + 64);
 	init_heart_pickup(&(world->heart5), 128 + 32, 128);
-	(void)context;
-	(void)vp_scene;
 
-	SDL_Log("Finished Init");
 	return (NULL);
 }
 
@@ -162,8 +131,6 @@ void	*world_update(SDL_UNUSED SDLX_scene_cxt *context, void *vp_scene)
 	t_world	*world;
 
 	world = vp_scene;
-
-
 	resume_joystick_to_gameinput();
 	SDLX_toTriggers(&(g_GameInput));
 
@@ -181,8 +148,6 @@ void	*world_update(SDL_UNUSED SDLX_scene_cxt *context, void *vp_scene)
 	player_use_spec(&(world->player.state), world->player.sprite._dst.x, world->player.sprite._dst.y);
 	player_move(&(dx), &(dy), &(world->player.state));
 	player_dash(&(dx), &(dy), &(world->player.state));
-
-	SDLX_Button_Update_noDraw(&(world->tutorial_move));
 
 	int width = world->collision->w * 4;
 	if (	pixels[((world->local_y + world->space->y) / 4) * width + ((world->local_x + dx + world->space->x) / 4) * 4] == 0xFF
@@ -204,6 +169,12 @@ void	*world_update(SDL_UNUSED SDLX_scene_cxt *context, void *vp_scene)
 		dy = 0;
 	else
 		world->local_y += dy;
+
+	world->player.sprite._dst.x = world->local_x - 8;
+	world->player.sprite._dst.y = world->local_y - 8;
+	world->player.sprite.sort = (world->local_y / 4 + 5) * 100;
+
+	SDLX_Button_Update_noDraw(&(world->tutorial_move));
 
 	chest_update(&(world->chest), world->space->x, world->space->y);
 
@@ -232,23 +203,16 @@ void	*world_update(SDL_UNUSED SDLX_scene_cxt *context, void *vp_scene)
 
 	move_viewport(&(world->local_x), &(world->local_y), &(world->space->x), &(world->space->y));
 
-	world->player.sprite._dst.x = world->local_x - 8;
-	world->player.sprite._dst.y = world->local_y - 8;
-	world->player.sprite.sort = (world->local_y / 4 + 5) * 100;
-
-	update_crosshair(&(world->player), world->player.sprite._dst.x, world->player.sprite._dst.y);
-
 	potion_update(&(world->player));
 	special_ui_update(&(world->player));
 	main_attack_ui_update(&(world->player));
-
-	bar_system_update(&(world->player.health));
 	bar_system_update(&(world->player.mana));
+	bar_system_update(&(world->player.health));
+	update_crosshair(&(world->player), world->player.sprite._dst.x, world->player.sprite._dst.y);
 
-	SDLX_RenderQueue_Add(NULL, &(world->hud));
 	SDLX_RenderQueue_Add(NULL, &(world->player.sprite));
 
-	SDL_qsort(default_RenderQueue.content, default_RenderQueue.index, sizeof(default_RenderQueue.content), compare_priority);
+
 
 	if (g_GameInput.GameInput.button_RIGHTSHOULDER)
 		world->player.mana.value += 1;
@@ -262,14 +226,14 @@ void	*world_update(SDL_UNUSED SDLX_scene_cxt *context, void *vp_scene)
 		// world->player.health.value -= 10;
 	}
 
-	SDLX_CollisionBucket_Flush(NULL);
-
-
 	// if (world->player.stunned_tick > 0)
 	// 	world->player.stunned_tick--;
 
 	// view_player_collision(world->local_x, world->local_y);
 	// view_map_collisions(world->collision, world->space->x, world->space->y);
+
+	SDL_qsort(default_RenderQueue.content, default_RenderQueue.index, sizeof(default_RenderQueue.content), compare_priority);
+	SDLX_CollisionBucket_Flush(NULL);
 
 	return (NULL);
 }

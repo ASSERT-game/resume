@@ -135,6 +135,7 @@ typedef struct	s_player
 	t_main_attacks	*current_attack;
 	t_main_attacks	main_attacks[3];
 
+	SDLX_Sprite		potion_hud;
 	int				max_potion;
 	int				potion_no;
 	int				potion_curr;
@@ -189,5 +190,22 @@ typedef struct	s_entity
 
 	char		alloc[256];
 }				t_entity;
+
+typedef struct	spawn_component
+{
+	int			type;
+
+	int			index;
+	int			capacity;
+
+	t_entity	*entities;
+}				spawn_component;
+
+typedef struct	spawn_syst
+{
+	spawn_component		projectiles;
+	spawn_component		interactables;
+	spawn_component		enemies;
+}				spawn_syst;
 
 #endif

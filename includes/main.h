@@ -55,6 +55,7 @@ void	main_attack_ui_update(t_player *player);
 void	spec_ui_init(t_player *player);
 void	special_ui_update(t_player *player);
 
+void	player_init(t_player *player, int x, int y);
 void	player_aim(int *state);
 void	player_attack(t_player *player);
 void	player_dash(int *dx, int *dy, int *state);

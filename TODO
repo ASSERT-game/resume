@@ -1,6 +1,36 @@
-Enemies
-
 Main Attacks
-Special Abilities
+	Sword:
+		Correct Collision
 
-Interactable Entities
+	Spear:
+		Correct Collision
+
+	Lightning Spell: /* To not duplicate fireball */
+		Update Component
+
+
+Special Abilities
+	Ice Arrow:
+
+	Fireball:
+		Interactable Object
+
+	Bomb:
+
+	Hook (Unknown):
+
+
+Global Entity Manager
+	Enemies:
+
+	Interactable Entities:
+
+
+Particle Array
+
+Projectile Array
+	Main Attacks
+	Special Abilities
+
+Enemy Array
+Interactable Array

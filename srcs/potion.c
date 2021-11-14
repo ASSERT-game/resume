@@ -152,4 +152,6 @@ void	potion_update(t_player *player)
 	// SDL_Log("This %d and %d", player->potion_curr, player->potion_no);
 	if (player->potion_no > 0)
 		SDLX_RenderQueue_Add(NULL, &(player->potions[player->potion_curr].sprite));
+
+	SDLX_RenderQueue_Add(NULL, &(player->potion_hud));
 }

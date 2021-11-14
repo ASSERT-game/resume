@@ -13,6 +13,33 @@
 
 #include "main.h"
 
+void	player_init(t_player *player, int x, int y)
+{
+	player->sprite = SDLX_Sprite_Static(ASSETS"character.png");
+	player->sprite.dst = SDLX_NULL_SELF;
+	player->sprite._dst.w = 32;
+	player->sprite._dst.h = 32;
+	player->sprite._dst.x = x;
+	player->sprite._dst.y = y;
+
+	player->max_potion = 7;
+	player->potion_no = 7;
+	player->potion_curr = 0;
+
+	g_SDLX_Context.meta1 = player;
+
+	spec_ui_init(player);
+	main_attack_ui_init(player);
+	potion_init(&(player->potions), 7);
+	crosshair_init(&(player->crosshair));
+
+	player->potion_hud = SDLX_Sprite_Static(ASSETS"hud.png");
+	player->potion_hud.sort = 999;
+
+	init_bar_system(&(player->health), 0, fetch_bar_sprite, 100, (SDL_Rect){5, -4, 32 * 3, 32}, 17, 3);
+	init_bar_system(&(player->mana), 5, fetch_bar_sprite, 100, (SDL_Rect){15, 21, 80, 32}, 14, 12);
+}
+
 /*
 ** This needs to check every 'step' creating a bounding
 ** collision box, else the player may be able to move
