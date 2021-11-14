@@ -58,35 +58,35 @@ void	main_attack_ui_init(t_player *player)
 
 void	main_attack_ui_update(t_player *player)
 {
-	if (SDLX_GAME_PRESS(g_GameInput, g_GameInput_prev, num8))
-	{
-		SDL_Log("Weapon Left");
-		player->attack_curr--;
-		player->attack_curr += 3;
-		player->attack_curr %= 3;
-		while (player->main_attacks[player->attack_curr].name == NULL)
-		{
-			player->attack_curr += 3;
-			player->attack_curr %= 3;
+	// if (SDLX_GAME_PRESS(g_GameInput, g_GameInput_prev, num8))
+	// {
+	// 	SDL_Log("Weapon Left");
+	// 	player->attack_curr--;
+	// 	player->attack_curr += 3;
+	// 	player->attack_curr %= 3;
+	// 	while (player->main_attacks[player->attack_curr].name == NULL)
+	// 	{
+	// 		player->attack_curr += 3;
+	// 		player->attack_curr %= 3;
 
-			player->attack_curr--;
-		}
-	}
+	// 		player->attack_curr--;
+	// 	}
+	// }
 
-	if (SDLX_GAME_PRESS(g_GameInput, g_GameInput_prev, num7))
-	{
-		SDL_Log("Weapon Right");
-		player->attack_curr++;
-		player->attack_curr += 3;
-		player->attack_curr %= 3;
-		while (player->main_attacks[player->attack_curr].name == NULL)
-		{
-			player->attack_curr += 3;
-			player->attack_curr %= 3;
+	// if (SDLX_GAME_PRESS(g_GameInput, g_GameInput_prev, num7))
+	// {
+	// 	SDL_Log("Weapon Right");
+	// 	player->attack_curr++;
+	// 	player->attack_curr += 3;
+	// 	player->attack_curr %= 3;
+	// 	while (player->main_attacks[player->attack_curr].name == NULL)
+	// 	{
+	// 		player->attack_curr += 3;
+	// 		player->attack_curr %= 3;
 
-			player->attack_curr++;
-		}
-	}
+	// 		player->attack_curr++;
+	// 	}
+	// }
 
 	player->main_attacks[player->attack_curr].sprite._dst = (SDL_Rect){252, 189, 24, 24};
 	SDLX_RenderQueue_Add(NULL, &(player->main_attacks[player->attack_curr].sprite));

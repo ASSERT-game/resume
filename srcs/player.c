@@ -137,7 +137,11 @@ void	crosshair_init(SDLX_Sprite *crosshair)
 
 void	update_crosshair(t_player *player, int x, int y)
 {
-	player->crosshair.angle = -SDLX_Radian_to_Degree(SDL_atan2(-g_GameInput.GameInput.leftaxis.y, g_GameInput.GameInput.leftaxis.x)) + 45;
+
+	if (SDL_abs(g_GameInput.GameInput.leftaxis.y) > 14000 || SDL_abs(g_GameInput.GameInput.leftaxis.x) > 14000)
+	{
+		player->crosshair.angle = -SDLX_Radian_to_Degree(SDL_atan2(-g_GameInput.GameInput.leftaxis.y, g_GameInput.GameInput.leftaxis.x)) + 45;
+	}
 
 	player->crosshair.dst->x = x + 16 - 32;
 	player->crosshair.dst->y = y + 16 - 32;
@@ -178,6 +182,7 @@ void	player_use_spec(int *state, int x, int y)
 	static int	timer;
 	static SDLX_Sprite	sprite;
 	static SDL_Point	vel;
+	t_player			*player;
 
 	if (sprite.sprite_data == NULL)
 	{
@@ -194,7 +199,10 @@ void	player_use_spec(int *state, int x, int y)
 		sprite._dst.x = x + 8;
 		sprite._dst.y = y + 8;
 
-		double angle = SDL_atan2(g_GameInput.GameInput.leftaxis.y, g_GameInput.GameInput.leftaxis.x);
+		// double angle = SDL_atan2(g_GameInput.GameInput.leftaxis.y, g_GameInput.GameInput.leftaxis.x);
+
+		player = g_SDLX_Context.meta1;
+		double angle = SDLX_Degree_to_Radian(player->crosshair.angle) - 45;
 
 		vel.x = (SDL_cos(angle) * 24);
 		vel.x -= vel.x % 1;

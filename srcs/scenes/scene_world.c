@@ -259,7 +259,7 @@ void	*world_update(SDL_UNUSED SDLX_scene_cxt *context, void *vp_scene)
 	if (SDLX_GAME_PRESS(g_GameInput, g_GameInput_prev, B))
 	{
 		world->player.mana.value -= 10;
-		world->player.health.value -= 10;
+		// world->player.health.value -= 10;
 	}
 
 	SDLX_CollisionBucket_Flush(NULL);
