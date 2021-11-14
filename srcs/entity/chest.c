@@ -22,6 +22,9 @@ void	chest_init(t_entity *chest, int x, int y, SDL_Surface *collision_map)
 	chest->world_x = x;
 	chest->world_y = y;
 
+	chest->isActive = SDL_TRUE;
+	chest->update = chest_update;
+
 	new_static_sprite(&(chest->sprite), 2, 1, 1, 1, 2, 2, collision_map);
 }
 

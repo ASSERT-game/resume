@@ -56,7 +56,7 @@ void	spec_ui_init(t_player *player);
 void	special_ui_update(t_player *player);
 
 void	player_init(t_player *player, int x, int y);
-void	player_aim(int *state);
+void	player_aim(t_player *player);
 void	player_attack(t_player *player);
 void	player_dash(int *dx, int *dy, int *state);
 void	player_move(int *dx, int *dy, int *state);
@@ -94,8 +94,17 @@ void	chest_init(t_entity *chest, int x, int y, SDL_Surface *collision_map);
 void	init_heart_pickup(t_entity *pickup, int x, int y);
 void	heart_pickup_update(t_entity *pickup, int world_x, int world_y);
 
+void	drop_entities_load(void);
+void	environment_entities_load(void);
+void	interactable_entities_load(void);
+
+void		*entity_system_init(entity_system *main_spawner);
+t_entity	*spawn_entity_addr(entity_system *main_spawner, int kind);
+void		update_entities(entity_system *main_spawner, int cam_x, int cam_y);
+
 void			init_attack_array(t_attacks *manager);
 t_projectile	*spawn_projectile_addr(t_attacks *dst);
+
 
 /*
 ** Bar System Functions

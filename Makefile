@@ -55,6 +55,7 @@ ENTITY_FILES = 			\
 	pots				\
 
 SCENE_FILES = 			\
+	main_loader			\
 	scene_main_menu		\
 	scene_world			\
 
@@ -67,6 +68,7 @@ SRC_NAMES = \
 	$(addprefix sprites/, $(SPRITE_NAMES))	\
 	attack_ui \
 	bar \
+	entity_system \
 	environment \
 	input \
 	main \

@@ -177,10 +177,10 @@ void	update_crosshair(t_player *player, int x, int y)
 		SDLX_RenderQueue_Add(NULL, &(player->crosshair));
 }
 
-void	player_aim(int *state)
+void	player_aim(t_player *player)
 {
 	if (g_GameInput.GameInput.button_left_trigger)
-		*state = STATE_AIM;
+		player->state = STATE_AIM;
 }
 
 void	player_move(int *dx, int *dy, int *state)
@@ -229,7 +229,7 @@ void	player_use_spec(int *state, int x, int y)
 		// double angle = SDL_atan2(g_GameInput.GameInput.leftaxis.y, g_GameInput.GameInput.leftaxis.x);
 
 		player = g_SDLX_Context.meta1;
-		double angle = SDLX_Degree_to_Radian(player->crosshair.angle) - 45;
+		double angle = SDLX_Degree_to_Radian(player->crosshair.angle - 45);
 
 		vel.x = (SDL_cos(angle) * 24);
 		vel.x -= vel.x % 1;

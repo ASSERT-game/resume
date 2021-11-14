@@ -22,6 +22,9 @@ void	pot_init(t_entity *pot, int x, int y, SDL_Surface *collision_map)
 	pot->world_x = x;
 	pot->world_y = y;
 
+	pot->isActive = SDL_TRUE;
+	pot->update = pot_update;
+
 	new_static_sprite(&(pot->sprite), 1, 1, 1, 1, 1, 1, collision_map);
 }
 

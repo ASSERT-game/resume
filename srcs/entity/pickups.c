@@ -48,6 +48,9 @@ void	init_heart_pickup(t_entity *pickup, int x, int y)
 	heart->player = g_SDLX_Context.meta1;
 	heart->to = &(heart->player->health.value);
 
+	pickup->isActive = SDL_TRUE;
+	pickup->update = heart_pickup_update;
+
 	SDL_assert(sizeof(pickup->alloc) >= sizeof(t_pickup));
 }
 

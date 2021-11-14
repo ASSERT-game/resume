@@ -179,6 +179,7 @@ enum	e_collision_types
 
 typedef struct	s_entity
 {
+	SDL_bool	isActive;
 	SDLX_Sprite	sprite;
 
 	double		world_x;
@@ -188,24 +189,40 @@ typedef struct	s_entity
 
 	void		*meta;
 
+	void		(*update)(struct s_entity *, int, int);
+
 	char		alloc[256];
 }				t_entity;
 
-typedef struct	spawn_component
+enum		e_entity_type
+{
+	ET_NONE,
+	ET_DROPS,
+	ET_ENEMY,
+	ET_PROJECTILE,
+	ET_INTERACTABLE,
+	ET_ENVIRONMENT,
+};
+
+typedef struct	e_component
 {
 	int			type;
 
-	int			index;
-	int			capacity;
+	size_t		index;
+	size_t		capacity;
 
 	t_entity	*entities;
-}				spawn_component;
+}				e_component;
 
-typedef struct	spawn_syst
+typedef struct	entity_system
 {
-	spawn_component		projectiles;
-	spawn_component		interactables;
-	spawn_component		enemies;
-}				spawn_syst;
+	SDL_Surface		*collision_map;
+
+	e_component		drops;
+	e_component		enemies;
+	e_component		projectiles;
+	e_component		environment;
+	e_component		interactables;
+}				entity_system;
 
 #endif
