@@ -25,8 +25,8 @@ void	static_environment_update(t_entity *env, int world_x, int world_y)
 void	static_environment_init(t_entity *env, int x, int y, SDL_Surface *collision_map)
 {
 	env->sprite = SDLX_Sprite_Static(ASSETS"wall.png");
-	env->sprite.dst = SDLX_NULL_SELF;
 	env->sprite._dst = (SDL_Rect){x, y, 16, 48};
+	env->sprite.dst = SDLX_NULL_SELF;
 
 	env->world_x = x;
 	env->world_y = y;
@@ -40,8 +40,8 @@ void	static_environment_init(t_entity *env, int x, int y, SDL_Surface *collision
 void	static_environment_ll_init(t_entity *env, int x, int y, SDL_Surface *collision_map)
 {
 	env->sprite = SDLX_Sprite_Static(ASSETS"left_log.png");
-	env->sprite.dst = SDLX_NULL_SELF;
 	env->sprite._dst = (SDL_Rect){x, y, 32, 80};
+	env->sprite.dst = SDLX_NULL_SELF;
 
 	env->world_x = x;
 	env->world_y = y;
@@ -55,8 +55,8 @@ void	static_environment_ll_init(t_entity *env, int x, int y, SDL_Surface *collis
 void	static_environment_rl_init(t_entity *env, int x, int y, SDL_Surface *collision_map)
 {
 	env->sprite = SDLX_Sprite_Static(ASSETS"right_log.png");
-	env->sprite.dst = SDLX_NULL_SELF;
 	env->sprite._dst = (SDL_Rect){x + 32, y, 32, 80};
+	env->sprite.dst = SDLX_NULL_SELF;
 
 	env->world_x = x + 32;
 	env->world_y = y;

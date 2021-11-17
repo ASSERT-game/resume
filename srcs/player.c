@@ -67,11 +67,6 @@ void	player_dash(int *dx, int *dy, int *state)
 	}
 }
 
-void	sword_attack(t_projectile *dst)
-{
-	dst->isActive = SDL_TRUE;
-}
-
 SDL_bool	sword_collide(void *self, void *with, SDL_UNUSED void *data, SDL_UNUSED void *data2)
 {
 	SDLX_collision	*hitbox;

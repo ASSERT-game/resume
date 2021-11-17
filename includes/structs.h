@@ -34,13 +34,6 @@ typedef struct	s_projectile
 	SDL_bool		isActive;
 }				t_projectile;
 
-typedef struct	s_attacks
-{
-	size_t		capacity;
-
-	t_projectile	*projectiles;
-}				t_attacks;
-
 typedef struct	s_main_attacks
 {
 	SDLX_Sprite	use;
@@ -63,30 +56,30 @@ typedef struct	s_special
 {
 	SDLX_Sprite	sprite;
 	SDLX_Sprite	cooldown_sprite;
-	int			type;
-	char		*name;
 
-	int			damage;
+	int			type;
 
 	int			cooldown;
 	int			current;
+
+	int			damage;
+
+	char		*name;
 }				t_special;
 
 typedef struct	s_potion
 {
 	SDLX_Sprite	sprite;
-	char		*name;
-	int			type;
-
-	int			int_effect;
-
-	void		*meta;
 
 	SDL_bool	isUsed;
+	int			type;
+	int			int_effect;
 
-	int			*loc;
 	int			op;
+	int			*loc;
 	int			value;
+
+	char		*name;
 }				t_potion;
 
 typedef enum	e_player_state
@@ -132,7 +125,6 @@ typedef struct	s_player
 	t_bar		mana;
 
 	int				attack_curr;
-	t_main_attacks	*current_attack;
 	t_main_attacks	main_attacks[3];
 
 	SDLX_Sprite		potion_hud;
@@ -147,8 +139,6 @@ typedef struct	s_player
 
 	int				state;
 	int				stunned_tick;
-
-	t_attacks		*attacks;
 
 	t_projectile	attack;
 
@@ -188,13 +178,9 @@ typedef struct	s_entity
 	double		world_x;
 	double		world_y;
 
-	int			state;
-
-	void		*meta;
-
-	void		(*update)(struct s_entity *, int, int);
-
 	char		alloc[256];
+	void		*meta;
+	void		(*update)(struct s_entity *, int, int);
 }				t_entity;
 
 enum		e_entity_type

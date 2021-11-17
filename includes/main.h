@@ -66,8 +66,9 @@ void	move_viewport(int *px, int *py, int *ix, int *iy);
 
 void	new_static_sprite(SDLX_Sprite *sprite, int tiles_x, int tiles_y, int bottom_padding, int top_padding, int left_padding, int right_padding, SDL_Surface *collision_map);
 
-int		compare_priority(const void *a, const void *b);
 void	fill_priority(SDLX_Sprite *sprite);
+int		compare_priority(const void *a, const void *b);
+void	world_align(SDLX_Sprite *sprite, int x, int y, int world_x, int world_y, int sort_bonus);
 
 # define PLAYER_SPEED (4)
 
@@ -89,10 +90,11 @@ void	chest_update(t_entity *chest, int world_x, int world_y);
 void	chest_init(t_entity *chest, int x, int y, SDL_Surface *collision_map);
 
 void	init_coin_pickup(t_entity *pickup, int x, int y);
-void	init_heart_pickup(t_entity *pickup, int x, int y);
-
 void	coin_pickup_update(t_entity *pickup, int world_x, int world_y);
+
+void	init_heart_pickup(t_entity *pickup, int x, int y);
 void	heart_pickup_update(t_entity *pickup, int world_x, int world_y);
+
 void	particle_pickup_update(t_entity *pickup, int world_x, int world_y);
 
 void	drop_entities_load(void);
@@ -117,6 +119,7 @@ void	bar_system_update(t_bar *bar);
 */
 
 uint32_t	lerp32(double percent, uint32_t start, uint32_t end);
+void		radial_attract(int dx, int dy, int radius, int speed, double *x, double *y);
 
 /*
 ** Debug Functions
