@@ -96,7 +96,6 @@ SDL_bool	sword_collide(void *self, void *with, SDL_UNUSED void *data, SDL_UNUSED
 void	player_attack(t_player *player)
 {
 	t_main_attacks	*attack;
-	// t_projectile	*projectile;
 
 	attack = &(player->main_attacks[player->attack_curr]);
 	if (SDLX_GAME_PRESS(g_GameInput, g_GameInput_prev, X))
@@ -104,7 +103,6 @@ void	player_attack(t_player *player)
 		if (attack->current >= attack->cooldown)
 		{
 			SDL_Log("Player Attacking with %s", attack->name);
-			// projectile = spawn_projectile_addr(player->attacks);
 			attack->current = 0;
 			attack->use.current = 0;
 

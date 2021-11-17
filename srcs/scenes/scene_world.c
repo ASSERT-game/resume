@@ -27,14 +27,6 @@ typedef struct	s_world
 
 	t_player	player;
 
-	t_entity	heart1;
-	t_entity	heart2;
-	t_entity	heart3;
-	t_entity	heart4;
-	t_entity	heart5;
-
-	t_attacks		attacks;
-
 	entity_system		main_spawner;
 }				t_world;
 
@@ -63,9 +55,6 @@ void	*world_init(SDLX_scene_cxt *context, SDL_UNUSED void *vp_scene)
 	world->local_x = 16 * 9;
 	world->local_y = 16 * 7;
 	player_init(&(world->player), world->local_x, world->local_y);
-
-	init_attack_array(&(world->attacks));
-	world->player.attacks = &(world->attacks);
 
 	g_SDLX_Context.meta2 = entity_system_init(&(world->main_spawner));
 

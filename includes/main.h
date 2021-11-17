@@ -33,10 +33,6 @@ void	*world_init(SDLX_scene_cxt *context, SDL_UNUSED void *vp_scene);
 void	*world_close(SDL_UNUSED SDLX_scene_cxt *context, void *vp_scene);
 void	*world_update(SDL_UNUSED SDLX_scene_cxt *context, void *vp_scene);
 
-void	*TT_controls_init(SDLX_scene_cxt *context, SDL_UNUSED void *vp_scene);
-void	*TT_controls_close(SDL_UNUSED SDLX_scene_cxt *context, void *vp_scene);
-void	*TT_controls_update(SDL_UNUSED SDLX_scene_cxt *context, void *vp_scene);
-
 int		fetch_bar_sprite(SDLX_Sprite_Data **dst, int no);
 int		fetch_sword_sprite(SDLX_Sprite_Data **dst, int no);
 int		fetch_pickup_sprite(SDLX_Sprite_Data **dst, int no);
@@ -63,8 +59,8 @@ void	player_dash(int *dx, int *dy, int *state);
 void	player_move(int *dx, int *dy, int *state);
 void	player_use_spec(int *state, int x, int y);
 
-void	update_crosshair(t_player *player, int x, int y);
 void	crosshair_init(SDLX_Sprite *crosshair);
+void	update_crosshair(t_player *player, int x, int y);
 
 void	move_viewport(int *px, int *py, int *ix, int *iy);
 
@@ -84,8 +80,8 @@ void	pot_update(t_entity *pot, int world_x, int world_y);
 void	pot_init(t_entity *pot, int x, int y, SDL_Surface *collision_map);
 
 void	static_environment_update(t_entity *env, int world_x, int world_y);
-void	static_environment_init(t_entity *env, int x, int y, SDL_Surface *collision_map);
 
+void	static_environment_init(t_entity *env, int x, int y, SDL_Surface *collision_map);
 void	static_environment_rl_init(t_entity *env, int x, int y, SDL_Surface *collision_map);
 void	static_environment_ll_init(t_entity *env, int x, int y, SDL_Surface *collision_map);
 
@@ -94,6 +90,7 @@ void	chest_init(t_entity *chest, int x, int y, SDL_Surface *collision_map);
 
 void	init_coin_pickup(t_entity *pickup, int x, int y);
 void	init_heart_pickup(t_entity *pickup, int x, int y);
+
 void	coin_pickup_update(t_entity *pickup, int world_x, int world_y);
 void	heart_pickup_update(t_entity *pickup, int world_x, int world_y);
 void	particle_pickup_update(t_entity *pickup, int world_x, int world_y);
@@ -105,10 +102,6 @@ void	interactable_entities_load(void);
 void		*entity_system_init(entity_system *main_spawner);
 t_entity	*spawn_entity_addr(entity_system *main_spawner, int kind);
 void		update_entities(entity_system *main_spawner, int cam_x, int cam_y);
-
-void			init_attack_array(t_attacks *manager);
-t_projectile	*spawn_projectile_addr(t_attacks *dst);
-
 
 /*
 ** Bar System Functions
