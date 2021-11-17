@@ -69,7 +69,9 @@ void	*pot_engage_collision(void *self, void *with, SDL_UNUSED void *data, SDL_UN
 		x = pickup->world_x + 2;
 		y = pickup->world_y + 2;
 		angle = SDL_atan2(pickup->sprite._dst.y - player->sprite._dst.y - 8, pickup->sprite._dst.x - player->sprite._dst.x - 8);
-		init_coin_pickup(spawn_entity_addr(g_SDLX_Context.meta2, ET_DROPS),  x + SDL_cos(angle) * 15, y + SDL_sin(angle) * 15);
+		init_red_heart_pickup(spawn_entity_addr(g_SDLX_Context.meta2, ET_DROPS),  x + SDL_cos(angle) * 25, y + SDL_sin(angle) * 25);
+		init_coin_pickup(spawn_entity_addr(g_SDLX_Context.meta2, ET_DROPS),  x + SDL_cos(angle) * 10, y + SDL_sin(angle) * 25);
+		init_coin_pickup(spawn_entity_addr(g_SDLX_Context.meta2, ET_DROPS),  x + SDL_cos(angle) * 25, y + SDL_sin(angle) * 10);
 		fetch_pot_sprite(&(pickup->sprite.sprite_data), 1);
 		pot->timer = 0;
 		pot->collected = SDL_TRUE;

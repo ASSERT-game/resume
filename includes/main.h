@@ -95,6 +95,9 @@ void	coin_pickup_update(t_entity *pickup, int world_x, int world_y);
 
 void	init_heart_pickup(t_entity *pickup, int x, int y);
 void	heart_pickup_update(t_entity *pickup, int world_x, int world_y);
+void	init_red_heart_pickup(t_entity *pickup, int x, int y);
+void	init_purple_heart_pickup(t_entity *pickup, int x, int y);
+void	init_yellow_heart_pickup(t_entity *pickup, int x, int y);
 
 void	particle_pickup_update(t_entity *pickup, int world_x, int world_y);
 

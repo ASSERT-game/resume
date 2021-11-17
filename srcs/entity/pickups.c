@@ -75,9 +75,7 @@ void	*heart_engage_collision(void *self, void *with, SDL_UNUSED void *data, SDL_
 void	init_heart_pickup(t_entity *pickup, int x, int y)
 {
 	t_pickup	*heart;
-	t_player	*player;
 
-	fetch_pickup_sprite(&(pickup->sprite.sprite_data), 0);
 	pickup->sprite._dst = (SDL_Rect){x, y, 16, 16};
 	pickup->sprite.dst = SDLX_NULL_SELF;
 
@@ -91,17 +89,59 @@ void	init_heart_pickup(t_entity *pickup, int x, int y)
 	SDL_assert(sizeof(pickup->alloc) >= sizeof(t_pickup));
 	heart = pickup->meta;
 
-	heart->value = -10;
-	heart->op = SDLX_AXM_ADD;
-	heart->collected = SDL_FALSE;
-	player = g_SDLX_Context.meta1;
-	heart->to = &(player->health.value);
-
 	heart->collision.hitbox_ptr = &(heart->collision.hitbox);
-
-	heart->collision.detect = heart_detect_collide;
 	heart->collision.engage = heart_engage_collision;
 	heart->collision.originator = pickup;
+	heart->collected = SDL_FALSE;
+}
+
+void	init_red_heart_pickup(t_entity *pickup, int x, int y)
+{
+	t_pickup	*heart;
+	t_player	*player;
+
+	fetch_pickup_sprite(&(pickup->sprite.sprite_data), 2);
+	init_heart_pickup(pickup, x, y);
+
+	heart = pickup->meta;
+
+	heart->value = 10;
+	heart->op = SDLX_AXM_ADD;
+	player = g_SDLX_Context.meta1;
+	heart->to = &(player->health.value);
+}
+
+void	init_yellow_heart_pickup(t_entity *pickup, int x, int y)
+{
+	t_pickup	*heart;
+	t_player	*player;
+
+	fetch_pickup_sprite(&(pickup->sprite.sprite_data), 1);
+	init_heart_pickup(pickup, x, y);
+
+	heart = pickup->meta;
+
+	heart->value = 1000;
+	heart->op = SDLX_AXM_ADD;
+	player = g_SDLX_Context.meta1;
+	heart->to = &(player->health.value);
+}
+
+void	init_purple_heart_pickup(t_entity *pickup, int x, int y)
+{
+	t_pickup	*heart;
+	t_player	*player;
+
+	fetch_pickup_sprite(&(pickup->sprite.sprite_data), 0);
+	init_heart_pickup(pickup, x, y);
+
+	heart = pickup->meta;
+
+	heart->value = -10;
+	heart->op = SDLX_AXM_ADD;
+	player = g_SDLX_Context.meta1;
+	heart->to = &(player->health.value);
+	heart->collision.detect = heart_detect_collide;
 }
 
 void	init_coin_pickup(t_entity *pickup, int x, int y)
@@ -109,7 +149,8 @@ void	init_coin_pickup(t_entity *pickup, int x, int y)
 	t_pickup	*potion;
 	t_player	*player;
 
-	fetch_pickup_sprite(&(pickup->sprite.sprite_data), 5);
+	SDL_Log("Not Here");
+	fetch_pickup_sprite(&(pickup->sprite.sprite_data), 4);
 	pickup->sprite._dst = (SDL_Rect){x, y, 12, 12};
 	pickup->sprite.dst = SDLX_NULL_SELF;
 

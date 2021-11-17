@@ -36,7 +36,7 @@ SDLX_Sprite_Data *carve_pickup_sprite(void)
 	while (i < 24)
 	{
 		result[i].texture = texture;
-		result[i]._src = (SDL_Rect){(i - 12) * 16, 0, 16, 16};
+		result[i]._src = (SDL_Rect){(i - 12) * 16, 16, 16, 16};
 		result[i].src = &(result[i]._src);
 		result[i].cycle = 12;
 
@@ -46,7 +46,7 @@ SDLX_Sprite_Data *carve_pickup_sprite(void)
 	while (i < 36)
 	{
 		result[i].texture = texture;
-		result[i]._src = (SDL_Rect){(i - 36) * 16, 0, 16, 16};
+		result[i]._src = (SDL_Rect){(i - 24) * 16, 32, 16, 16};
 		result[i].src = &(result[i]._src);
 		result[i].cycle = 12;
 
