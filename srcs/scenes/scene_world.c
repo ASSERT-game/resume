@@ -142,10 +142,8 @@ void	*world_update(SDL_UNUSED SDLX_scene_cxt *context, void *vp_scene)
 	if (SDLX_GAME_PRESS(g_GameInput, g_GameInput_prev, B))
 		world->player.mana.value -= 10;
 
-	if (g_SDLX_Context.ticks_num2 % 20 == 0)
-	{
-		init_heart_pickup(spawn_entity_addr(g_SDLX_Context.meta2, ET_DROPS), rand() % 448, rand() % 384);
-	}
+	// if (g_SDLX_Context.ticks_num2 % 20 == 0)
+	// 	init_heart_pickup(spawn_entity_addr(g_SDLX_Context.meta2, ET_DROPS), rand() % 448, rand() % 384);
 	// SDL_Log("Score: %d", world->player.coins);
 
 

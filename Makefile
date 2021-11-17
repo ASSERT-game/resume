@@ -41,6 +41,7 @@ SPRITE_NAMES = 			\
 	sprite_attack		\
 	sprite_healthbar	\
 	sprite_pickup		\
+	sprite_pot			\
 	sprite_potions		\
 	sprite_sword		\
 	sprite_tooltip		\

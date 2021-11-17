@@ -33,6 +33,7 @@ void	*world_init(SDLX_scene_cxt *context, SDL_UNUSED void *vp_scene);
 void	*world_close(SDL_UNUSED SDLX_scene_cxt *context, void *vp_scene);
 void	*world_update(SDL_UNUSED SDLX_scene_cxt *context, void *vp_scene);
 
+int		fetch_pot_sprite(SDLX_Sprite_Data **dst, int no);
 int		fetch_bar_sprite(SDLX_Sprite_Data **dst, int no);
 int		fetch_sword_sprite(SDLX_Sprite_Data **dst, int no);
 int		fetch_pickup_sprite(SDLX_Sprite_Data **dst, int no);
