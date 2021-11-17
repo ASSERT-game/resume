@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/06 02:31:10 by home              #+#    #+#             */
-/*   Updated: 2021/11/05 23:16:34 by home             ###   ########.fr       */
+/*   Updated: 2021/11/14 13:51:28 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ void	game_start(void *context)
 
 	g_GameInput.key_mapper.map_arr = resume_key_map(&(g_GameInput.key_mapper.amount));
 	g_GameInput.pad_mapper.map_arr = resume_pad_map(&(g_GameInput.pad_mapper.amount));
+
+	srand(42);
 }
 
 int	main(void)

@@ -153,6 +153,9 @@ typedef struct	s_player
 	t_projectile	attack;
 
 	int				last_facing_angle;
+
+	int				bits;
+	int				coins;
 }				t_player;
 
 enum	e_collision_types

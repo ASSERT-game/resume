@@ -17,6 +17,7 @@
 # include "SDLX.h"
 
 # include "structs.h"
+# include <stdlib.h>
 
 # define ASSETS "assets/"
 
@@ -91,8 +92,11 @@ void	static_environment_ll_init(t_entity *env, int x, int y, SDL_Surface *collis
 void	chest_update(t_entity *chest, int world_x, int world_y);
 void	chest_init(t_entity *chest, int x, int y, SDL_Surface *collision_map);
 
+void	init_coin_pickup(t_entity *pickup, int x, int y);
 void	init_heart_pickup(t_entity *pickup, int x, int y);
+void	coin_pickup_update(t_entity *pickup, int world_x, int world_y);
 void	heart_pickup_update(t_entity *pickup, int world_x, int world_y);
+void	particle_pickup_update(t_entity *pickup, int world_x, int world_y);
 
 void	drop_entities_load(void);
 void	environment_entities_load(void);

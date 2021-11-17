@@ -56,8 +56,8 @@ void	drop_entities_load(void)
 	collision_map = system->collision_map;
 
 	init_heart_pickup(spawn_entity_addr(system, ET_DROPS), 128, 128);
-	init_heart_pickup(spawn_entity_addr(system, ET_DROPS), 128 + 128, 128);
-	init_heart_pickup(spawn_entity_addr(system, ET_DROPS), 128, 128 + 64);
-	init_heart_pickup(spawn_entity_addr(system, ET_DROPS), 128 + 128, 128 + 64);
-	init_heart_pickup(spawn_entity_addr(system, ET_DROPS), 128 + 32, 128);
+	// init_heart_pickup(spawn_entity_addr(system, ET_DROPS), 128 + 128, 128);
+	// init_heart_pickup(spawn_entity_addr(system, ET_DROPS), 128, 128 + 64);
+	// init_heart_pickup(spawn_entity_addr(system, ET_DROPS), 128 + 128, 128 + 64);
+	// init_heart_pickup(spawn_entity_addr(system, ET_DROPS), 128 + 32, 128);
 }
