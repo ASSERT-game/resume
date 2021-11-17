@@ -37,7 +37,7 @@ void	player_init(t_player *player, int x, int y)
 	player->potion_hud.sort = 999;
 
 	init_bar_system(&(player->health), 0, fetch_bar_sprite, 100, (SDL_Rect){5, -4, 32 * 3, 32}, 17, 3);
-	init_bar_system(&(player->mana), 5, fetch_bar_sprite, 100, (SDL_Rect){15, 21, 80, 32}, 14, 12);
+	init_bar_system(&(player->mana), 5, fetch_bar_sprite, 100, (SDL_Rect){13, 21, 80, 32}, 14, 3);
 }
 
 /*

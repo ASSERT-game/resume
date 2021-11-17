@@ -15,10 +15,7 @@
 
 typedef struct	s_world
 {
-
 	SDLX_button	tutorial_move;
-	SDLX_button	tutorial_dash;
-	SDLX_button	tutorial_slash;
 
 	SDL_Rect	*space;
 
@@ -134,8 +131,6 @@ void	*world_update(SDL_UNUSED SDLX_scene_cxt *context, void *vp_scene)
 	update_crosshair(&(world->player), world->player.sprite._dst.x, world->player.sprite._dst.y);
 
 	SDLX_RenderQueue_Add(NULL, &(world->player.sprite));
-	// SDLX_RenderQueue_Add(NULL, &(world->player.sprite));
-
 
 
 	if (g_GameInput.GameInput.button_RIGHTSHOULDER)
@@ -151,7 +146,6 @@ void	*world_update(SDL_UNUSED SDLX_scene_cxt *context, void *vp_scene)
 	{
 		init_heart_pickup(spawn_entity_addr(g_SDLX_Context.meta2, ET_DROPS), rand() % 448, rand() % 384);
 	}
-
 	// SDL_Log("Score: %d", world->player.coins);
 
 

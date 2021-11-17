@@ -109,7 +109,7 @@ void		update_entities(entity_system *main_spawner, int cam_x, int cam_y);
 ** Bar System Functions
 */
 
-void	resize_healthbar(SDLX_Sprite *fill, SDLX_Sprite *back_fill, int *current, int out_of, SDL_Rect bar);
+void	resize_bar(SDLX_Sprite *fill, SDLX_Sprite *back_fill, int *current, int out_of, SDL_Rect bar);
 void	increase_bar_system(t_bar *bar, int amount, int sprite_amount, SDL_bool animate);
 void	init_bar_system(t_bar *bar, int start_no, int (*sprite_fn)(SDLX_Sprite_Data **, int), int max, SDL_Rect desired_pos, int offset_left, int offset_right);
 void	bar_system_update(t_bar *bar);

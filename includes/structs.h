@@ -109,7 +109,6 @@ typedef struct	s_bar
 
 	int			max_value;
 	int			value;
-	int			prev_value;
 }				t_bar;
 
 typedef struct	s_player
