@@ -42,6 +42,7 @@ int		fetch_potion_sprite(SDLX_Sprite_Data **dst, int no);
 int		fetch_tooltip_sprite(SDLX_Sprite_Data **dst, int no);
 int		fetch_attack_ui_sprite(SDLX_Sprite_Data **dst, int no);
 int		fetch_scoregoal_sprite(SDLX_Sprite_Data **dst, int no);
+int		fetch_skullball_sprite(SDLX_Sprite_Data **dst, int no);
 
 void		*tooltip_update(SDLX_button *button, void *meta, size_t meta_length);
 SDL_bool	tooltip_move_focus(SDLX_button *button, void *meta, size_t meta_length);
@@ -109,6 +110,7 @@ void	interactable_entities_load(void);
 
 void	scoregrave_init(t_entity *grave_m, int world_x, int world_y);
 void	spawner_purple_init(t_entity *entity, int x, int y);
+void	skullball_init(t_entity *entity, int world_x, int world_y);
 
 void		*entity_system_init(entity_system *main_spawner);
 t_entity	*spawn_entity_addr(entity_system *main_spawner, int kind);

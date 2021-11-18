@@ -45,6 +45,7 @@ SPRITE_NAMES = 			\
 	sprite_pot			\
 	sprite_potions		\
 	sprite_scoregoal	\
+	sprite_skullball	\
 	sprite_sword		\
 	sprite_tooltip		\
 
@@ -56,8 +57,10 @@ ENTITY_FILES = 			\
 	environment			\
 	pickups 			\
 	pots				\
-	scoregrave			\
 	purp_spawner		\
+	scoregrave			\
+	skullball			\
+
 
 SCENE_FILES = 			\
 	main_loader			\

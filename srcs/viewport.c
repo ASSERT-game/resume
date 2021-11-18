@@ -38,8 +38,8 @@ void	move_viewport(int *px, int *py, int *ix, int *iy)
 
 	if ((*py) * DISPLAY_SCALE < bound.y && *iy - VIEWPORT_SPEED * mod_y >= 0) 					{ *iy -= VIEWPORT_SPEED * mod_y; *py += VIEWPORT_SPEED * mod_y; }
 	if ((*px) * DISPLAY_SCALE < bound.x && *ix - VIEWPORT_SPEED * mod_x >= 0)					{ *ix -= VIEWPORT_SPEED * mod_x; *px += VIEWPORT_SPEED * mod_x; }
-	if ((*py) * DISPLAY_SCALE > bound.y + bound.h && *iy + 224 + VIEWPORT_SPEED * mod_y <= 384)	{ *iy += VIEWPORT_SPEED * mod_y; *py -= VIEWPORT_SPEED * mod_y; }
-	if ((*px) * DISPLAY_SCALE > bound.x + bound.w && *ix + 320 + VIEWPORT_SPEED * mod_x <= 448)	{ *ix += VIEWPORT_SPEED * mod_x; *px -= VIEWPORT_SPEED * mod_x; }
+	if ((*py) * DISPLAY_SCALE > bound.y + bound.h && *iy + 224 + VIEWPORT_SPEED * mod_y <= 400)	{ *iy += VIEWPORT_SPEED * mod_y; *py -= VIEWPORT_SPEED * mod_y; }
+	if ((*px) * DISPLAY_SCALE > bound.x + bound.w && *ix + 320 + VIEWPORT_SPEED * mod_x <= 496)	{ *ix += VIEWPORT_SPEED * mod_x; *px -= VIEWPORT_SPEED * mod_x; }
 
 	SDL_SetRenderDrawColor(SDLX_GetDisplay()->renderer, 255, 0, 0, 0);
 	// SDL_RenderDrawRect(SDLX_GetDisplay()->renderer, &(bound));
