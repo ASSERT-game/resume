@@ -24,7 +24,7 @@ void	spawn_component_init(e_component *component)
 
 void	*entity_system_init(entity_system *main_spawner)
 {
-	main_spawner->collision_map = IMG_Load(ASSETS"collision.png");
+	main_spawner->collision_map = IMG_Load(ASSETS"collision_map.png");
 
 	spawn_component_init(&(main_spawner->drops));
 	spawn_component_init(&(main_spawner->enemies));

@@ -39,10 +39,12 @@ SDLX_NAMES = 			\
 
 SPRITE_NAMES = 			\
 	sprite_attack		\
+	sprite_ghost		\
 	sprite_healthbar	\
 	sprite_pickup		\
 	sprite_pot			\
 	sprite_potions		\
+	sprite_scoregoal	\
 	sprite_sword		\
 	sprite_tooltip		\
 
@@ -54,6 +56,7 @@ ENTITY_FILES = 			\
 	environment			\
 	pickups 			\
 	pots				\
+	scoregrave			\
 
 SCENE_FILES = 			\
 	main_loader			\

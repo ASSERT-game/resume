@@ -20,12 +20,14 @@ void	environment_entities_load(void)
 
 	system = g_SDLX_Context.meta2;
 	collision_map = system->collision_map;
-	static_environment_init(	spawn_entity_addr(system, ET_ENVIRONMENT), 176, 96, collision_map);
-	static_environment_init(	spawn_entity_addr(system, ET_ENVIRONMENT), 176, 64, collision_map);
-	static_environment_init(	spawn_entity_addr(system, ET_ENVIRONMENT), 256, 96, collision_map);
-	static_environment_init(	spawn_entity_addr(system, ET_ENVIRONMENT), 256, 64, collision_map);
-	static_environment_rl_init(	spawn_entity_addr(system, ET_ENVIRONMENT), 64, 240, collision_map);
-	static_environment_ll_init(	spawn_entity_addr(system, ET_ENVIRONMENT), 64, 240, collision_map);
+
+	scoregrave_init(	spawn_entity_addr(system, ET_ENVIRONMENT), 176, 96);
+	// static_environment_init(	spawn_entity_addr(system, ET_ENVIRONMENT), 176, 96, collision_map);
+	// static_environment_init(	spawn_entity_addr(system, ET_ENVIRONMENT), 176, 64, collision_map);
+	// static_environment_init(	spawn_entity_addr(system, ET_ENVIRONMENT), 256, 96, collision_map);
+	// static_environment_init(	spawn_entity_addr(system, ET_ENVIRONMENT), 256, 64, collision_map);
+	// static_environment_rl_init(	spawn_entity_addr(system, ET_ENVIRONMENT), 64, 240, collision_map);
+	// static_environment_ll_init(	spawn_entity_addr(system, ET_ENVIRONMENT), 64, 240, collision_map);
 
 }
 
@@ -36,15 +38,15 @@ void	interactable_entities_load(void)
 
 	system = g_SDLX_Context.meta2;
 	collision_map = system->collision_map;
-	chest_init(	spawn_entity_addr(system, ET_INTERACTABLE), 208, 112, collision_map);
-	pot_init(	spawn_entity_addr(system, ET_INTERACTABLE), 192, 		96 + 16 * 4, collision_map);
-	pot_init(	spawn_entity_addr(system, ET_INTERACTABLE), 192, 		96 + 16 * 6, collision_map);
-	pot_init(	spawn_entity_addr(system, ET_INTERACTABLE), 192, 		96 + 16 * 8, collision_map);
-	pot_init(	spawn_entity_addr(system, ET_INTERACTABLE), 192, 		96 + 16 * 10, collision_map);
-	pot_init(	spawn_entity_addr(system, ET_INTERACTABLE), 192 + 48,	96 + 16 * 4, collision_map);
-	pot_init(	spawn_entity_addr(system, ET_INTERACTABLE), 192 + 48,	96 + 16 * 6, collision_map);
-	pot_init(	spawn_entity_addr(system, ET_INTERACTABLE), 192 + 48,	96 + 16 * 8, collision_map);
-	pot_init(	spawn_entity_addr(system, ET_INTERACTABLE), 192 + 48,	96 + 16 * 10, collision_map);
+	// chest_init(	spawn_entity_addr(system, ET_INTERACTABLE), 208, 112, collision_map);
+	pot_init(	spawn_entity_addr(system, ET_INTERACTABLE), 64, 144, collision_map);
+	pot_init(	spawn_entity_addr(system, ET_INTERACTABLE), 64, 240, collision_map);
+	pot_init(	spawn_entity_addr(system, ET_INTERACTABLE), 416, 144, collision_map);
+	pot_init(	spawn_entity_addr(system, ET_INTERACTABLE), 416, 240, collision_map);
+	// pot_init(	spawn_entity_addr(system, ET_INTERACTABLE), 192 + 48,	96 + 16 * 4, collision_map);
+	// pot_init(	spawn_entity_addr(system, ET_INTERACTABLE), 192 + 48,	96 + 16 * 6, collision_map);
+	// pot_init(	spawn_entity_addr(system, ET_INTERACTABLE), 192 + 48,	96 + 16 * 8, collision_map);
+	// pot_init(	spawn_entity_addr(system, ET_INTERACTABLE), 192 + 48,	96 + 16 * 10, collision_map);
 }
 
 void	drop_entities_load(void)

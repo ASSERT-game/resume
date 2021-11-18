@@ -35,7 +35,7 @@ void	*world_init(SDLX_scene_cxt *context, SDL_UNUSED void *vp_scene)
 	SDLX_Sprite	*level;
 
 	g_SDLX_Context.ticks_num2 = 0;
-	world = SDLX_NewScene(sizeof(*world), context, ASSETS"world_start.png", world_close, world_update);
+	world = SDLX_NewScene(sizeof(*world), context, ASSETS"skullscore.png", world_close, world_update);
 
 	level = SDLX_GetBackground();
 	level->sprite_data->src = &(level->sprite_data->_src);
@@ -133,6 +133,7 @@ void	*world_update(SDL_UNUSED SDLX_scene_cxt *context, void *vp_scene)
 	SDLX_RenderQueue_Add(NULL, &(world->player.sprite));
 
 
+
 	if (g_GameInput.GameInput.button_RIGHTSHOULDER)
 		world->player.mana.value += 1;
 
@@ -149,7 +150,7 @@ void	*world_update(SDL_UNUSED SDLX_scene_cxt *context, void *vp_scene)
 
 
 	// view_player_collision(world->local_x, world->local_y);
-	// view_map_collisions(world->collision, world->space->x, world->space->y);
+	// view_map_collisions(world->main_spawner.collision_map, world->space->x, world->space->y);
 	SDL_qsort(default_RenderQueue.content, default_RenderQueue.index, sizeof(default_RenderQueue.content), compare_priority);
 	SDLX_CollisionBucket_Flush(NULL);
 

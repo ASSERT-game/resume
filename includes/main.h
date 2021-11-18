@@ -36,10 +36,12 @@ void	*world_update(SDL_UNUSED SDLX_scene_cxt *context, void *vp_scene);
 int		fetch_pot_sprite(SDLX_Sprite_Data **dst, int no);
 int		fetch_bar_sprite(SDLX_Sprite_Data **dst, int no);
 int		fetch_sword_sprite(SDLX_Sprite_Data **dst, int no);
+int		fetch_ghost_sprite(SDLX_Sprite_Data **dst, int no);
 int		fetch_pickup_sprite(SDLX_Sprite_Data **dst, int no);
 int		fetch_potion_sprite(SDLX_Sprite_Data **dst, int no);
 int		fetch_tooltip_sprite(SDLX_Sprite_Data **dst, int no);
 int		fetch_attack_ui_sprite(SDLX_Sprite_Data **dst, int no);
+int		fetch_scoregoal_sprite(SDLX_Sprite_Data **dst, int no);
 
 void		*tooltip_update(SDLX_button *button, void *meta, size_t meta_length);
 SDL_bool	tooltip_move_focus(SDLX_button *button, void *meta, size_t meta_length);
@@ -104,6 +106,8 @@ void	particle_pickup_update(t_entity *pickup, int world_x, int world_y);
 void	drop_entities_load(void);
 void	environment_entities_load(void);
 void	interactable_entities_load(void);
+
+void	scoregrave_init(t_entity *grave_m, int world_x, int world_y);
 
 void		*entity_system_init(entity_system *main_spawner);
 t_entity	*spawn_entity_addr(entity_system *main_spawner, int kind);
