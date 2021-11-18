@@ -56,7 +56,11 @@ void	drop_entities_load(void)
 
 	system = g_SDLX_Context.meta2;
 	collision_map = system->collision_map;
-
+	spawner_purple_init(spawn_entity_addr(system, ET_DROPS), 144, 144);
+	spawner_purple_init(spawn_entity_addr(system, ET_DROPS), 144, 240);
+	spawner_purple_init(spawn_entity_addr(system, ET_DROPS), 336, 144);
+	spawner_purple_init(spawn_entity_addr(system, ET_DROPS), 336, 240);
+	// spawner_purple_init(spawn_entity_addr(system, ET_DROPS), 128, 128);
 	// init_heart_pickup(spawn_entity_addr(system, ET_DROPS), 128, 128);
 	// init_heart_pickup(spawn_entity_addr(system, ET_DROPS), 128 + 128, 128);
 	// init_heart_pickup(spawn_entity_addr(system, ET_DROPS), 128, 128 + 64);

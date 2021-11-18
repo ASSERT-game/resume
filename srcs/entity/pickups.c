@@ -90,6 +90,7 @@ void	init_heart_pickup(t_entity *pickup, int x, int y)
 	heart = pickup->meta;
 
 	heart->collision.hitbox_ptr = &(heart->collision.hitbox);
+	heart->collision.detect = NULL;
 	heart->collision.engage = heart_engage_collision;
 	heart->collision.originator = pickup;
 	heart->collected = SDL_FALSE;
@@ -184,7 +185,7 @@ void	heart_pickup_update(t_entity *pickup, int world_x, int world_y)
 	player = g_SDLX_Context.meta1;
 	dx = pickup->world_x - (player->sprite._dst.x + world_x + 8);
 	dy = pickup->world_y - (player->sprite._dst.y + world_y + 8);
-	radial_attract(dx, dy, 64, 4, &(pickup->world_x), &(pickup->world_y));
+	radial_attract(dx, dy, 64, 3, &(pickup->world_x), &(pickup->world_y));
 	world_align(&(pickup->sprite), pickup->world_x, pickup->world_y, world_x, world_y, 1);
 
 	if ((dx * dx + dy * dy < 7 * 7))

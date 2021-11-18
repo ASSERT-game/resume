@@ -108,6 +108,7 @@ void	environment_entities_load(void);
 void	interactable_entities_load(void);
 
 void	scoregrave_init(t_entity *grave_m, int world_x, int world_y);
+void	spawner_purple_init(t_entity *entity, int x, int y);
 
 void		*entity_system_init(entity_system *main_spawner);
 t_entity	*spawn_entity_addr(entity_system *main_spawner, int kind);
@@ -127,7 +128,7 @@ void	bar_system_update(t_bar *bar);
 */
 
 uint32_t	lerp32(double percent, uint32_t start, uint32_t end);
-void		radial_attract(int dx, int dy, int radius, int speed, double *x, double *y);
+SDL_bool	radial_attract(int dx, int dy, int radius, int speed, double *x, double *y);
 
 /*
 ** Debug Functions

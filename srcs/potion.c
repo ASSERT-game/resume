@@ -21,7 +21,7 @@ void	potion_red(t_potion *potion)
 	potion->name = SDL_strdup("Red Potion");
 	potion->sprite.dst = &(potion->sprite._dst);
 	potion->sprite._dst = (SDL_Rect){297, 195, 8, 12};
-	potion->sprite.sort = 10000;
+	potion->sprite.sort = 10010;
 	potion->isUsed = SDL_FALSE;
 
 	player = g_SDLX_Context.meta1;
@@ -38,7 +38,7 @@ void	potion_blue(t_potion *potion)
 	potion->name = SDL_strdup("Blue Potion");
 	potion->sprite.dst = &(potion->sprite._dst);
 	potion->sprite._dst = (SDL_Rect){297, 195, 8, 12};
-	potion->sprite.sort = 10000;
+	potion->sprite.sort = 10010;
 	potion->isUsed = SDL_FALSE;
 
 	player = g_SDLX_Context.meta1;
@@ -55,7 +55,7 @@ void	potion_green(t_potion *potion)
 	potion->name = SDL_strdup("Green Potion");
 	potion->sprite.dst = &(potion->sprite._dst);
 	potion->sprite._dst = (SDL_Rect){297, 195, 8, 12};
-	potion->sprite.sort = 10000;
+	potion->sprite.sort = 10010;
 	potion->isUsed = SDL_FALSE;
 
 	player = g_SDLX_Context.meta1;
@@ -72,7 +72,7 @@ void	potion_yellow(t_potion *potion)
 	potion->name = SDL_strdup("Yellow Potion");
 	potion->sprite.dst = &(potion->sprite._dst);
 	potion->sprite._dst = (SDL_Rect){297, 195, 8, 12};
-	potion->sprite.sort = 10000;
+	potion->sprite.sort = 10010;
 	potion->isUsed = SDL_FALSE;
 
 	player = g_SDLX_Context.meta1;

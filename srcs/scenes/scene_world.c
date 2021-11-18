@@ -39,7 +39,7 @@ void	*world_init(SDLX_scene_cxt *context, SDL_UNUSED void *vp_scene)
 
 	level = SDLX_GetBackground();
 	level->sprite_data->src = &(level->sprite_data->_src);
-	level->sprite_data->_src = (SDL_Rect){64, 80, 320, 224};
+	level->sprite_data->_src = (SDL_Rect){88, 48, 320, 224};
 
 	world->space = level->sprite_data->src;
 
@@ -49,8 +49,8 @@ void	*world_init(SDLX_scene_cxt *context, SDL_UNUSED void *vp_scene)
 	world->tutorial_move.meta = &(g_SDLX_Context.ticks_num2);
 	world->tutorial_move.sprite.sort = 10000;
 
-	world->local_x = 16 * 9;
-	world->local_y = 16 * 7;
+	world->local_x = 16 * 9 + 8;
+	world->local_y = 16 * 2;
 	player_init(&(world->player), world->local_x, world->local_y);
 
 	g_SDLX_Context.meta2 = entity_system_init(&(world->main_spawner));

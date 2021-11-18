@@ -29,14 +29,18 @@ void	world_align(SDLX_Sprite *sprite, int x, int y, int world_x, int world_y, in
 	sprite->sort += sort_bonus;
 }
 
-void	radial_attract(int dx, int dy, int radius, int speed, double *x, double *y)
+SDL_bool	radial_attract(int dx, int dy, int radius, int speed, double *x, double *y)
 {
 	double	angle;
+	SDL_bool	result;
 
+	result = SDL_FALSE;
 	if (dx * dx + dy * dy < radius * radius)
 	{
 		angle = SDL_atan2(dy, dx);
 		*x -= SDL_cos(angle) * speed;
 		*y -= SDL_sin(angle) * speed;
+		result = SDL_TRUE;
 	}
+	return (result);
 }

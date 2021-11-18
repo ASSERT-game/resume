@@ -28,6 +28,7 @@ void	null_update(t_entity *self, int world_x, int world_y)
 
 void	update_grave(t_entity *self, int world_x, int world_y)
 {
+	fetch_scoregoal_sprite(&(self->sprite.sprite_data), 0);
 	world_align(&(self->sprite), self->world_x, self->world_y, world_x, world_y, 0);
 	SDLX_RenderQueue_Add(NULL, &(self->sprite));
 }
@@ -42,6 +43,12 @@ void	score_grave_update(t_entity *self, int world_x, int world_y)
 	update_grave(scoregrave->gravescore[1], world_x, world_y);
 	update_grave(scoregrave->gravescore[2], world_x, world_y);
 	update_grave(scoregrave->gravescore[3], world_x, world_y);
+
+	if (g_SDLX_Context.ticks_num2 % 100 == 0)
+	{
+		scoregrave->which++;
+		scoregrave->which %= 4;
+	}
 
 	active_grave = scoregrave->gravescore[scoregrave->which];
 	fetch_scoregoal_sprite(&(active_grave->sprite.sprite_data), 1);
@@ -84,8 +91,8 @@ void	scoregrave_init(t_entity *grave_m, int world_x, int world_y)
 	graves->gravescore[1] = spawn_entity_addr(g_SDLX_Context.meta2, ET_ENVIRONMENT);
 	grave_init(graves->gravescore[1], 384, 64);
 	graves->gravescore[2] = spawn_entity_addr(g_SDLX_Context.meta2, ET_ENVIRONMENT);
-	grave_init(graves->gravescore[2], 80, 288);
+	grave_init(graves->gravescore[2], 384, 288);
 	graves->gravescore[3] = spawn_entity_addr(g_SDLX_Context.meta2, ET_ENVIRONMENT);
-	grave_init(graves->gravescore[3], 384, 288);
+	grave_init(graves->gravescore[3], 80, 288);
 
 }

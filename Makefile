@@ -57,6 +57,7 @@ ENTITY_FILES = 			\
 	pickups 			\
 	pots				\
 	scoregrave			\
+	purp_spawner		\
 
 SCENE_FILES = 			\
 	main_loader			\
