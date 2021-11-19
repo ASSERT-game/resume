@@ -138,7 +138,7 @@ void	init_purple_heart_pickup(t_entity *pickup, int x, int y)
 
 	heart = pickup->meta;
 
-	heart->value = -10;
+	heart->value = -20;
 	heart->op = SDLX_AXM_ADD;
 	player = g_SDLX_Context.meta1;
 	heart->to = &(player->health.value);
@@ -185,7 +185,7 @@ void	heart_pickup_update(t_entity *pickup, int world_x, int world_y)
 	player = g_SDLX_Context.meta1;
 	dx = pickup->world_x - (player->sprite._dst.x + world_x + 8);
 	dy = pickup->world_y - (player->sprite._dst.y + world_y + 8);
-	radial_attract(dx, dy, 64, 3, &(pickup->world_x), &(pickup->world_y));
+	radial_attract(dx, dy, 48, 3, &(pickup->world_x), &(pickup->world_y));
 	world_align(&(pickup->sprite), pickup->world_x, pickup->world_y, world_x, world_y, 1);
 
 	if ((dx * dx + dy * dy < 7 * 7))
@@ -193,7 +193,6 @@ void	heart_pickup_update(t_entity *pickup, int world_x, int world_y)
 		SDLX_xlogic[heart->op](heart->to, heart->value);
 
 		fetch_pickup_sprite(&(pickup->sprite.sprite_data), 3);
-		pickup->sprite.current = 0;
 		pickup->sprite.current = -1;
 		pickup->sprite.sort = 10000;
 		pickup->update = particle_pickup_update;
@@ -225,7 +224,6 @@ void	coin_pickup_update(t_entity *pickup, int world_x, int world_y)
 		SDLX_xlogic[coin->op](coin->to, coin->value);
 
 		fetch_pickup_sprite(&(pickup->sprite.sprite_data), 3);
-		pickup->sprite.current = 0;
 		pickup->sprite.current = -1;
 		pickup->sprite.sort = 10000;
 		pickup->update = particle_pickup_update;

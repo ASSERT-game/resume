@@ -112,6 +112,7 @@ void	scoregrave_init(t_entity *grave_m, int world_x, int world_y);
 void	spawner_purple_init(t_entity *entity, int x, int y);
 void	skullball_init(t_entity *entity, int world_x, int world_y);
 void	skullghost_init(t_entity *self, int x, int y);
+void	skullghost_update(t_entity *self, int world_x, int world_y);
 
 void		*entity_system_init(entity_system *main_spawner);
 t_entity	*spawn_entity_addr(entity_system *main_spawner, int kind);

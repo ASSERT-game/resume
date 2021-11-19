@@ -143,6 +143,15 @@ void	*world_update(SDL_UNUSED SDLX_scene_cxt *context, void *vp_scene)
 	if (SDLX_GAME_PRESS(g_GameInput, g_GameInput_prev, B))
 		world->player.mana.value -= 10;
 
+	if (g_SDLX_Context.ticks_num2 % 12 == 0)
+		world->player.health.value -= 1;
+
+	if (g_SDLX_Context.ticks_num2 == 1200)
+		SDL_Log("Minigame finished");
+
+	if (world->player.health.value <= 0)
+		SDL_Log("Player has died");
+
 	// if (g_SDLX_Context.ticks_num2 % 20 == 0)
 	// 	init_red_heart_pickup(spawn_entity_addr(g_SDLX_Context.meta2, ET_DROPS), rand() % 448, rand() % 384);
 	// SDL_Log("Score: %d", world->player.coins);

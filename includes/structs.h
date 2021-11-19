@@ -177,6 +177,9 @@ typedef struct	s_entity
 	double		world_x;
 	double		world_y;
 
+	int			hp;
+	int			damage;
+
 	char		alloc[256];
 	void		*meta;
 	void		(*update)(struct s_entity *, int, int);

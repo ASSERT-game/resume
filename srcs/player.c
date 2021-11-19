@@ -77,9 +77,9 @@ SDL_bool	sword_collide(void *self, void *with, SDL_UNUSED void *data, SDL_UNUSED
 	if (with == self)
 		return (SDL_FALSE);
 
-	SDL_SetRenderDrawColor(SDLX_GetDisplay()->renderer, 0, 255, 0, 255);
-	SDL_RenderDrawRect(SDLX_GetDisplay()->renderer, &(hitbox->hitbox));
-	SDL_RenderDrawRect(SDLX_GetDisplay()->renderer, &(self_hitbox->hitbox));
+	// SDL_SetRenderDrawColor(SDLX_GetDisplay()->renderer, 0, 255, 0, 255);
+	// SDL_RenderDrawRect(SDLX_GetDisplay()->renderer, &(hitbox->hitbox));
+	// SDL_RenderDrawRect(SDLX_GetDisplay()->renderer, &(self_hitbox->hitbox));
 
 	if (SDL_HasIntersection(&(hitbox->hitbox), &(self_hitbox->hitbox)) == SDL_TRUE)
 	{
@@ -123,8 +123,8 @@ void	player_attack(t_player *player)
 
 	if (attack->current < attack->cooldown)
 	{
-		SDL_SetRenderDrawColor(SDLX_GetDisplay()->renderer, 255, 0, 0, 255);
-		SDL_RenderDrawRect(SDLX_GetDisplay()->renderer, &(player->sprite._dst));
+		// SDL_SetRenderDrawColor(SDLX_GetDisplay()->renderer, 255, 0, 0, 255);
+		// SDL_RenderDrawRect(SDLX_GetDisplay()->renderer, &(player->sprite._dst));
 
 		player->attack.hitbox.originator = &(player->attack.hitbox);
 		player->attack.hitbox.hitbox = player->sprite._dst;

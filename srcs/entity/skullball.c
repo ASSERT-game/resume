@@ -20,6 +20,9 @@ typedef struct	s_skullball
 
 	SDLX_Sprite	flames;
 	SDLX_collision	collision;
+
+	int			score_timer;
+	int			score;
 }				t_skullball;
 
 SDL_bool	skullball_detect_collide(void *self, void *with, SDL_UNUSED void *data, SDL_UNUSED void *data2)
@@ -64,8 +67,10 @@ void	*skullball_engage_collision(void *self, void *with, SDL_UNUSED void *data, 
 		x = pickup->world_x + 2;
 		y = pickup->world_y + 2;
 		angle = SDL_atan2(pickup->sprite._dst.y - player->sprite._dst.y - 8, pickup->sprite._dst.x - player->sprite._dst.x - 8);
-		skullball->vel_x = cos(angle) * 10;
-		skullball->vel_y = sin(angle) * 10;
+		init_red_heart_pickup(spawn_entity_addr(g_SDLX_Context.meta2, ET_DROPS),  x + SDL_cos(angle) * 25, y + SDL_sin(angle) * 25);
+
+		skullball->vel_x = cos(angle) * 8;
+		skullball->vel_y = sin(angle) * 8;
 	}
 	return (NULL);
 }
@@ -75,8 +80,8 @@ void	skullball_update(t_entity *self, int world_x, int world_y)
 	t_skullball *skullball;
 
 	skullball = self->meta;
-	skullball->vel_x = SDL_max(-8, SDL_min(skullball->vel_x, 8));
-	skullball->vel_y = SDL_max(-8, SDL_min(skullball->vel_y, 8));
+	skullball->vel_x = SDL_max(-4, SDL_min(skullball->vel_x, 4));
+	skullball->vel_y = SDL_max(-4, SDL_min(skullball->vel_y, 4));
 
 	if (self->world_y < 48) { skullball->vel_y *= -1; }
 	if (self->world_y > 320) { skullball->vel_y *= -1; }
@@ -95,6 +100,51 @@ void	skullball_update(t_entity *self, int world_x, int world_y)
 
 	skullball->collision.hitbox = self->sprite._dst;
 	SDLX_CollisionBucket_add(NULL, &(skullball->collision));
+
+	SDL_bool		scored;
+	SDL_Point		center;
+	SDL_Rect		goal;
+
+	scored = SDL_FALSE;
+	if (skullball->score_timer >= 80)
+	{
+		center.x = self->world_x + 8;
+		center.y = self->world_y + 8;
+		goal = (SDL_Rect){80, 64, 32, 36};
+		if (SDL_PointInRect(&(center), &(goal)) == SDL_TRUE)
+		{
+			scored = SDL_TRUE;
+			skullball->score -= 1;
+		}
+		goal = (SDL_Rect){80, 288, 32, 36};
+		if (SDL_PointInRect(&(center), &(goal)) == SDL_TRUE)
+		{
+			scored = SDL_TRUE;
+			skullball->score -= 1;
+		}
+
+
+		goal = (SDL_Rect){384, 64, 32, 36};
+		if (SDL_PointInRect(&(center), &(goal)) == SDL_TRUE)
+		{
+			scored = SDL_TRUE;
+			skullball->score += 1;
+		}
+		goal = (SDL_Rect){384, 288, 32, 36};
+		if (SDL_PointInRect(&(center), &(goal)) == SDL_TRUE)
+		{
+			scored = SDL_TRUE;
+			skullball->score += 1;
+		}
+
+		if (scored == SDL_TRUE)
+			skullball->score_timer = 0;
+	}
+
+	if (g_SDLX_Context.ticks_num2 % 50 == 0)
+		SDL_Log("Current Score: %d", skullball->score);
+
+	skullball->score_timer++;
 }
 
 void	skullball_init(t_entity *entity, int world_x, int world_y)
@@ -122,4 +172,7 @@ void	skullball_init(t_entity *entity, int world_x, int world_y)
 	skullball->collision.detect = skullball_detect_collide;
 	skullball->collision.engage = skullball_engage_collision;
 	skullball->collision.originator = entity;
+
+	skullball->score = 0;
+	skullball->score_timer = 80;
 }

@@ -19,7 +19,7 @@ SDLX_Sprite_Data *carve_ghost_sprite(void)
 	SDL_Texture			*texture;
 	SDLX_Sprite_Data	*result;
 
-	result = SDL_calloc(12, sizeof(*result));
+	result = SDL_calloc(16, sizeof(*result));
 	texture = SDLX_LoadTexture(ASSETS"ghost.png");
 
 	i = 0;
@@ -33,12 +33,12 @@ SDLX_Sprite_Data *carve_ghost_sprite(void)
 		i++;
 	}
 
-	while (i < 12)
+	while (i < 15)
 	{
 		result[i].texture = texture;
-		result[i]._src = (SDL_Rect){(i - 6) * 16, 0, 16, 21};
+		result[i]._src = (SDL_Rect){(i - 6) * 16, 21, 16, 21};
 		result[i].src = &(result[i]._src);
-		result[i].cycle = 6;
+		result[i].cycle = 9;
 
 		i++;
 	}

@@ -114,7 +114,7 @@ void	pot_update(t_entity *pot, int world_x, int world_y)
 	world_align(&(pot->sprite), pot->world_x, pot->world_y, world_x, world_y, 0);
 
 	pot_meta = pot->meta;
-	if (pot_meta->state == 1 && pot_meta->timer > 100)
+	if (pot_meta->state == 1 && pot_meta->timer > 200)
 	{
 		fetch_pot_sprite(&(pot->sprite.sprite_data), 4);
 		pot->sprite.current = 0;

@@ -20,12 +20,55 @@ typedef struct	s_skullghost
 
 	int			current;
 	int			state;
+	int			bite;
+	int			bite_cooldown;
+	int			bite_x;
+	int			bite_y;
 }				t_skullghost;
 
 void	new_ghost_target(SDL_Rect bounds, int *dst_x, int *dst_y)
 {
 	*dst_x = rand() % (bounds.w - bounds.x) + bounds.x;
 	*dst_y = rand() % (bounds.h - bounds.y) + bounds.y;
+}
+
+void	skullghost_update_bite(t_entity *self, int world_x, int world_y)
+{
+	t_skullghost	*skullghost;
+
+	skullghost = self->meta;
+
+	if (skullghost->current >= 15)
+	{
+		self->update = skullghost_update;
+		fetch_ghost_sprite(&(self->sprite.sprite_data), 0);
+		skullghost->current = 0;
+		self->sprite.current = 0;
+		skullghost->bite = SDL_FALSE;
+		skullghost->bite_cooldown = 0;
+	}
+	// SDLX_xlogic[heart->op](heart->to, heart->value);
+
+	if (skullghost->current >= 6)
+	{
+		self->world_x -= skullghost->bite_x;
+		self->world_y -= skullghost->bite_y;
+	}
+	else
+		self->sprite.current++;
+
+	t_player *player;
+	int			dx, dy;
+
+	player = g_SDLX_Context.meta1;
+	dx = self->world_x - (player->sprite._dst.x + world_x + 8);
+	dy = self->world_y - (player->sprite._dst.y + world_y - 5);
+	if ((dx * dx + dy * dy < 14 * 14))
+		player->health.value -= 3;
+
+	skullghost->current++;
+	world_align(&(self->sprite), self->world_x, self->world_y, world_x, world_y, 30);
+	SDLX_RenderQueue_Add(NULL, &(self->sprite));
 }
 
 void	skullghost_update(t_entity *self, int world_x, int world_y)
@@ -70,8 +113,30 @@ void	skullghost_update(t_entity *self, int world_x, int world_y)
 			self->sprite.flip = SDL_FLIP_HORIZONTAL;
 	}
 
+	t_player	*player;
+
+	player = g_SDLX_Context.meta1;
+	dx = self->world_x - (player->sprite._dst.x + world_x + 8);
+	dy = self->world_y - (player->sprite._dst.y + world_y - 5);
+	if ((dx * dx + dy * dy < 32 * 32) && skullghost->bite == SDL_FALSE && skullghost->bite_cooldown >= 6)
+	{
+		skullghost->bite = SDL_TRUE;
+		fetch_ghost_sprite(&(self->sprite.sprite_data), 1);
+		self->update = skullghost_update_bite;
+		self->sprite.current = 0;
+		angle = SDL_atan2(dy, dx);
+		skullghost->bite_x = (SDL_cos(angle) * 3);
+		skullghost->bite_y = (SDL_sin(angle) * 3);
+		skullghost->current = 0;
+		skullghost->bite_cooldown = 0;
+	}
+
+	if ((dx * dx + dy * dy < 14 * 14))
+		player->health.value -= 3;
+
 	skullghost->current++;
 	self->sprite.current++;
+	skullghost->bite_cooldown++;
 	world_align(&(self->sprite), self->world_x, self->world_y, world_x, world_y, 30);
 	SDLX_RenderQueue_Add(NULL, &(self->sprite));
 }
@@ -94,4 +159,7 @@ void	skullghost_init(t_entity *self, int x, int y)
 	new_ghost_target((SDL_Rect){64, 48, 416, 320}, &(skullghost->target_x), &(skullghost->target_y));
 	skullghost->current = 0;
 	skullghost->state = 0;
+	skullghost->bite_cooldown = 30;
+
+	self->damage = 10;
 }

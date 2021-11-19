@@ -33,7 +33,7 @@ void	purple_spawner_update(t_entity *self, int world_x, int world_y)
 	if (spawner->isActive)
 		spawner->current++;
 
-	if (spawner->current > 80)
+	if (spawner->current > 150)
 	{
 		child = spawn_entity_addr(g_SDLX_Context.meta2, ET_DROPS);
 		init_purple_heart_pickup(child, self->world_x, self->world_y);
