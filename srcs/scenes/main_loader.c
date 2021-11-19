@@ -45,6 +45,11 @@ void	interactable_entities_load(void)
 	pot_init(	spawn_entity_addr(system, ET_INTERACTABLE), 416, 240, collision_map);
 
 	skullball_init(spawn_entity_addr(system, ET_INTERACTABLE), 240, 196);
+
+	skullghost_init(spawn_entity_addr(system, ET_INTERACTABLE), 144, 64);
+	skullghost_init(spawn_entity_addr(system, ET_INTERACTABLE), 336, 64);
+	skullghost_init(spawn_entity_addr(system, ET_INTERACTABLE), 144, 304);
+	skullghost_init(spawn_entity_addr(system, ET_INTERACTABLE), 336, 304);
 	// pot_init(	spawn_entity_addr(system, ET_INTERACTABLE), 192 + 48,	96 + 16 * 4, collision_map);
 	// pot_init(	spawn_entity_addr(system, ET_INTERACTABLE), 192 + 48,	96 + 16 * 6, collision_map);
 	// pot_init(	spawn_entity_addr(system, ET_INTERACTABLE), 192 + 48,	96 + 16 * 8, collision_map);

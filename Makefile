@@ -60,6 +60,7 @@ ENTITY_FILES = 			\
 	purp_spawner		\
 	scoregrave			\
 	skullball			\
+	skullghost			\
 
 
 SCENE_FILES = 			\
