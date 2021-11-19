@@ -23,6 +23,8 @@ typedef struct	s_skullball
 
 	int			score_timer;
 	int			score;
+
+	int			heart_cooldown;
 }				t_skullball;
 
 SDL_bool	skullball_detect_collide(void *self, void *with, SDL_UNUSED void *data, SDL_UNUSED void *data2)
@@ -67,7 +69,12 @@ void	*skullball_engage_collision(void *self, void *with, SDL_UNUSED void *data, 
 		x = pickup->world_x + 2;
 		y = pickup->world_y + 2;
 		angle = SDL_atan2(pickup->sprite._dst.y - player->sprite._dst.y - 8, pickup->sprite._dst.x - player->sprite._dst.x - 8);
-		init_red_heart_pickup(spawn_entity_addr(g_SDLX_Context.meta2, ET_DROPS),  x + SDL_cos(angle) * 25, y + SDL_sin(angle) * 25);
+
+		if (skullball->heart_cooldown >= 30)
+		{
+			init_red_heart_pickup(spawn_entity_addr(g_SDLX_Context.meta2, ET_DROPS),  x + SDL_cos(angle) * 25, y + SDL_sin(angle) * 25);
+			skullball->heart_cooldown = 0;
+		}
 
 		skullball->vel_x = cos(angle) * 8;
 		skullball->vel_y = sin(angle) * 8;
@@ -145,6 +152,7 @@ void	skullball_update(t_entity *self, int world_x, int world_y)
 		SDL_Log("Current Score: %d", skullball->score);
 
 	skullball->score_timer++;
+	skullball->heart_cooldown++;
 }
 
 void	skullball_init(t_entity *entity, int world_x, int world_y)

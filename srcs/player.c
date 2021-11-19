@@ -81,10 +81,10 @@ SDL_bool	sword_collide(void *self, void *with, SDL_UNUSED void *data, SDL_UNUSED
 	// SDL_RenderDrawRect(SDLX_GetDisplay()->renderer, &(hitbox->hitbox));
 	// SDL_RenderDrawRect(SDLX_GetDisplay()->renderer, &(self_hitbox->hitbox));
 
-	if (SDL_HasIntersection(&(hitbox->hitbox), &(self_hitbox->hitbox)) == SDL_TRUE)
-	{
-		SDL_Log("Collides");
-	}
+	// if (SDL_HasIntersection(&(hitbox->hitbox), &(self_hitbox->hitbox)) == SDL_TRUE)
+	// {
+	// 	SDL_Log("Collides");
+	// }
 	return (SDL_FALSE);
 }
 
