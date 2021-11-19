@@ -162,4 +162,6 @@ void	skullghost_init(t_entity *self, int x, int y)
 	skullghost->bite_cooldown = 30;
 
 	self->damage = 10;
+
+	SDL_assert(sizeof(self->alloc) >= sizeof(t_skullghost));
 }

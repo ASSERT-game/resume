@@ -175,4 +175,6 @@ void	skullball_init(t_entity *entity, int world_x, int world_y)
 
 	skullball->score = 0;
 	skullball->score_timer = 80;
+
+	SDL_assert(sizeof(entity->alloc) >= sizeof(t_skullball));
 }

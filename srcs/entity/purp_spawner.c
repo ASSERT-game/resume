@@ -66,4 +66,6 @@ void	spawner_purple_init(t_entity *entity, int x, int y)
 	entity->meta = &(entity->alloc);
 	spawner = entity->meta;
 	spawner->isActive = SDL_TRUE;
+
+	SDL_assert(sizeof(entity->alloc) >= sizeof(spawner));
 }

@@ -95,4 +95,5 @@ void	scoregrave_init(t_entity *grave_m, int world_x, int world_y)
 	graves->gravescore[3] = spawn_entity_addr(g_SDLX_Context.meta2, ET_ENVIRONMENT);
 	grave_init(graves->gravescore[3], 80, 288);
 
+	SDL_assert(sizeof(grave_m->alloc) >= sizeof(t_scoregrave));
 }

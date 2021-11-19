@@ -105,6 +105,8 @@ void	pot_init(t_entity *pot, int x, int y, SDL_Surface *collision_map)
 	pot_meta->collision.originator = pot;
 
 	new_static_sprite(&(pot->sprite), 1, 1, 1, 1, 1, 1, collision_map);
+
+	SDL_assert(sizeof(pot->alloc) >= sizeof(t_pickup));
 }
 
 void	pot_update(t_entity *pot, int world_x, int world_y)
