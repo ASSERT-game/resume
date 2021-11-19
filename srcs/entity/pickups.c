@@ -150,7 +150,6 @@ void	init_coin_pickup(t_entity *pickup, int x, int y)
 	t_pickup	*potion;
 	t_player	*player;
 
-	SDL_Log("Not Here");
 	fetch_pickup_sprite(&(pickup->sprite.sprite_data), 4);
 	pickup->sprite._dst = (SDL_Rect){x, y, 12, 12};
 	pickup->sprite.dst = SDLX_NULL_SELF;

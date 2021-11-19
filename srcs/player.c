@@ -97,7 +97,7 @@ void	player_attack(t_player *player)
 	{
 		if (attack->current >= attack->cooldown)
 		{
-			SDL_Log("Player Attacking with %s", attack->name);
+			// SDL_Log("Player Attacking with %s", attack->name);
 			attack->current = 0;
 			attack->use.current = 0;
 
